@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingeniería Industrial - Tu Carrera Ideal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .perfect-match {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .perfect-match:hover {
+            transform: translateY(-5px);
+        }
+        
+        .perfect-match h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        
+        .perfect-match .icons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .icon-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .icon-item:hover {
+            transform: scale(1.1);
+        }
+        
+        .icon-item .emoji {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .universities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .university-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .university-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .university-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .university-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .university-flag {
+            font-size: 2em;
+            margin-right: 15px;
+        }
+        
+        .university-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .focus-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .features {
+            margin: 20px 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 8px;
+        }
+        
+        .feature-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .salary-info {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .duration {
+            background: rgba(255, 193, 7, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+            display: inline-block;
+            color: #856404;
+        }
+        
+        .match-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .perfect-match-card {
+            border: 3px solid #ff6b6b;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+        }
+        
+        .comparison-table {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .table-scroll {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        tr:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .recommendation {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .recommendation h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        
+        .recommendation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .recommendation-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .recommendation-item h4 {
+            margin-bottom: 10px;
+            color: #feca57;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .perfect-match .icons {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .universities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Ingeniería Industrial en América Latina</h1>
+            <p>Tu guía visual para elegir la universidad perfecta</p>
+        </div>
+        
+        <div class="perfect-match">
+            <h2>¡Parece que ya sabes lo que te gusta! 🎯</h2>
+            <div class="icons">
+                <div class="icon-item">
+                    <div class="emoji">🎵</div>
+                    <div>Música</div>
+                </div>
+                <div class="icon-item">
+                    <div class="emoji">🏔️</div>
+                    <div>Aire Libre</div>
+                </div>
+                <div class="icon-item">
+                    <div class="emoji">📊</div>
+                    <div>Matemáticas</div>
+                </div>
+                <div class="icon-item">
+                    <div class="emoji">⚡</div>
+                    <div>Visual</div>
+                </div>
+            </div>
+            <p>Basándome en tu perfil, he seleccionado las mejores opciones que combinan con tus intereses</p>
+        </div>
+        
+        <div class="universities-grid">
+            <div class="university-card perfect-match-card">
+                <div class="match-indicator">¡TOP MATCH!</div>
+                <div class="university-header">
+                    <div class="university-flag">🇲🇽</div>
+                    <div class="university-name">Tecnológico de Monterrey</div>
+                </div>
+                <div class="focus-tag">Industria 4.0 + Proyectos Reales</div>
+                <div class="features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <div>Aprendizaje por retos (¡no solo teoría!)</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏆</div>
+                        <div>Hackathons y proyectos con empresas</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">💻</div>
+                        <div>Ciencia de datos y tecnología</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌟</div>
+                        <div>Vida estudiantil activa</div>
+                    </div>
+                </div>
+                <div class="duration">⏱️ 4 años</div>
+                <div class="salary-info">
+                    <strong>💰 Salario inicial: $20,000 - $30,000 USD</strong>
+                    <br>Perfil: Líder digital, emprendedor
+                </div>
+            </div>
+            
+            <div class="university-card">
+                <div class="university-header">
+                    <div class="university-flag">🇨🇴</div>
+                    <div class="university-name">Universidad de los Andes</div>
+                </div>
+                <div class="focus-tag">Flexibilidad + Deportes + Cultura</div>
+                <div class="features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🎨</div>
+                        <div>Electivos en arte y música</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏃</div>
+                        <div>Actividades deportivas incluidas</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🧠</div>
+                        <div>Enfoque en consultoría y análisis</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌍</div>
+                        <div>Acreditación internacional (ABET)</div>
+                    </div>
+                </div>
+                <div class="duration">⏱️ 4.5 años</div>
+                <div class="salary-info">
+                    <strong>💰 Salario inicial: $18,000 - $28,000 USD</strong>
+                    <br>Perfil: Consultor estratégico
+                </div>
+            </div>
+            
+            <div class="university-card">
+                <div class="university-header">
+                    <div class="university-flag">🇨🇱</div>
+                    <div class="university-name">PUC Chile</div>
+                </div>
+                <div class="focus-tag">Matemáticas Avanzadas + Investigación</div>
+                <div class="features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔬</div>
+                        <div>Optimización y algoritmos</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📈</div>
+                        <div>Finanzas e ingeniería cuantitativa</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <div>Especializaciones (Majors/Minors)</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏆</div>
+                        <div>Top ranking en América Latina</div>
+                    </div>
+                </div>
+                <div class="duration">⏱️ 5.5 años</div>
+                <div class="salary-info">
+                    <strong>💰 Salario inicial: $25,000 - $35,000 USD</strong>
+                    <br>Perfil: Analista cuantitativo, científico de datos
+                </div>
+            </div>
+            
+            <div class="university-card">
+                <div class="university-header">
+                    <div class="university-flag">🇵🇦</div>
+                    <div class="university-name">Universidad Tecnológica de Panamá</div>
+                </div>
+                <div class="focus-tag">Equilibrio Perfecto + Tradición</div>
+                <div class="features">
+                    <div class="feature-item">
+                        <div class="feature-icon">⚖️</div>
+                        <div>Currículo balanceado y completo</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏭</div>
+                        <div>Gestión de operaciones clásica</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎭</div>
+                        <div>Componente humanista y ético</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔧</div>
+                        <div>Enfoque en procesos industriales</div>
+                    </div>
+                </div>
+                <div class="duration">⏱️ 5 años</div>
+                <div class="salary-info">
+                    <strong>💰 Salario inicial: $15,000 - $25,000 USD</strong>
+                    <br>Perfil: Líder en operaciones y logística
+                </div>
+            </div>
+            
+            <div class="university-card">
+                <div class="university-header">
+                    <div class="university-flag">🇦🇷</div>
+                    <div class="university-name">UBA Argentina</div>
+                </div>
+                <div class="focus-tag">Ingeniería Clásica + Técnica</div>
+                <div class="features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔩</div>
+                        <div>Formación técnica muy sólida</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏭</div>
+                        <div>Especialización en planta industrial</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎓</div>
+                        <div>Educación pública gratuita</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">👥</div>
+                        <div>Vida estudiantil presencial</div>
+                    </div>
+                </div>
+                <div class="duration">⏱️ 6 años</div>
+                <div class="salary-info">
+                    <strong>💰 Salario inicial: $12,000 - $22,000 USD</strong>
+                    <br>Perfil: Ingeniero de planta experto
+                </div>
+            </div>
+        </div>
+        
+        <div class="recommendation">
+            <h3>🎯 Mis Recomendaciones para Ti</h3>
+            <div class="recommendation-grid">
+                <div class="recommendation-item">
+                    <h4>🥇 Primera Opción</h4>
+                    <strong>ITESM México</strong>
+                    <p>Perfecto para tu estilo: proyectos reales, tecnología, hackathons y vida activa</p>
+                </div>
+                <div class="recommendation-item">
+                    <h4>🥈 Segunda Opción</h4>
+                    <strong>Universidad Tecnológica de Panamá</strong>
+                    <p>Excelente balance: tradición académica sólida con enfoque práctico y costos accesibles</p>
+                </div>
+                <div class="recommendation-item">
+                    <h4>🥉 Tercera Opción</h4>
+                    <strong>Uniandes Colombia</strong>
+                    <p>Flexibilidad total: puedes tomar música, deportes y matemáticas avanzadas</p>
+                </div>
+                <div class="recommendation-item">
+                    <h4>🎯 Cuarta Opción</h4>
+                    <strong>PUC Chile</strong>
+                    <p>Si realmente amas las matemáticas y quieres un desafío analítico extremo</p>
+                </div>
+            </div>
+            <p style="margin-top: 20px; font-size: 1.1em;">
+                <strong>💡 Consejo:</strong> Todas estas universidades tienen programas de intercambio, 
+                así que podrías experimentar diferentes culturas y estilos de enseñanza.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
