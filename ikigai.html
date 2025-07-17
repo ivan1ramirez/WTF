@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubre tu IKIGAI - Tu Propósito de Vida</title>
+    <meta name="description" content="Descubre tu razón de ser a través de la antigua sabiduría japonesa del IKIGAI. Una experiencia interactiva para encontrar tu propósito de vida.">
+    <meta name="keywords" content="IKIGAI, propósito de vida, coaching, desarrollo personal, filosofía japonesa, razón de ser">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Descubre tu IKIGAI - Tu Propósito de Vida">
+    <meta property="og:description" content="Descubre tu razón de ser a través de la antigua sabiduría japonesa del IKIGAI">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel Standalone para JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
+    
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .japanese-text {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #fbbf24;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading" class="loading">
+        <div class="text-center">
+            <div class="spinner mb-4"></div>
+            <h2 class="text-white text-xl font-light japanese-text">生き甲斐を探索中...</h2>
+            <p class="text-white/70 text-sm mt-2">Preparando tu experiencia IKIGAI</p>
+        </div>
+    </div>
+    
+    <!-- App Container -->
+    <div id="ikigai-app" class="fade-in" style="display: none;"></div>
+    
+    <!-- Analytics y SEO adicional -->
+    <script>
+        // Google Analytics (reemplaza con tu ID)
+        /*
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-XXXXXXXX-X', 'auto');
+        ga('send', 'pageview');
+        */
+    </script>
+    
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { 
+            ChevronRight, 
+            ChevronLeft, 
+            Heart, 
+            Star, 
+            Globe, 
+            DollarSign, 
+            Sparkles, 
+            Mountain, 
+            Cherry, 
+            Leaf 
+        } = lucide;
+
+        const IkigaiApp = () => {
+            const [currentScreen, setCurrentScreen] = useState('welcome');
+            const [currentSection, setCurrentSection] = useState(0);
+            const [currentQuestion, setCurrentQuestion] = useState(0);
+            const [answers, setAnswers] = useState({
+                love: [],
+                good: [],
+                world: [],
+                paid: []
+            });
+            const [showResult, setShowResult] = useState(false);
+            const [animating, setAnimating] = useState(false);
+
+            const sections = [
+                {
+                    title: "Lo que AMAS",
+                    subtitle: "¿Qué es lo que realmente te apasiona?",
+                    icon: Heart,
+                    color: "from-pink-500 to-red-500",
+                    key: "love",
+                    questions: [
+                        "¿Qué actividades hacen que pierdas la noción del tiempo?",
+                        "¿Qué te emociona y te inspira profundamente?",
+                        "¿Qué harías sin parar si el dinero no fuera un problema?",
+                        "¿Qué temas te gusta aprender y explorar constantemente?",
+                        "¿Qué actividades te dan más energía en lugar de agotarte?"
+                    ]
+                },
+                {
+                    title: "Lo que se te da BIEN",
+                    subtitle: "¿Cuáles son tus talentos naturales?",
+                    icon: Star,
+                    color: "from-yellow-500 to-orange-500",
+                    key: "good",
+                    questions: [
+                        "¿Cuáles son tus fortalezas, dones y habilidades clave?",
+                        "¿Qué cosas haces mejor que la mayoría de las personas?",
+                        "¿En qué área recibes más elogios y reconocimiento?",
+                        "¿Qué habilidades has desarrollado a lo largo de tu vida?",
+                        "¿Qué te resulta fácil hacer mientras otros luchan?"
+                    ]
+                },
+                {
+                    title: "Lo que el MUNDO necesita",
+                    subtitle: "¿Cómo puedes contribuir al mundo?",
+                    icon: Globe,
+                    color: "from-green-500 to-blue-500",
+                    key: "world",
+                    questions: [
+                        "¿Qué problemas del mundo te preocupan más?",
+                        "¿Cómo quieres contribuir y hacer una diferencia?",
+                        "¿Qué necesidades ves en tu comunidad que podrías ayudar a resolver?",
+                        "¿Qué causa o misión te haría sentir que tu vida tiene propósito?",
+                        "¿Qué cambio te gustaría ver en el mundo?"
+                    ]
+                },
+                {
+                    title: "Por lo que te pueden PAGAR",
+                    subtitle: "¿Qué valor económico puedes crear?",
+                    icon: DollarSign,
+                    color: "from-purple-500 to-indigo-500",
+                    key: "paid",
+                    questions: [
+                        "¿Qué servicios o productos podrías ofrecer?",
+                        "¿Por qué habilidades o conocimientos pagaría la gente?",
+                        "¿Qué necesidades del mercado podrías satisfacer?",
+                        "¿Qué experiencia profesional has construido?",
+                        "¿Cómo podrías monetizar tus pasiones y talentos?"
+                    ]
+                }
+            ];
+
+            const ikigaiLaws = [
+                "Mantente siempre activo, nunca te retires",
+                "Tómatelo con calma",
+                "No comas hasta llenarte",
+                "Rodéate de buenos amigos",
+                "Ponte en forma para tu próximo cumpleaños",
+                "Sonríe",
+                "Reconecta con la naturaleza",
+                "Da las gracias",
+                "Vive el momento",
+                "Sigue tu Ikigai"
+            ];
+
+            const handleAnswer = (answer) => {
+                if (answer.trim() === '') return;
+                
+                setAnimating(true);
+                
+                setTimeout(() => {
+                    const currentSectionKey = sections[currentSection].key;
+                    const newAnswers = { ...answers };
+                    newAnswers[currentSectionKey] = [...newAnswers[currentSectionKey], answer];
+                    setAnswers(newAnswers);
+
+                    if (currentQuestion < sections[currentSection].questions.length - 1) {
+                        setCurrentQuestion(currentQuestion + 1);
+                    } else if (currentSection < sections.length - 1) {
+                        setCurrentSection(currentSection + 1);
+                        setCurrentQuestion(0);
+                    } else {
+                        setShowResult(true);
+                    }
+                    setAnimating(false);
+                }, 300);
+            };
+
+            const generateIkigaiInsight = () => {
+                const allAnswers = [...answers.love, ...answers.good, ...answers.world, ...answers.paid];
+                const keywords = allAnswers.join(' ').toLowerCase().split(' ');
+                
+                return {
+                    passion: answers.love.length > 0 ? answers.love[0] : "Explorar nuevas experiencias",
+                    mission: answers.world.length > 0 ? answers.world[0] : "Contribuir al bienestar de otros",
+                    profession: answers.paid.length > 0 ? answers.paid[0] : "Aplicar tus talentos únicos",
+                    vocation: answers.good.length > 0 ? answers.good[0] : "Desarrollar tus fortalezas naturales"
+                };
+            };
+
+            const FloatingElements = () => (
+                React.createElement('div', { className: "fixed inset-0 pointer-events-none overflow-hidden" },
+                    [...Array(6)].map((_, i) => (
+                        React.createElement('div', {
+                            key: i,
+                            className: "absolute animate-float",
+                            style: {
+                                left: `${Math.random() * 100}%`,
+                                top: `${Math.random() * 100}%`,
+                                animationDelay: `${Math.random() * 3}s`,
+                                animationDuration: `${4 + Math.random() * 2}s`
+                            }
+                        },
+                        i % 3 === 0 && React.createElement(Cherry, { className: "text-pink-300 opacity-20", size: 24 }),
+                        i % 3 === 1 && React.createElement(Leaf, { className: "text-green-300 opacity-20", size: 20 }),
+                        i % 3 === 2 && React.createElement(Mountain, { className: "text-blue-300 opacity-20", size: 28 })
+                        )
+                    ))
+                )
+            );
+
+            const WelcomeScreen = () => (
+                React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center p-6" },
+                    React.createElement(FloatingElements),
+                    React.createElement('div', { className: "text-center max-w-4xl mx-auto relative z-10" },
+                        React.createElement('div', { className: "mb-8 relative" },
+                            React.createElement('div', { className: "w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-2xl animate-pulse" },
+                                React.createElement(Sparkles, { className: "text-white", size: 48 })
+                            ),
+                            React.createElement('h1', { className: "text-6xl font-bold text-white mb-4 tracking-wide japanese-text" }, "生き甲斐"),
+                            React.createElement('h2', { className: "text-4xl font-light text-white mb-6" }, "IKIGAI")
+                        ),
+                        React.createElement('p', { className: "text-xl text-gray-200 mb-8 leading-relaxed" },
+                            "Descubre tu ",
+                            React.createElement('span', { className: "text-yellow-300 font-semibold" }, "razón de ser"),
+                            " a través de la antigua sabiduría japonesa.",
+                            React.createElement('br'),
+                            "Tu propósito de vida te está esperando."
+                        ),
+                        React.createElement('div', { className: "grid grid-cols-2 md:grid-cols-4 gap-4 mb-12" },
+                            sections.map((section, index) => {
+                                const Icon = section.icon;
+                                return React.createElement('div', {
+                                    key: index,
+                                    className: "bg-white/10 backdrop-blur-sm rounded-lg p-4 transform hover:scale-105 transition-all duration-300"
+                                },
+                                    React.createElement(Icon, { className: "text-white mx-auto mb-2", size: 24 }),
+                                    React.createElement('p', { className: "text-white text-sm font-medium" }, section.title)
+                                );
+                            })
+                        ),
+                        React.createElement('button', {
+                            onClick: () => setCurrentScreen('questions'),
+                            className: "bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-4 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center mx-auto"
+                        },
+                            "Comenzar mi viaje",
+                            React.createElement(ChevronRight, { className: "ml-2", size: 20 })
+                        )
+                    )
+                )
+            );
+
+            const QuestionScreen = () => {
+                const [currentAnswer, setCurrentAnswer] = useState('');
+                const section = sections[currentSection];
+                const Icon = section.icon;
+                const progress = ((currentSection * 5 + currentQuestion + 1) / 20) * 100;
+
+                return React.createElement('div', { className: `min-h-screen bg-gradient-to-br ${section.color} flex items-center justify-center p-6` },
+                    React.createElement(FloatingElements),
+                    React.createElement('div', { className: "max-w-3xl mx-auto relative z-10" },
+                        React.createElement('div', { className: "bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-2xl" },
+                            React.createElement('div', { className: "mb-6" },
+                                React.createElement('div', { className: "flex items-center justify-between mb-4" },
+                                    React.createElement('div', { className: "flex items-center" },
+                                        React.createElement(Icon, { className: "text-gray-600 mr-3", size: 24 }),
+                                        React.createElement('h2', { className: "text-2xl font-bold text-gray-800" }, section.title)
+                                    ),
+                                    React.createElement('span', { className: "text-sm text-gray-500" },
+                                        `${currentQuestion + 1} de ${section.questions.length}`
+                                    )
+                                ),
+                                React.createElement('div', { className: "w-full bg-gray-200 rounded-full h-2" },
+                                    React.createElement('div', {
+                                        className: "bg-gradient-to-r from-yellow-400 to-orange-500 h-2 rounded-full transition-all duration-500",
+                                        style: { width: `${progress}%` }
+                                    })
+                                )
+                            ),
+                            React.createElement('div', { className: `transition-all duration-300 ${animating ? 'opacity-0 transform translate-y-4' : 'opacity-100 transform translate-y-0'}` },
+                                React.createElement('h3', { className: "text-xl font-semibold text-gray-700 mb-6 leading-relaxed" },
+                                    section.questions[currentQuestion]
+                                ),
+                                React.createElement('textarea', {
+                                    value: currentAnswer,
+                                    onChange: (e) => setCurrentAnswer(e.target.value),
+                                    placeholder: "Tómate tu tiempo para reflexionar y responder...",
+                                    className: "w-full h-32 p-4 border-2 border-gray-200 rounded-lg focus:border-orange-400 focus:outline-none resize-none text-gray-700 placeholder-gray-400",
+                                    autoFocus: true
+                                }),
+                                React.createElement('div', { className: "flex justify-between mt-6" },
+                                    React.createElement('button', {
+                                        onClick: () => {
+                                            if (currentQuestion > 0) {
+                                                setCurrentQuestion(currentQuestion - 1);
+                                            } else if (currentSection > 0) {
+                                                setCurrentSection(currentSection - 1);
+                                                setCurrentQuestion(sections[currentSection - 1].questions.length - 1);
+                                            }
+                                        },
+                                        disabled: currentSection === 0 && currentQuestion === 0,
+                                        className: "flex items-center px-6 py-3 bg-gray-200 text-gray-600 rounded-lg hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    },
+                                        React.createElement(ChevronLeft, { className: "mr-2", size: 16 }),
+                                        "Anterior"
+                                    ),
+                                    React.createElement('button', {
+                                        onClick: () => handleAnswer(currentAnswer),
+                                        disabled: currentAnswer.trim() === '',
+                                        className: "flex items-center px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg hover:from-yellow-500 hover:to-orange-600 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                                    },
+                                        "Continuar",
+                                        React.createElement(ChevronRight, { className: "ml-2", size: 16 })
+                                    )
+                                )
+                            )
+                        )
+                    )
+                );
+            };
+
+            const ResultScreen = () => {
+                const insight = generateIkigaiInsight();
+                
+                return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-6" },
+                    React.createElement(FloatingElements),
+                    React.createElement('div', { className: "max-w-6xl mx-auto relative z-10" },
+                        React.createElement('div', { className: "text-center mb-12" },
+                            React.createElement('div', { className: "w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-2xl" },
+                                React.createElement(Sparkles, { className: "text-white", size: 32 })
+                            ),
+                            React.createElement('h1', { className: "text-4xl font-bold text-white mb-4" }, "Tu IKIGAI Personal"),
+                            React.createElement('p', { className: "text-xl text-gray-200" }, "Tu propósito de vida basado en tus respuestas")
+                        ),
+                        React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 gap-8 mb-12" },
+                            React.createElement('div', { className: "bg-white/10 backdrop-blur-sm rounded-2xl p-6 transform hover:scale-105 transition-all duration-300" },
+                                React.createElement('div', { className: "flex items-center mb-4" },
+                                    React.createElement(Heart, { className: "text-pink-400 mr-3", size: 24 }),
+                                    React.createElement('h3', { className: "text-xl font-semibold text-white" }, "Tu Pasión")
+                                ),
+                                React.createElement('p', { className: "text-gray-200 leading-relaxed" }, insight.passion)
+                            ),
+                            React.createElement('div', { className: "bg-white/10 backdrop-blur-sm rounded-2xl p-6 transform hover:scale-105 transition-all duration-300" },
+                                React.createElement('div', { className: "flex items-center mb-4" },
+                                    React.createElement(Globe, { className: "text-blue-400 mr-3", size: 24 }),
+                                    React.createElement('h3', { className: "text-xl font-semibold text-white" }, "Tu Misión")
+                                ),
+                                React.createElement('p', { className: "text-gray-200 leading-relaxed" }, insight.mission)
+                            ),
+                            React.createElement('div', { className: "bg-white/10 backdrop-blur-sm rounded-2xl p-6 transform hover:scale-105 transition-all duration-300" },
+                                React.createElement('div', { className: "flex items-center mb-4" },
+                                    React.createElement(DollarSign, { className: "text-green-400 mr-3", size: 24 }),
+                                    React.createElement('h3', { className: "text-xl font-semibold text-white" }, "Tu Profesión")
+                                ),
+                                React.createElement('p', { className: "text-gray-200 leading-relaxed" }, insight.profession)
+                            ),
+                            React.createElement('div', { className: "bg-white/10 backdrop-blur-sm rounded-2xl p-6 transform hover:scale-105 transition-all duration-300" },
+                                React.createElement('div', { className: "flex items-center mb-4" },
+                                    React.createElement(Star, { className: "text-yellow-400 mr-3", size: 24 }),
+                                    React.createElement('h3', { className: "text-xl font-semibold text-white" }, "Tu Vocación")
+                                ),
+                                React.createElement('p', { className: "text-gray-200 leading-relaxed" }, insight.vocation)
+                            )
+                        ),
+                        React.createElement('div', { className: "bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8" },
+                            React.createElement('h3', { className: "text-2xl font-bold text-white mb-6 text-center" }, "Las 10 Leyes del IKIGAI para tu vida"),
+                            React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 gap-4" },
+                                ikigaiLaws.map((law, index) => (
+                                    React.createElement('div', { key: index, className: "flex items-center p-3 bg-white/5 rounded-lg" },
+                                        React.createElement('span', { className: "bg-yellow-400 text-gray-900 font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm" }, index + 1),
+                                        React.createElement('p', { className: "text-gray-200 text-sm" }, law)
+                                    )
+                                ))
+                            )
+                        ),
+                        React.createElement('div', { className: "text-center" },
+                            React.createElement('button', {
+                                onClick: () => {
+                                    setCurrentScreen('welcome');
+                                    setCurrentSection(0);
+                                    setCurrentQuestion(0);
+                                    setAnswers({ love: [], good: [], world: [], paid: [] });
+                                    setShowResult(false);
+                                },
+                                className: "bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-4 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition-all duration-300"
+                            }, "Descubrir otro IKIGAI")
+                        )
+                    )
+                );
+            };
+
+            return React.createElement('div', { className: "font-sans" },
+                currentScreen === 'welcome' && React.createElement(WelcomeScreen),
+                currentScreen === 'questions' && !showResult && React.createElement(QuestionScreen),
+                showResult && React.createElement(ResultScreen)
+            );
+        };
+
+        // Inicializar la aplicación
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('ikigai-app').style.display = 'block';
+                
+                const root = ReactDOM.createRoot(document.getElementById('ikigai-app'));
+                root.render(React.createElement(IkigaiApp));
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
