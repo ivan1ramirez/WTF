@@ -7,24 +7,8 @@
     <meta name="description" content="Descubre tu razón de ser a través de la antigua sabiduría japonesa del IKIGAI. Una experiencia interactiva para encontrar tu propósito de vida.">
     <meta name="keywords" content="IKIGAI, propósito de vida, coaching, desarrollo personal, filosofía japonesa, razón de ser">
     
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Descubre tu IKIGAI - Tu Propósito de Vida">
-    <meta property="og:description" content="Descubre tu razón de ser a través de la antigua sabiduría japonesa del IKIGAI">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80">
-    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- React & ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    
-    <!-- Babel Standalone para JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -108,6 +92,107 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
+        .screen {
+            display: none;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.2;
+            font-size: 24px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            transition: width 0.5s ease;
+        }
+        
+        .section-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            transition: transform 0.3s ease;
+        }
+        
+        .section-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #374151;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+        
+        .btn-secondary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .icon-heart::before { content: "💖"; }
+        .icon-star::before { content: "⭐"; }
+        .icon-globe::before { content: "🌍"; }
+        .icon-money::before { content: "💰"; }
+        .icon-sparkles::before { content: "✨"; }
+        .icon-arrow-right::before { content: "→"; }
+        .icon-arrow-left::before { content: "←"; }
+        .icon-cherry::before { content: "🌸"; }
+        .icon-leaf::before { content: "🍃"; }
+        .icon-mountain::before { content: "⛰️"; }
+        
         /* Scrollbar personalizada */
         ::-webkit-scrollbar {
             width: 8px;
@@ -133,378 +218,410 @@
         <div class="text-center">
             <div class="spinner mb-4"></div>
             <h2 class="text-white text-xl font-light japanese-text">生き甲斐を探索中...</h2>
-            <p class="text-white/70 text-sm mt-2">Preparando tu experiencia IKIGAI</p>
+            <p class="text-white text-opacity-70 text-sm mt-2">Preparando tu experiencia IKIGAI</p>
         </div>
     </div>
     
-    <!-- App Container -->
-    <div id="ikigai-app" class="fade-in" style="display: none;"></div>
+    <!-- Floating Elements -->
+    <div id="floating-elements" class="fixed inset-0 pointer-events-none overflow-hidden">
+        <div class="floating-element animate-float icon-cherry" style="left: 10%; top: 20%; animation-delay: 0s;"></div>
+        <div class="floating-element animate-float icon-leaf" style="left: 80%; top: 10%; animation-delay: 1s;"></div>
+        <div class="floating-element animate-float icon-mountain" style="left: 70%; top: 70%; animation-delay: 2s;"></div>
+        <div class="floating-element animate-float icon-cherry" style="left: 20%; top: 80%; animation-delay: 3s;"></div>
+        <div class="floating-element animate-float icon-leaf" style="left: 90%; top: 50%; animation-delay: 4s;"></div>
+        <div class="floating-element animate-float icon-mountain" style="left: 5%; top: 60%; animation-delay: 5s;"></div>
+    </div>
     
-    <!-- Analytics y SEO adicional -->
-    <script>
-        // Google Analytics (reemplaza con tu ID)
-        /*
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-XXXXXXXX-X', 'auto');
-        ga('send', 'pageview');
-        */
-    </script>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen active">
+        <div class="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center p-6">
+            <div class="text-center max-w-4xl mx-auto relative z-10">
+                <div class="mb-8 relative">
+                    <div class="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-2xl">
+                        <span class="text-white text-5xl">✨</span>
+                    </div>
+                    <h1 class="text-6xl font-bold text-white mb-4 tracking-wide japanese-text">生き甲斐</h1>
+                    <h2 class="text-4xl font-light text-white mb-6">IKIGAI</h2>
+                </div>
+                
+                <p class="text-xl text-gray-200 mb-8 leading-relaxed">
+                    Descubre tu <span class="text-yellow-300 font-semibold">razón de ser</span> a través de la antigua sabiduría japonesa.
+                    <br />
+                    Tu propósito de vida te está esperando.
+                </p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                    <div class="section-card">
+                        <div class="icon icon-heart text-2xl mb-2 mx-auto"></div>
+                        <p class="text-white text-sm font-medium">Lo que AMAS</p>
+                    </div>
+                    <div class="section-card">
+                        <div class="icon icon-star text-2xl mb-2 mx-auto"></div>
+                        <p class="text-white text-sm font-medium">Lo que se te da BIEN</p>
+                    </div>
+                    <div class="section-card">
+                        <div class="icon icon-globe text-2xl mb-2 mx-auto"></div>
+                        <p class="text-white text-sm font-medium">Lo que el MUNDO necesita</p>
+                    </div>
+                    <div class="section-card">
+                        <div class="icon icon-money text-2xl mb-2 mx-auto"></div>
+                        <p class="text-white text-sm font-medium">Por lo que te pueden PAGAR</p>
+                    </div>
+                </div>
+                
+                <button id="start-btn" class="btn-primary text-lg">
+                    Comenzar mi viaje
+                    <span class="icon icon-arrow-right"></span>
+                </button>
+            </div>
+        </div>
+    </div>
     
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-        const { 
-            ChevronRight, 
-            ChevronLeft, 
-            Heart, 
-            Star, 
-            Globe, 
-            DollarSign, 
-            Sparkles, 
-            Mountain, 
-            Cherry, 
-            Leaf 
-        } = lucide;
+    <!-- Question Screen -->
+    <div id="question-screen" class="screen">
+        <div id="question-container" class="min-h-screen flex items-center justify-center p-6">
+            <div class="max-w-3xl mx-auto relative z-10">
+                <div class="bg-white bg-opacity-95 backdrop-blur-sm rounded-3xl p-8 shadow-2xl">
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center">
+                                <span id="section-icon" class="text-2xl mr-3"></span>
+                                <h2 id="section-title" class="text-2xl font-bold text-gray-800"></h2>
+                            </div>
+                            <span id="question-counter" class="text-sm text-gray-500"></span>
+                        </div>
+                        
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
 
-        const IkigaiApp = () => {
-            const [currentScreen, setCurrentScreen] = useState('welcome');
-            const [currentSection, setCurrentSection] = useState(0);
-            const [currentQuestion, setCurrentQuestion] = useState(0);
-            const [answers, setAnswers] = useState({
+                    <div id="question-content">
+                        <h3 id="current-question" class="text-xl font-semibold text-gray-700 mb-6 leading-relaxed"></h3>
+                        
+                        <textarea
+                            id="answer-input"
+                            placeholder="Tómate tu tiempo para reflexionar y responder..."
+                            class="w-full h-32 p-4 border-2 border-gray-200 rounded-lg focus:border-orange-400 focus:outline-none resize-none text-gray-700 placeholder-gray-400"
+                        ></textarea>
+                        
+                        <div class="flex justify-between mt-6">
+                            <button id="prev-btn" class="btn-secondary">
+                                <span class="icon icon-arrow-left"></span>
+                                Anterior
+                            </button>
+                            
+                            <button id="next-btn" class="btn-primary">
+                                Continuar
+                                <span class="icon icon-arrow-right"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Result Screen -->
+    <div id="result-screen" class="screen">
+        <div class="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-6">
+            <div class="max-w-6xl mx-auto relative z-10">
+                <div class="text-center mb-12">
+                    <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-2xl">
+                        <span class="text-white text-4xl">✨</span>
+                    </div>
+                    <h1 class="text-4xl font-bold text-white mb-4">Tu IKIGAI Personal</h1>
+                    <p class="text-xl text-gray-200">Tu propósito de vida basado en tus respuestas</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <div class="section-card">
+                        <div class="flex items-center mb-4">
+                            <span class="icon icon-heart text-2xl text-pink-400 mr-3"></span>
+                            <h3 class="text-xl font-semibold text-white">Tu Pasión</h3>
+                        </div>
+                        <p id="passion-result" class="text-gray-200 leading-relaxed"></p>
+                    </div>
+
+                    <div class="section-card">
+                        <div class="flex items-center mb-4">
+                            <span class="icon icon-globe text-2xl text-blue-400 mr-3"></span>
+                            <h3 class="text-xl font-semibold text-white">Tu Misión</h3>
+                        </div>
+                        <p id="mission-result" class="text-gray-200 leading-relaxed"></p>
+                    </div>
+
+                    <div class="section-card">
+                        <div class="flex items-center mb-4">
+                            <span class="icon icon-money text-2xl text-green-400 mr-3"></span>
+                            <h3 class="text-xl font-semibold text-white">Tu Profesión</h3>
+                        </div>
+                        <p id="profession-result" class="text-gray-200 leading-relaxed"></p>
+                    </div>
+
+                    <div class="section-card">
+                        <div class="flex items-center mb-4">
+                            <span class="icon icon-star text-2xl text-yellow-400 mr-3"></span>
+                            <h3 class="text-xl font-semibold text-white">Tu Vocación</h3>
+                        </div>
+                        <p id="vocation-result" class="text-gray-200 leading-relaxed"></p>
+                    </div>
+                </div>
+
+                <div class="section-card mb-8">
+                    <h3 class="text-2xl font-bold text-white mb-6 text-center">
+                        Las 10 Leyes del IKIGAI para tu vida
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="ikigai-laws">
+                        <!-- Las leyes se insertarán aquí dinámicamente -->
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button id="restart-btn" class="btn-primary text-lg">
+                        Descubrir otro IKIGAI
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos de la aplicación
+        const sections = [
+            {
+                title: "Lo que AMAS",
+                icon: "💖",
+                color: "from-pink-500 to-red-500",
+                key: "love",
+                questions: [
+                    "¿Qué actividades hacen que pierdas la noción del tiempo?",
+                    "¿Qué te emociona y te inspira profundamente?",
+                    "¿Qué harías sin parar si el dinero no fuera un problema?",
+                    "¿Qué temas te gusta aprender y explorar constantemente?",
+                    "¿Qué actividades te dan más energía en lugar de agotarte?"
+                ]
+            },
+            {
+                title: "Lo que se te da BIEN",
+                icon: "⭐",
+                color: "from-yellow-500 to-orange-500",
+                key: "good",
+                questions: [
+                    "¿Cuáles son tus fortalezas, dones y habilidades clave?",
+                    "¿Qué cosas haces mejor que la mayoría de las personas?",
+                    "¿En qué área recibes más elogios y reconocimiento?",
+                    "¿Qué habilidades has desarrollado a lo largo de tu vida?",
+                    "¿Qué te resulta fácil hacer mientras otros luchan?"
+                ]
+            },
+            {
+                title: "Lo que el MUNDO necesita",
+                icon: "🌍",
+                color: "from-green-500 to-blue-500",
+                key: "world",
+                questions: [
+                    "¿Qué problemas del mundo te preocupan más?",
+                    "¿Cómo quieres contribuir y hacer una diferencia?",
+                    "¿Qué necesidades ves en tu comunidad que podrías ayudar a resolver?",
+                    "¿Qué causa o misión te haría sentir que tu vida tiene propósito?",
+                    "¿Qué cambio te gustaría ver en el mundo?"
+                ]
+            },
+            {
+                title: "Por lo que te pueden PAGAR",
+                icon: "💰",
+                color: "from-purple-500 to-indigo-500",
+                key: "paid",
+                questions: [
+                    "¿Qué servicios o productos podrías ofrecer?",
+                    "¿Por qué habilidades o conocimientos pagaría la gente?",
+                    "¿Qué necesidades del mercado podrías satisfacer?",
+                    "¿Qué experiencia profesional has construido?",
+                    "¿Cómo podrías monetizar tus pasiones y talentos?"
+                ]
+            }
+        ];
+
+        const ikigaiLaws = [
+            "Mantente siempre activo, nunca te retires",
+            "Tómatelo con calma",
+            "No comas hasta llenarte",
+            "Rodéate de buenos amigos",
+            "Ponte en forma para tu próximo cumpleaños",
+            "Sonríe",
+            "Reconecta con la naturaleza",
+            "Da las gracias",
+            "Vive el momento",
+            "Sigue tu Ikigai"
+        ];
+
+        // Estado de la aplicación
+        let currentSection = 0;
+        let currentQuestion = 0;
+        let answers = {
+            love: [],
+            good: [],
+            world: [],
+            paid: []
+        };
+
+        // Elementos del DOM
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const questionScreen = document.getElementById('question-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const questionContainer = document.getElementById('question-container');
+        const sectionIcon = document.getElementById('section-icon');
+        const sectionTitle = document.getElementById('section-title');
+        const questionCounter = document.getElementById('question-counter');
+        const progressFill = document.getElementById('progress-fill');
+        const currentQuestionEl = document.getElementById('current-question');
+        const answerInput = document.getElementById('answer-input');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // Funciones auxiliares
+        function showScreen(screen) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            screen.classList.add('active');
+        }
+
+        function updateQuestionScreen() {
+            const section = sections[currentSection];
+            const progress = ((currentSection * 5 + currentQuestion + 1) / 20) * 100;
+            
+            // Actualizar color de fondo
+            questionContainer.className = `min-h-screen bg-gradient-to-br ${section.color} flex items-center justify-center p-6`;
+            
+            // Actualizar contenido
+            sectionIcon.textContent = section.icon;
+            sectionTitle.textContent = section.title;
+            questionCounter.textContent = `${currentQuestion + 1} de ${section.questions.length}`;
+            progressFill.style.width = `${progress}%`;
+            currentQuestionEl.textContent = section.questions[currentQuestion];
+            
+            // Limpiar respuesta anterior
+            answerInput.value = '';
+            
+            // Actualizar botones
+            prevBtn.disabled = currentSection === 0 && currentQuestion === 0;
+            nextBtn.disabled = true;
+            
+            // Focus en el textarea
+            answerInput.focus();
+        }
+
+        function handleAnswer() {
+            const answer = answerInput.value.trim();
+            if (answer === '') return;
+
+            // Guardar respuesta
+            const sectionKey = sections[currentSection].key;
+            answers[sectionKey].push(answer);
+
+            // Avanzar
+            if (currentQuestion < sections[currentSection].questions.length - 1) {
+                currentQuestion++;
+            } else if (currentSection < sections.length - 1) {
+                currentSection++;
+                currentQuestion = 0;
+            } else {
+                showResults();
+                return;
+            }
+
+            updateQuestionScreen();
+        }
+
+        function goBack() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+            } else if (currentSection > 0) {
+                currentSection--;
+                currentQuestion = sections[currentSection].questions.length - 1;
+            }
+            updateQuestionScreen();
+        }
+
+        function generateIkigaiInsight() {
+            return {
+                passion: answers.love.length > 0 ? answers.love[0] : "Explorar nuevas experiencias",
+                mission: answers.world.length > 0 ? answers.world[0] : "Contribuir al bienestar de otros",
+                profession: answers.paid.length > 0 ? answers.paid[0] : "Aplicar tus talentos únicos",
+                vocation: answers.good.length > 0 ? answers.good[0] : "Desarrollar tus fortalezas naturales"
+            };
+        }
+
+        function showResults() {
+            const insight = generateIkigaiInsight();
+            
+            // Actualizar resultados
+            document.getElementById('passion-result').textContent = insight.passion;
+            document.getElementById('mission-result').textContent = insight.mission;
+            document.getElementById('profession-result').textContent = insight.profession;
+            document.getElementById('vocation-result').textContent = insight.vocation;
+            
+            // Mostrar leyes del IKIGAI
+            const lawsContainer = document.getElementById('ikigai-laws');
+            lawsContainer.innerHTML = '';
+            
+            ikigaiLaws.forEach((law, index) => {
+                const lawEl = document.createElement('div');
+                lawEl.className = 'flex items-center p-3 bg-white bg-opacity-5 rounded-lg';
+                lawEl.innerHTML = `
+                    <span class="bg-yellow-400 text-gray-900 font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm">
+                        ${index + 1}
+                    </span>
+                    <p class="text-gray-200 text-sm">${law}</p>
+                `;
+                lawsContainer.appendChild(lawEl);
+            });
+            
+            showScreen(resultScreen);
+        }
+
+        function restart() {
+            currentSection = 0;
+            currentQuestion = 0;
+            answers = {
                 love: [],
                 good: [],
                 world: [],
                 paid: []
-            });
-            const [showResult, setShowResult] = useState(false);
-            const [animating, setAnimating] = useState(false);
-
-            const sections = [
-                {
-                    title: "Lo que AMAS",
-                    subtitle: "¿Qué es lo que realmente te apasiona?",
-                    icon: Heart,
-                    color: "from-pink-500 to-red-500",
-                    key: "love",
-                    questions: [
-                        "¿Qué actividades hacen que pierdas la noción del tiempo?",
-                        "¿Qué te emociona y te inspira profundamente?",
-                        "¿Qué harías sin parar si el dinero no fuera un problema?",
-                        "¿Qué temas te gusta aprender y explorar constantemente?",
-                        "¿Qué actividades te dan más energía en lugar de agotarte?"
-                    ]
-                },
-                {
-                    title: "Lo que se te da BIEN",
-                    subtitle: "¿Cuáles son tus talentos naturales?",
-                    icon: Star,
-                    color: "from-yellow-500 to-orange-500",
-                    key: "good",
-                    questions: [
-                        "¿Cuáles son tus fortalezas, dones y habilidades clave?",
-                        "¿Qué cosas haces mejor que la mayoría de las personas?",
-                        "¿En qué área recibes más elogios y reconocimiento?",
-                        "¿Qué habilidades has desarrollado a lo largo de tu vida?",
-                        "¿Qué te resulta fácil hacer mientras otros luchan?"
-                    ]
-                },
-                {
-                    title: "Lo que el MUNDO necesita",
-                    subtitle: "¿Cómo puedes contribuir al mundo?",
-                    icon: Globe,
-                    color: "from-green-500 to-blue-500",
-                    key: "world",
-                    questions: [
-                        "¿Qué problemas del mundo te preocupan más?",
-                        "¿Cómo quieres contribuir y hacer una diferencia?",
-                        "¿Qué necesidades ves en tu comunidad que podrías ayudar a resolver?",
-                        "¿Qué causa o misión te haría sentir que tu vida tiene propósito?",
-                        "¿Qué cambio te gustaría ver en el mundo?"
-                    ]
-                },
-                {
-                    title: "Por lo que te pueden PAGAR",
-                    subtitle: "¿Qué valor económico puedes crear?",
-                    icon: DollarSign,
-                    color: "from-purple-500 to-indigo-500",
-                    key: "paid",
-                    questions: [
-                        "¿Qué servicios o productos podrías ofrecer?",
-                        "¿Por qué habilidades o conocimientos pagaría la gente?",
-                        "¿Qué necesidades del mercado podrías satisfacer?",
-                        "¿Qué experiencia profesional has construido?",
-                        "¿Cómo podrías monetizar tus pasiones y talentos?"
-                    ]
-                }
-            ];
-
-            const ikigaiLaws = [
-                "Mantente siempre activo, nunca te retires",
-                "Tómatelo con calma",
-                "No comas hasta llenarte",
-                "Rodéate de buenos amigos",
-                "Ponte en forma para tu próximo cumpleaños",
-                "Sonríe",
-                "Reconecta con la naturaleza",
-                "Da las gracias",
-                "Vive el momento",
-                "Sigue tu Ikigai"
-            ];
-
-            const handleAnswer = (answer) => {
-                if (answer.trim() === '') return;
-                
-                setAnimating(true);
-                
-                setTimeout(() => {
-                    const currentSectionKey = sections[currentSection].key;
-                    const newAnswers = { ...answers };
-                    newAnswers[currentSectionKey] = [...newAnswers[currentSectionKey], answer];
-                    setAnswers(newAnswers);
-
-                    if (currentQuestion < sections[currentSection].questions.length - 1) {
-                        setCurrentQuestion(currentQuestion + 1);
-                    } else if (currentSection < sections.length - 1) {
-                        setCurrentSection(currentSection + 1);
-                        setCurrentQuestion(0);
-                    } else {
-                        setShowResult(true);
-                    }
-                    setAnimating(false);
-                }, 300);
             };
+            showScreen(welcomeScreen);
+        }
 
-            const generateIkigaiInsight = () => {
-                const allAnswers = [...answers.love, ...answers.good, ...answers.world, ...answers.paid];
-                const keywords = allAnswers.join(' ').toLowerCase().split(' ');
-                
-                return {
-                    passion: answers.love.length > 0 ? answers.love[0] : "Explorar nuevas experiencias",
-                    mission: answers.world.length > 0 ? answers.world[0] : "Contribuir al bienestar de otros",
-                    profession: answers.paid.length > 0 ? answers.paid[0] : "Aplicar tus talentos únicos",
-                    vocation: answers.good.length > 0 ? answers.good[0] : "Desarrollar tus fortalezas naturales"
-                };
-            };
+        // Event listeners
+        startBtn.addEventListener('click', () => {
+            showScreen(questionScreen);
+            updateQuestionScreen();
+        });
 
-            const FloatingElements = () => (
-                React.createElement('div', { className: "fixed inset-0 pointer-events-none overflow-hidden" },
-                    [...Array(6)].map((_, i) => (
-                        React.createElement('div', {
-                            key: i,
-                            className: "absolute animate-float",
-                            style: {
-                                left: `${Math.random() * 100}%`,
-                                top: `${Math.random() * 100}%`,
-                                animationDelay: `${Math.random() * 3}s`,
-                                animationDuration: `${4 + Math.random() * 2}s`
-                            }
-                        },
-                        i % 3 === 0 && React.createElement(Cherry, { className: "text-pink-300 opacity-20", size: 24 }),
-                        i % 3 === 1 && React.createElement(Leaf, { className: "text-green-300 opacity-20", size: 20 }),
-                        i % 3 === 2 && React.createElement(Mountain, { className: "text-blue-300 opacity-20", size: 28 })
-                        )
-                    ))
-                )
-            );
+        nextBtn.addEventListener('click', handleAnswer);
+        prevBtn.addEventListener('click', goBack);
+        restartBtn.addEventListener('click', restart);
 
-            const WelcomeScreen = () => (
-                React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center p-6" },
-                    React.createElement(FloatingElements),
-                    React.createElement('div', { className: "text-center max-w-4xl mx-auto relative z-10" },
-                        React.createElement('div', { className: "mb-8 relative" },
-                            React.createElement('div', { className: "w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-2xl animate-pulse" },
-                                React.createElement(Sparkles, { className: "text-white", size: 48 })
-                            ),
-                            React.createElement('h1', { className: "text-6xl font-bold text-white mb-4 tracking-wide japanese-text" }, "生き甲斐"),
-                            React.createElement('h2', { className: "text-4xl font-light text-white mb-6" }, "IKIGAI")
-                        ),
-                        React.createElement('p', { className: "text-xl text-gray-200 mb-8 leading-relaxed" },
-                            "Descubre tu ",
-                            React.createElement('span', { className: "text-yellow-300 font-semibold" }, "razón de ser"),
-                            " a través de la antigua sabiduría japonesa.",
-                            React.createElement('br'),
-                            "Tu propósito de vida te está esperando."
-                        ),
-                        React.createElement('div', { className: "grid grid-cols-2 md:grid-cols-4 gap-4 mb-12" },
-                            sections.map((section, index) => {
-                                const Icon = section.icon;
-                                return React.createElement('div', {
-                                    key: index,
-                                    className: "bg-white/10 backdrop-blur-sm rounded-lg p-4 transform hover:scale-105 transition-all duration-300"
-                                },
-                                    React.createElement(Icon, { className: "text-white mx-auto mb-2", size: 24 }),
-                                    React.createElement('p', { className: "text-white text-sm font-medium" }, section.title)
-                                );
-                            })
-                        ),
-                        React.createElement('button', {
-                            onClick: () => setCurrentScreen('questions'),
-                            className: "bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-4 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center mx-auto"
-                        },
-                            "Comenzar mi viaje",
-                            React.createElement(ChevronRight, { className: "ml-2", size: 20 })
-                        )
-                    )
-                )
-            );
+        // Habilitar/deshabilitar botón siguiente
+        answerInput.addEventListener('input', (e) => {
+            nextBtn.disabled = e.target.value.trim() === '';
+        });
 
-            const QuestionScreen = () => {
-                const [currentAnswer, setCurrentAnswer] = useState('');
-                const section = sections[currentSection];
-                const Icon = section.icon;
-                const progress = ((currentSection * 5 + currentQuestion + 1) / 20) * 100;
+        // Enter para continuar
+        answerInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey && !nextBtn.disabled) {
+                e.preventDefault();
+                handleAnswer();
+            }
+        });
 
-                return React.createElement('div', { className: `min-h-screen bg-gradient-to-br ${section.color} flex items-center justify-center p-6` },
-                    React.createElement(FloatingElements),
-                    React.createElement('div', { className: "max-w-3xl mx-auto relative z-10" },
-                        React.createElement('div', { className: "bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-2xl" },
-                            React.createElement('div', { className: "mb-6" },
-                                React.createElement('div', { className: "flex items-center justify-between mb-4" },
-                                    React.createElement('div', { className: "flex items-center" },
-                                        React.createElement(Icon, { className: "text-gray-600 mr-3", size: 24 }),
-                                        React.createElement('h2', { className: "text-2xl font-bold text-gray-800" }, section.title)
-                                    ),
-                                    React.createElement('span', { className: "text-sm text-gray-500" },
-                                        `${currentQuestion + 1} de ${section.questions.length}`
-                                    )
-                                ),
-                                React.createElement('div', { className: "w-full bg-gray-200 rounded-full h-2" },
-                                    React.createElement('div', {
-                                        className: "bg-gradient-to-r from-yellow-400 to-orange-500 h-2 rounded-full transition-all duration-500",
-                                        style: { width: `${progress}%` }
-                                    })
-                                )
-                            ),
-                            React.createElement('div', { className: `transition-all duration-300 ${animating ? 'opacity-0 transform translate-y-4' : 'opacity-100 transform translate-y-0'}` },
-                                React.createElement('h3', { className: "text-xl font-semibold text-gray-700 mb-6 leading-relaxed" },
-                                    section.questions[currentQuestion]
-                                ),
-                                React.createElement('textarea', {
-                                    value: currentAnswer,
-                                    onChange: (e) => setCurrentAnswer(e.target.value),
-                                    placeholder: "Tómate tu tiempo para reflexionar y responder...",
-                                    className: "w-full h-32 p-4 border-2 border-gray-200 rounded-lg focus:border-orange-400 focus:outline-none resize-none text-gray-700 placeholder-gray-400",
-                                    autoFocus: true
-                                }),
-                                React.createElement('div', { className: "flex justify-between mt-6" },
-                                    React.createElement('button', {
-                                        onClick: () => {
-                                            if (currentQuestion > 0) {
-                                                setCurrentQuestion(currentQuestion - 1);
-                                            } else if (currentSection > 0) {
-                                                setCurrentSection(currentSection - 1);
-                                                setCurrentQuestion(sections[currentSection - 1].questions.length - 1);
-                                            }
-                                        },
-                                        disabled: currentSection === 0 && currentQuestion === 0,
-                                        className: "flex items-center px-6 py-3 bg-gray-200 text-gray-600 rounded-lg hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                                    },
-                                        React.createElement(ChevronLeft, { className: "mr-2", size: 16 }),
-                                        "Anterior"
-                                    ),
-                                    React.createElement('button', {
-                                        onClick: () => handleAnswer(currentAnswer),
-                                        disabled: currentAnswer.trim() === '',
-                                        className: "flex items-center px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg hover:from-yellow-500 hover:to-orange-600 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                                    },
-                                        "Continuar",
-                                        React.createElement(ChevronRight, { className: "ml-2", size: 16 })
-                                    )
-                                )
-                            )
-                        )
-                    )
-                );
-            };
-
-            const ResultScreen = () => {
-                const insight = generateIkigaiInsight();
-                
-                return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-6" },
-                    React.createElement(FloatingElements),
-                    React.createElement('div', { className: "max-w-6xl mx-auto relative z-10" },
-                        React.createElement('div', { className: "text-center mb-12" },
-                            React.createElement('div', { className: "w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-2xl" },
-                                React.createElement(Sparkles, { className: "text-white", size: 32 })
-                            ),
-                            React.createElement('h1', { className: "text-4xl font-bold text-white mb-4" }, "Tu IKIGAI Personal"),
-                            React.createElement('p', { className: "text-xl text-gray-200" }, "Tu propósito de vida basado en tus respuestas")
-                        ),
-                        React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 gap-8 mb-12" },
-                            React.createElement('div', { className: "bg-white/10 backdrop-blur-sm rounded-2xl p-6 transform hover:scale-105 transition-all duration-300" },
-                                React.createElement('div', { className: "flex items-center mb-4" },
-                                    React.createElement(Heart, { className: "text-pink-400 mr-3", size: 24 }),
-                                    React.createElement('h3', { className: "text-xl font-semibold text-white" }, "Tu Pasión")
-                                ),
-                                React.createElement('p', { className: "text-gray-200 leading-relaxed" }, insight.passion)
-                            ),
-                            React.createElement('div', { className: "bg-white/10 backdrop-blur-sm rounded-2xl p-6 transform hover:scale-105 transition-all duration-300" },
-                                React.createElement('div', { className: "flex items-center mb-4" },
-                                    React.createElement(Globe, { className: "text-blue-400 mr-3", size: 24 }),
-                                    React.createElement('h3', { className: "text-xl font-semibold text-white" }, "Tu Misión")
-                                ),
-                                React.createElement('p', { className: "text-gray-200 leading-relaxed" }, insight.mission)
-                            ),
-                            React.createElement('div', { className: "bg-white/10 backdrop-blur-sm rounded-2xl p-6 transform hover:scale-105 transition-all duration-300" },
-                                React.createElement('div', { className: "flex items-center mb-4" },
-                                    React.createElement(DollarSign, { className: "text-green-400 mr-3", size: 24 }),
-                                    React.createElement('h3', { className: "text-xl font-semibold text-white" }, "Tu Profesión")
-                                ),
-                                React.createElement('p', { className: "text-gray-200 leading-relaxed" }, insight.profession)
-                            ),
-                            React.createElement('div', { className: "bg-white/10 backdrop-blur-sm rounded-2xl p-6 transform hover:scale-105 transition-all duration-300" },
-                                React.createElement('div', { className: "flex items-center mb-4" },
-                                    React.createElement(Star, { className: "text-yellow-400 mr-3", size: 24 }),
-                                    React.createElement('h3', { className: "text-xl font-semibold text-white" }, "Tu Vocación")
-                                ),
-                                React.createElement('p', { className: "text-gray-200 leading-relaxed" }, insight.vocation)
-                            )
-                        ),
-                        React.createElement('div', { className: "bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8" },
-                            React.createElement('h3', { className: "text-2xl font-bold text-white mb-6 text-center" }, "Las 10 Leyes del IKIGAI para tu vida"),
-                            React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 gap-4" },
-                                ikigaiLaws.map((law, index) => (
-                                    React.createElement('div', { key: index, className: "flex items-center p-3 bg-white/5 rounded-lg" },
-                                        React.createElement('span', { className: "bg-yellow-400 text-gray-900 font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm" }, index + 1),
-                                        React.createElement('p', { className: "text-gray-200 text-sm" }, law)
-                                    )
-                                ))
-                            )
-                        ),
-                        React.createElement('div', { className: "text-center" },
-                            React.createElement('button', {
-                                onClick: () => {
-                                    setCurrentScreen('welcome');
-                                    setCurrentSection(0);
-                                    setCurrentQuestion(0);
-                                    setAnswers({ love: [], good: [], world: [], paid: [] });
-                                    setShowResult(false);
-                                },
-                                className: "bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-4 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition-all duration-300"
-                            }, "Descubrir otro IKIGAI")
-                        )
-                    )
-                );
-            };
-
-            return React.createElement('div', { className: "font-sans" },
-                currentScreen === 'welcome' && React.createElement(WelcomeScreen),
-                currentScreen === 'questions' && !showResult && React.createElement(QuestionScreen),
-                showResult && React.createElement(ResultScreen)
-            );
-        };
-
-        // Inicializar la aplicación
+        // Inicializar aplicación
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loading').classList.add('hidden');
-                document.getElementById('ikigai-app').style.display = 'block';
-                
-                const root = ReactDOM.createRoot(document.getElementById('ikigai-app'));
-                root.render(React.createElement(IkigaiApp));
-            }, 2000);
+            }, 1500);
         });
     </script>
 </body>
