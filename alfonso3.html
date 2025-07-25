@@ -65,6 +65,86 @@
             box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
         }
 
+        .video-section {
+            margin-bottom: 4rem;
+        }
+
+        .video-container {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid #e9ecef;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+        }
+
+        .instructions {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+        }
+
+        .instructions h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .instructions p {
+            color: #34495e;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.3);
+            margin: 0 0.5rem 1rem 0;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(44, 62, 80, 0.4);
+        }
+
+        .cta-button.secondary {
+            background: linear-gradient(135deg, #7f8c8d, #95a5a6);
+            box-shadow: 0 8px 20px rgba(127, 140, 141, 0.3);
+        }
+
+        .cta-button.secondary:hover {
+            box-shadow: 0 12px 25px rgba(127, 140, 141, 0.4);
+        }
+
         .course-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -562,58 +642,6 @@
             z-index: 1000;
         }
 
-        .instructions {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid #e9ecef;
-        }
-
-        .instructions h3 {
-            color: #2c3e50;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .instructions p {
-            color: #34495e;
-            line-height: 1.6;
-            margin-bottom: 0.5rem;
-            font-weight: 400;
-        }
-
-        .video-section {
-            margin-bottom: 4rem;
-        }
-
-        .video-container {
-            background: #f8f9fa;
-            border-radius: 20px;
-            padding: 3rem;
-            border: 1px solid #e9ecef;
-            animation: fadeInUp 1s ease-out 0.5s both;
-        }
-
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 12px;
-        }
-
         .cta-section {
             text-align: center;
             margin-top: 4rem;
@@ -621,34 +649,6 @@
             background: #f8f9fa;
             border-radius: 20px;
             border: 1px solid #e9ecef;
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: white;
-            padding: 1rem 2.5rem;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.3);
-            margin: 0 0.5rem 1rem 0;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(44, 62, 80, 0.4);
-        }
-
-        .cta-button.secondary {
-            background: linear-gradient(135deg, #7f8c8d, #95a5a6);
-            box-shadow: 0 8px 20px rgba(127, 140, 141, 0.3);
-        }
-
-        .cta-button.secondary:hover {
-            box-shadow: 0 12px 25px rgba(127, 140, 141, 0.4);
         }
 
         @keyframes fadeInDown {
@@ -738,13 +738,14 @@
     </div>
 
     <div class="container">
+        <!-- HEADER -->
         <div class="header">
             <h1 class="main-title">ORIENTACIÓN VOCACIONAL</h1>
             <p class="subtitle">Descubriendo tu Propósito: Un Viaje hacia el Flujo Profesional</p>
             <div class="level-badge">🎯 PROGRAMA PERSONALIZADO ALFONSO</div>
         </div>
 
-        <!-- Video de Presentación -->
+        <!-- VIDEO DE PRESENTACIÓN -->
         <div class="video-section">
             <div class="video-container">
                 <h2 style="color: #2c3e50; text-align: center; margin-bottom: 2rem; font-size: 2rem;">🎬 Introducción al Programa</h2>
@@ -758,1442 +759,6 @@
                         allowfullscreen>
                     </iframe>
                 </div>
-
-            <!-- ¿Qué Siento? (Las Emociones) -->
-            <div class="session-card" data-session="emociones">
-                <div class="session-header" onclick="toggleSession(this)">
-                    <div class="session-icon">💭</div>
-                    <div class="session-title">¿Qué Siento? (Las Emociones)</div>
-                    <div class="session-duration">Esencial</div>
-                    <div class="expand-icon">▼</div>
-                </div>
-                <div class="content-container">
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Inteligencia Emocional en Decisiones Profesionales</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Gestionando la Ansiedad Vocacional</h4>
-                                <p>Para Alfonso, manejar las emociones relacionadas con el cambio de rumbo profesional es crucial para tomar decisiones auténticas y reducir la ansiedad sobre el futuro.</p>
-                                
-                                <h5>Emociones Comunes en Transiciones Vocacionales</h5>
-                                <ul>
-                                    <li><strong>Ansiedad por la incertidumbre:</strong> Es normal sentir miedo sobre el futuro financiero y profesional</li>
-                                    <li><strong>Presión social:</strong> Preocupación por lo que dirán otros sobre abandonar ingeniería industrial</li>
-                                    <li><strong>Síndrome del impostor:</strong> Dudas sobre la capacidad para triunfar en campos creativos</li>
-                                    <li><strong>Entusiasmo vs. realismo:</strong> Balance entre sueños y expectativas realistas</li>
-                                </ul>
-
-                                <div class="academic-framework">
-                                    <div class="framework-title">🧠 Proceso de Regulación Emocional</div>
-                                    <div class="methodology-diagram">
-                                        <div class="methodology-step">Reconocer<br><small>Identificar emociones</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Comprender<br><small>Entender las causas</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Regular<br><small>Técnicas de manejo</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Decidir<br><small>Acción informada</small></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Técnicas de Autorregulación para la Incertidumbre</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Herramientas Específicas para Alfonso</h4>
-                                
-                                <h5>Técnicas de Respiración y Mindfulness</h5>
-                                <ul>
-                                    <li><strong>Respiración 4-7-8:</strong> Inhalar 4 seg, mantener 7 seg, exhalar 8 seg para calmar ansiedad</li>
-                                    <li><strong>Meditación Musical:</strong> Usar tu guitarra como ancla de atención plena</li>
-                                    <li><strong>Body Scan después del ejercicio:</strong> Aprovechar el estado post-ejercicio para reflexionar</li>
-                                </ul>
-
-                                <h5>Diario Emocional de Exploración Vocacional</h5>
-                                <ul>
-                                    <li>Registrar emociones al explorar diferentes campos</li>
-                                    <li>Identificar qué actividades generan "flujo" auténtico</li>
-                                    <li>Documentar miedos y trabajar en su gestión</li>
-                                    <li>Celebrar pequeños avances y momentos de claridad</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Transformación del Perfeccionismo en Excelencia</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Del Perfeccionismo Paralizante a la Acción Efectiva</h4>
-                                <p>Transformar la tendencia perfeccionista en estándares de excelencia saludables que impulsen el crecimiento.</p>
-                                
-                                <h5>Reencuadre del Perfeccionismo</h5>
-                                <ul>
-                                    <li><strong>De "Todo o Nada" a "Progreso Gradual":</strong> Celebrar mejoras incrementales</li>
-                                    <li><strong>De "Evitar Errores" a "Aprender de Experimentos":</strong> Ver errores como datos valiosos</li>
-                                    <li><strong>De "Comparación Externa" a "Crecimiento Personal":</strong> Competir contigo mismo</li>
-                                    <li><strong>De "Resultado Perfecto" a "Proceso Auténtico":</strong> Disfrutar el journey</li>
-                                </ul>
-
-                                <h5>Ejercicios de Visualización para la Confianza</h5>
-                                <ul>
-                                    <li>Imaginar el éxito en pequeños pasos específicos</li>
-                                    <li>Visualizar conversaciones exitosas con profesionales del campo</li>
-                                    <li>Ver tu primera experiencia laboral en el campo elegido</li>
-                                    <li>Practicar la aceptación de feedback constructivo</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Trivia Emociones -->
-                    <div class="trivia-game">
-                        <div class="trivia-header">
-                            <h3 class="trivia-title">🎮 Trivia: Gestión Emocional</h3>
-                            <p style="text-align: center; margin-top: 0.5rem; opacity: 0.8;">Evalúa tu comprensión sobre inteligencia emocional</p>
-                        </div>
-                        
-                        <div id="trivia-setup-emociones" class="trivia-setup">
-                            <div class="setup-group">
-                                <div class="setup-label">📚 Tema</div>
-                                <select class="setup-select" disabled>
-                                    <option>Inteligencia Emocional y Autorregulación</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">⚡ Dificultad</div>
-                                <select id="difficulty-emociones" class="setup-select">
-                                    <option value="facil">Fácil</option>
-                                    <option value="medio" selected>Medio</option>
-                                    <option value="dificil">Difícil</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">🎯 Preguntas</div>
-                                <input type="number" value="5" class="setup-input" readonly style="opacity: 0.6;">
-                            </div>
-                            
-                            <div class="setup-group">
-                                <button class="trivia-button" onclick="startTrivia('emociones')">Iniciar Trivia</button>
-                            </div>
-                        </div>
-                        
-                        <div id="trivia-game-emociones" style="display: none;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Comunicación Asertiva -->
-            <div class="session-card" data-session="comunicacion">
-                <div class="session-header" onclick="toggleSession(this)">
-                    <div class="session-icon">🗣️</div>
-                    <div class="session-title">Comunicación Asertiva</div>
-                    <div class="session-duration">Habilidad Clave</div>
-                    <div class="expand-icon">▼</div>
-                </div>
-                <div class="content-container">
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Comunicación Efectiva en Ambientes Creativos</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Fortaleciendo tus Habilidades Colaborativas Naturales</h4>
-                                <p>Alfonso, tu capacidad colaborativa ya es una fortaleza. Ahora desarrollaremos técnicas específicas para ambientes creativos y profesionales.</p>
-                                
-                                <h5>Comunicación en Contextos Creativos</h5>
-                                <ul>
-                                    <li><strong>Estudios de Música:</strong> Comunicar ideas creativas, manejar feedback sobre arte personal</li>
-                                    <li><strong>Equipos de Diseño:</strong> Presentar conceptos, defender decisiones de diseño</li>
-                                    <li><strong>Ambientes Colaborativos:</strong> Facilitar lluvia de ideas, mediar diferencias creativas</li>
-                                    <li><strong>Networking Profesional:</strong> Presentarse auténticamente sin sonar artificial</li>
-                                </ul>
-
-                                <div class="academic-framework">
-                                    <div class="framework-title">🎯 Modelo de Comunicación Asertiva Creativa</div>
-                                    <div class="methodology-diagram">
-                                        <div class="methodology-step">Escucha Activa<br><small>Entender perspectivas</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Expresión Clara<br><small>Ideas sin ambigüedad</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Feedback Constructivo<br><small>Crítica que construye</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Resolución Colaborativa<br><small>Soluciones en equipo</small></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Networking Auténtico en la Industria Creativa</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Estrategias de Networking Para Alfonso</h4>
-                                <p>Conectar genuinamente con profesionales aprovechando tu autenticidad y pasión musical.</p>
-                                
-                                <h5>Técnicas de Networking Musical</h5>
-                                <ul>
-                                    <li><strong>Eventos de la Industria:</strong> Festivales, conferencias de audio, meetups de UX</li>
-                                    <li><strong>Conversación de Valor:</strong> Ofrecer algo antes de pedir (conocimiento, conexiones, colaboración)</li>
-                                    <li><strong>Follow-up Auténtico:</strong> Mensajes personalizados que referencien conversaciones específicas</li>
-                                    <li><strong>Colaboraciones Pequeñas:</strong> Proyectos cortos que demuestren tu valor</li>
-                                </ul>
-
-                                <h5>Pitch Personal de 60 Segundos</h5>
-                                <p><strong>Estructura sugerida para Alfonso:</strong></p>
-                                <ul>
-                                    <li><strong>Introducción (15 seg):</strong> "Soy Alfonso, músico y explorador de carreras que combinen creatividad con impacto"</li>
-                                    <li><strong>Valor único (30 seg):</strong> "Combino habilidades musicales con mentalidad colaborativa y busco campos donde pueda experimentar 'flujo' diario"</li>
-                                    <li><strong>Llamada a la acción (15 seg):</strong> "Me encantaría conocer tu experiencia en [campo específico]"</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Manejo de Feedback en Procesos Creativos</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Dar y Recibir Crítica Constructiva</h4>
-                                <p>En campos creativos, el feedback es constante. Desarrollar habilidades para manejar críticas sobre trabajo personal y creativo.</p>
-                                
-                                <h5>Recibir Feedback sobre Trabajo Creativo</h5>
-                                <ul>
-                                    <li><strong>Separar la obra del artista:</strong> El feedback es sobre el trabajo, no sobre ti como persona</li>
-                                    <li><strong>Buscar especificidad:</strong> Pedir ejemplos concretos y sugerencias actionables</li>
-                                    <li><strong>Pausa reflexiva:</strong> No responder inmediatamente, procesar primero</li>
-                                    <li><strong>Agradecimiento genuino:</strong> Valorar el tiempo y esfuerzo del feedback</li>
-                                </ul>
-
-                                <h5>Dar Feedback Efectivo</h5>
-                                <ul>
-                                    <li><strong>Modelo "Sándwich+":</strong> Positivo → Específico a mejorar → Positivo → Sugerencia concreta</li>
-                                    <li><strong>Enfoque en objetivos:</strong> ¿Este trabajo cumple los objetivos establecidos?</li>
-                                    <li><strong>Lenguaje colaborativo:</strong> "¿Qué pasaría si..." en lugar de "Esto está mal"</li>
-                                    <li><strong>Contextualización:</strong> Entender las limitaciones y recursos del proyecto</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Trivia Comunicación -->
-                    <div class="trivia-game">
-                        <div class="trivia-header">
-                            <h3 class="trivia-title">🎮 Trivia: Comunicación Asertiva</h3>
-                            <p style="text-align: center; margin-top: 0.5rem; opacity: 0.8;">Evalúa tu comprensión sobre comunicación efectiva</p>
-                        </div>
-                        
-                        <div id="trivia-setup-comunicacion" class="trivia-setup">
-                            <div class="setup-group">
-                                <div class="setup-label">📚 Tema</div>
-                                <select class="setup-select" disabled>
-                                    <option>Comunicación Asertiva y Networking</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">⚡ Dificultad</div>
-                                <select id="difficulty-comunicacion" class="setup-select">
-                                    <option value="facil">Fácil</option>
-                                    <option value="medio" selected>Medio</option>
-                                    <option value="dificil">Difícil</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">🎯 Preguntas</div>
-                                <input type="number" value="5" class="setup-input" readonly style="opacity: 0.6;">
-                            </div>
-                            
-                            <div class="setup-group">
-                                <button class="trivia-button" onclick="startTrivia('comunicacion')">Iniciar Trivia</button>
-                            </div>
-                        </div>
-                        
-                        <div id="trivia-game-comunicacion" style="display: none;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Marca Personal -->
-            <div class="session-card" data-session="marca">
-                <div class="session-header" onclick="toggleSession(this)">
-                    <div class="session-icon">🌟</div>
-                    <div class="session-title">Marca Personal</div>
-                    <div class="session-duration">Diferenciación</div>
-                    <div class="expand-icon">▼</div>
-                </div>
-                <div class="content-container">
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Construyendo una Marca Personal Auténtica Musical-Profesional</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Tu Propuesta de Valor Única: Música + Profesionalismo</h4>
-                                <p>Alfonso, tu combinación de creatividad musical, habilidades colaborativas y búsqueda de "flujo" te posiciona de manera única en el mercado profesional.</p>
-                                
-                                <h5>Elementos de tu Marca Personal</h5>
-                                <ul>
-                                    <li><strong>Identidad Core:</strong> "Profesional que encuentra armonía entre creatividad y impacto"</li>
-                                    <li><strong>Diferenciador Musical:</strong> Perspectiva única que aporta la mentalidad musical a problemas profesionales</li>
-                                    <li><strong>Enfoque de Proceso:</strong> Valorar el journey tanto como el destination</li>
-                                    <li><strong>Colaboración Auténtica:</strong> Facilitar sinergia en equipos multidisciplinarios</li>
-                                </ul>
-
-                                <div class="academic-framework">
-                                    <div class="framework-title">🎵 Marco de Marca Personal Musical-Profesional</div>
-                                    <div class="methodology-diagram">
-                                        <div class="methodology-step">Pasión Musical<br><small>Base auténtica</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Skills Transferibles<br><small>Valor profesional</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Storytelling<br><small>Narrativa convincente</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Presencia Digital<br><small>Visibilidad estratégica</small></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Storytelling Personal: Tu Transición Vocacional</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Narrativa de Transformación Profesional</h4>
-                                <p>Tu historia de exploración vocacional puede ser un activo poderoso que demuestre autenticidad, coraje y pensamiento estratégico.</p>
-                                
-                                <h5>Estructura de tu Historia Personal</h5>
-                                <ul>
-                                    <li><strong>Punto de Partida:</strong> "Estudiaba ingeniería industrial, pero algo no encajaba con mi búsqueda de 'flujo'"</li>
-                                    <li><strong>Momento de Claridad:</strong> "Descubrí que mi pasión musical y habilidades colaborativas podían ser mi fortaleza profesional"</li>
-                                    <li><strong>Proceso de Exploración:</strong> "Investigué campos como [campo elegido], conecté con profesionales, experimenté con proyectos"</li>
-                                    <li><strong>Transformación:</strong> "Ahora combino creatividad musical con [aplicación profesional] para crear [valor específico]"</li>
-                                </ul>
-
-                                <h5>Elementos Clave del Storytelling</h5>
-                                <ul>
-                                    <li><strong>Vulnerabilidad Estratégica:</strong> Compartir dudas de manera que muestre crecimiento</li>
-                                    <li><strong>Proceso de Toma de Decisiones:</strong> Demostrar metodología y reflexión</li>
-                                    <li><strong>Aprendizajes Transferibles:</strong> Qué habilidades ganaste en el proceso</li>
-                                    <li><strong>Visión Futura:</strong> Hacia dónde te diriges profesionalmente</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Presencia Digital Estratégica</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Construyendo tu Ecosistema Digital</h4>
-                                <p>Crear una presencia online coherente que muestre tanto tu lado creativo como profesional.</p>
-                                
-                                <h5>Estrategia por Plataforma</h5>
-                                <ul>
-                                    <li><strong>LinkedIn:</strong> Profesional con toques creativos, comparte proceso de exploración vocacional</li>
-                                    <li><strong>Instagram:</strong> Behind-the-scenes de tu proceso creativo y profesional</li>
-                                    <li><strong>Portfolio Personal:</strong> Combinación de proyectos musicales y profesionales</li>
-                                    <li><strong>Plataformas Especializadas:</strong> SoundCloud para música, Behance para diseño (según campo elegido)</li>
-                                </ul>
-
-                                <h5>Contenido de Valor para Alfonso</h5>
-                                <ul>
-                                    <li><strong>Proceso Creativo:</strong> Documentar cómo la mentalidad musical influye en resolución de problemas</li>
-                                    <li><strong>Reflexiones de Carrera:</strong> Insights sobre exploración vocacional para otros en situación similar</li>
-                                    <li><strong>Colaboraciones:</strong> Proyectos que muestren habilidades de trabajo en equipo</li>
-                                    <li><strong>Aprendizaje Continuo:</strong> Progreso en nuevas habilidades y conocimientos</li>
-                                </ul>
-
-                                <h5>Video de Presentación Personal (2 minutos)</h5>
-                                <p><strong>Estructura sugerida:</strong></p>
-                                <ul>
-                                    <li><strong>Hook Musical (15 seg):</strong> Breve melodía original o snippet musical</li>
-                                    <li><strong>Introducción Auténtica (30 seg):</strong> "Soy Alfonso, y mi proceso de encontrar mi verdadera vocación..."</li>
-                                    <li><strong>Propuesta de Valor (60 seg):</strong> Cómo tu background único aporta valor</li>
-                                    <li><strong>Call to Action (15 seg):</strong> Invitación a conectar o colaborar</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Trivia Marca Personal -->
-                    <div class="trivia-game">
-                        <div class="trivia-header">
-                            <h3 class="trivia-title">🎮 Trivia: Marca Personal</h3>
-                            <p style="text-align: center; margin-top: 0.5rem; opacity: 0.8;">Evalúa tu comprensión sobre branding personal</p>
-                        </div>
-                        
-                        <div id="trivia-setup-marca" class="trivia-setup">
-                            <div class="setup-group">
-                                <div class="setup-label">📚 Tema</div>
-                                <select class="setup-select" disabled>
-                                    <option>Marca Personal y Presencia Digital</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">⚡ Dificultad</div>
-                                <select id="difficulty-marca" class="setup-select">
-                                    <option value="facil">Fácil</option>
-                                    <option value="medio" selected>Medio</option>
-                                    <option value="dificil">Difícil</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">🎯 Preguntas</div>
-                                <input type="number" value="5" class="setup-input" readonly style="opacity: 0.6;">
-                            </div>
-                            
-                            <div class="setup-group">
-                                <button class="trivia-button" onclick="startTrivia('marca')">Iniciar Trivia</button>
-                            </div>
-                        </div>
-                        
-                        <div id="trivia-game-marca" style="display: none;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Conversaciones Difíciles -->
-            <div class="session-card" data-session="conversaciones">
-                <div class="session-header" onclick="toggleSession(this)">
-                    <div class="session-icon">💬</div>
-                    <div class="session-title">Diseño de Conversaciones Difíciles</div>
-                    <div class="session-duration">Habilidad Avanzada</div>
-                    <div class="expand-icon">▼</div>
-                </div>
-                <div class="content-container">
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Conversaciones sobre Cambio de Carrera</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Navegando "La Conversación Familiar"</h4>
-                                <p>Para Alfonso, uno de los mayores desafíos será comunicar su decisión de explorar alternativas a la ingeniería industrial a familia y amigos que tienen expectativas específicas.</p>
-                                
-                                <h5>Preparación para la Conversación Familiar</h5>
-                                <ul>
-                                    <li><strong>Timing Estratégico:</strong> Elegir momento cuando no hay presión externa adicional</li>
-                                    <li><strong>Evidencia Preparada:</strong> Tener ejemplos concretos de exploración y progreso</li>
-                                    <li><strong>Plan B Visible:</strong> Demostrar que no es una decisión impulsiva</li>
-                                    <li><strong>Enfoque en Valores Compartidos:</strong> Conectar con valores familiares (estabilidad, felicidad, éxito)</li>
-                                </ul>
-
-                                <div class="academic-framework">
-                                    <div class="framework-title">💬 Framework para Conversaciones de Cambio</div>
-                                    <div class="methodology-diagram">
-                                        <div class="methodology-step">Contexto<br><small>Establecer marco</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Proceso<br><small>Mostrar metodología</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Evidencia<br><small>Demostrar progreso</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Visión<br><small>Futuro planeado</small></div>
-                                    </div>
-                                </div>
-
-                                <h5>Respuestas Preparadas para Objeciones Comunes</h5>
-                                <ul>
-                                    <li><strong>"¿Y la estabilidad económica?"</strong> → "He investigado salarios promedio y crecimiento en [campo], y planeo una transición gradual"</li>
-                                    <li><strong>"¿No es muy riesgoso?"</strong> → "El mayor riesgo es pasar décadas en algo que no me genera satisfacción. He minimizado riesgos con [plan específico]"</li>
-                                    <li><strong>"¿Ya tienes edad para estos cambios?"</strong> → "Esta exploración me ha mostrado la importancia de decisiones informadas y auténticas"</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Negociación en Industrias Creativas</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Técnicas Específicas para Campos Creativos</h4>
-                                <p>La negociación en industrias creativas tiene matices únicos, especialmente en términos de valoración del trabajo creativo y estructuras menos tradicionales.</p>
-                                
-                                <h5>Negociación de Proyectos Creativos</h5>
-                                <ul>
-                                    <li><strong>Valoración del Trabajo Creativo:</strong> Cómo poner precio a creatividad y tiempo de desarrollo</li>
-                                    <li><strong>Derechos de Autor:</strong> Negociar ownership y uso futuro del trabajo</li>
-                                    <li><strong>Revisiones y Scope Creep:</strong> Definir límites claros en proyectos abiertos</li>
-                                    <li><strong>Timeline Realista:</strong> Educar sobre procesos creativos que no son lineales</li>
-                                </ul>
-
-                                <h5>Conversaciones Salariales en Transición</h5>
-                                <ul>
-                                    <li><strong>Desde Skills Transferibles:</strong> Argumentar valor basado en habilidades únicas</li>
-                                    <li><strong>Progresión por Competencia:</strong> Proponer aumentos basados en dominio demostrado</li>
-                                    <li><strong>Package Total:</strong> Considerar flexibilidad, proyecto, crecimiento además de salary</li>
-                                    <li><strong>Market Research:</strong> Datos específicos de la industria y región</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Establecimiento de Límites Profesionales</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Comunicación de Expectativas en Colaboraciones Creativas</h4>
-                                <p>Establecer límites claros sin parecer inflexible, especialmente importante en tu nuevo campo profesional.</p>
-                                
-                                <h5>Límites Saludables para Alfonso</h5>
-                                <ul>
-                                    <li><strong>Horarios de Creatividad:</strong> "Mis mejores ideas surgen entre [horas], prefiero no tener meetings entonces"</li>
-                                    <li><strong>Comunicación After-Hours:</strong> "Respondo emails hasta [hora] para mantener balance"</li>
-                                    <li><strong>Feedback Específico:</strong> "Prefiero feedback específico con ejemplos para poder implementar mejoras efectivamente"</li>
-                                    <li><strong>Proceso Creativo:</strong> "Mi proceso incluye experimentación, necesito X tiempo antes de mostrar resultados"</li>
-                                </ul>
-
-                                <h5>Técnicas de Comunicación de Límites</h5>
-                                <ul>
-                                    <li><strong>Enfoque Positivo:</strong> "Para darte mi mejor trabajo, necesito..."</li>
-                                    <li><strong>Alternativas:</strong> "No puedo X, pero puedo ofrecerte Y"</li>
-                                    <li><strong>Explicación Breve:</strong> Razón concisa sin sobre-justificación</li>
-                                    <li><strong>Consistencia:</strong> Aplicar límites uniformemente</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Trivia Conversaciones -->
-                    <div class="trivia-game">
-                        <div class="trivia-header">
-                            <h3 class="trivia-title">🎮 Trivia: Conversaciones Difíciles</h3>
-                            <p style="text-align: center; margin-top: 0.5rem; opacity: 0.8;">Evalúa tu comprensión sobre manejo de conversaciones complejas</p>
-                        </div>
-                        
-                        <div id="trivia-setup-conversaciones" class="trivia-setup">
-                            <div class="setup-group">
-                                <div class="setup-label">📚 Tema</div>
-                                <select class="setup-select" disabled>
-                                    <option>Negociación y Manejo de Conflictos</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">⚡ Dificultad</div>
-                                <select id="difficulty-conversaciones" class="setup-select">
-                                    <option value="facil">Fácil</option>
-                                    <option value="medio" selected>Medio</option>
-                                    <option value="dificil">Difícil</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">🎯 Preguntas</div>
-                                <input type="number" value="5" class="setup-input" readonly style="opacity: 0.6;">
-                            </div>
-                            
-                            <div class="setup-group">
-                                <button class="trivia-button" onclick="startTrivia('conversaciones')">Iniciar Trivia</button>
-                            </div>
-                        </div>
-                        
-                        <div id="trivia-game-conversaciones" style="display: none;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recapitulación -->
-            <div class="session-card" data-session="recapitulacion">
-                <div class="session-header" onclick="toggleSession(this)">
-                    <div class="session-icon">🔄</div>
-                    <div class="session-title">Recapitulación</div>
-                    <div class="session-duration">Integración</div>
-                    <div class="expand-icon">▼</div>
-                </div>
-                <div class="content-container">
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Integración de Aprendizajes del Programa</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Tu Journey de Transformación Vocacional</h4>
-                                <p>Alfonso, has recorrido un camino significativo desde la incertidumbre inicial hasta una visión clara de tu futuro profesional.</p>
-                                
-                                <h5>Conexiones entre Módulos</h5>
-                                <div class="academic-framework">
-                                    <div class="framework-title">🔗 Mapa Conceptual de tu Desarrollo</div>
-                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                                        <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e9ecef;">
-                                            <h6 style="color: #3498db;">🎯 Planificación</h6>
-                                            <p style="font-size: 0.9rem;">Identificaste campos alineados con tu búsqueda de "flujo"</p>
-                                        </div>
-                                        <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e9ecef;">
-                                            <h6 style="color: #e74c3c;">📋 Plan de Acción</h6>
-                                            <p style="font-size: 0.9rem;">Creaste un roadmap específico y medible</p>
-                                        </div>
-                                        <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e9ecef;">
-                                            <h6 style="color: #f39c12;">💭 Emociones</h6>
-                                            <p style="font-size: 0.9rem;">Desarrollaste herramientas para gestionar ansiedad y tomar decisiones auténticas</p>
-                                        </div>
-                                        <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e9ecef;">
-                                            <h6 style="color: #27ae60;">🗣️ Comunicación</h6>
-                                            <p style="font-size: 0.9rem;">Fortaleciste habilidades para networking y trabajo colaborativo</p>
-                                        </div>
-                                        <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e9ecef;">
-                                            <h6 style="color: #9b59b6;">🌟 Marca Personal</h6>
-                                            <p style="font-size: 0.9rem;">Construiste una identidad profesional que integra música y profesionalismo</p>
-                                        </div>
-                                        <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e9ecef;">
-                                            <h6 style="color: #e67e22;">💬 Conversaciones</h6>
-                                            <p style="font-size: 0.9rem;">Preparaste estrategias para conversaciones difíciles sobre tu transición</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <h5>Logros Clave de tu Proceso</h5>
-                                <ul>
-                                    <li><strong>Claridad Vocacional:</strong> Pasaste de incertidumbre sobre ingeniería industrial a campos específicos de exploración</li>
-                                    <li><strong>Metodología Personal:</strong> Desarrollaste un sistema personal para tomar decisiones profesionales importantes</li>
-                                    <li><strong>Toolkit Emocional:</strong> Herramientas concretas para manejar ansiedad y mantener motivación</li>
-                                    <li><strong>Red de Contactos:</strong> Plan para construir relaciones profesionales en tu nuevo campo</li>
-                                    <li><strong>Narrativa Personal:</strong> Historia coherente que explica tu transición vocacional</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Próximos Pasos y Mantenimiento del Momentum</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Plan de Implementación Post-Programa</h4>
-                                <p>El verdadero trabajo comienza ahora. Mantener el momentum y seguir avanzando hacia tu objetivo vocacional.</p>
-                                
-                                <h5>Primeros 30 Días</h5>
-                                <ul>
-                                    <li><strong>Semana 1:</strong> Implementar 3 acciones específicas de tu plan de acción</li>
-                                    <li><strong>Semana 2:</strong> Hacer el primer contacto con profesionales de tu campo de interés</li>
-                                    <li><strong>Semana 3:</strong> Iniciar un proyecto pequeño en el área elegida</li>
-                                    <li><strong>Semana 4:</strong> Revisar progreso y ajustar plan según aprendizajes</li>
-                                </ul>
-
-                                <h5>Sistemas de Accountability Personal</h5>
-                                <ul>
-                                    <li><strong>Check-ins Semanales:</strong> Revisión personal de progreso cada domingo</li>
-                                    <li><strong>Buddy de Accountability:</strong> Persona de confianza que revise tu progreso mensualmente</li>
-                                    <li><strong>Diario de Progreso:</strong> Documentar experiencias, emociones y aprendizajes</li>
-                                    <li><strong>Celebración de Hitos:</strong> Reconocer y premiar avances importantes</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Trivia Recapitulación -->
-                    <div class="trivia-game">
-                        <div class="trivia-header">
-                            <h3 class="trivia-title">🎮 Trivia: Integración Final</h3>
-                            <p style="text-align: center; margin-top: 0.5rem; opacity: 0.8;">Evalúa tu comprensión integral del programa</p>
-                        </div>
-                        
-                        <div id="trivia-setup-recapitulacion" class="trivia-setup">
-                            <div class="setup-group">
-                                <div class="setup-label">📚 Tema</div>
-                                <select class="setup-select" disabled>
-                                    <option>Integración de Todos los Módulos</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">⚡ Dificultad</div>
-                                <select id="difficulty-recapitulacion" class="setup-select">
-                                    <option value="facil">Fácil</option>
-                                    <option value="medio" selected>Medio</option>
-                                    <option value="dificil">Difícil</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">🎯 Preguntas</div>
-                                <input type="number" value="5" class="setup-input" readonly style="opacity: 0.6;">
-                            </div>
-                            
-                            <div class="setup-group">
-                                <button class="trivia-button" onclick="startTrivia('recapitulacion')">Iniciar Trivia</button>
-                            </div>
-                        </div>
-                        
-                        <div id="trivia-game-recapitulacion" style="display: none;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Autoevaluación -->
-            <div class="session-card" data-session="autoevaluacion">
-                <div class="session-header" onclick="toggleSession(this)">
-                    <div class="session-icon">📊</div>
-                    <div class="session-title">Autoevaluación</div>
-                    <div class="session-duration">Reflexión Final</div>
-                    <div class="expand-icon">▼</div>
-                </div>
-                <div class="content-container">
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Sistemas de Autoevaluación y Mejora Continua</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Dashboard Personal de Satisfacción Profesional</h4>
-                                <p>Alfonso, desarrollarás un sistema personalizado para monitorear tu nivel de "flujo" y satisfacción profesional a lo largo del tiempo.</p>
-                                
-                                <h5>Métricas Personales de Flujo</h5>
-                                <ul>
-                                    <li><strong>Nivel de Flujo Diario (1-10):</strong> ¿Qué tan absorto estuviste en tus actividades?</li>
-                                    <li><strong>Alineación con Valores (1-10):</strong> ¿Qué tan conectado te sientes con tus valores en el trabajo?</li>
-                                    <li><strong>Crecimiento Musical-Profesional (1-10):</strong> ¿Qué tanto estás integrando música en tu desarrollo profesional?</li>
-                                    <li><strong>Satisfacción Colaborativa (1-10):</strong> ¿Qué tan fulfilling son tus interacciones de equipo?</li>
-                                    <li><strong>Proyección a Futuro (1-10):</strong> ¿Qué tan optimista te sientes sobre tu dirección profesional?</li>
-                                </ul>
-
-                                <div class="academic-framework">
-                                    <div class="framework-title">📊 Tu Sistema Personal de Evaluación</div>
-                                    <div class="methodology-diagram">
-                                        <div class="methodology-step">Datos Diarios<br><small>Tracking básico</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Reflexión Semanal<br><small>Análisis de patrones</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Evaluación Mensual<br><small>Ajustes de rumbo</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Revisión Trimestral<br><small>Grandes decisiones</small></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Herramientas Psicométricas Avanzadas</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Profundización del Autoconocimiento</h4>
-                                <p>Usar herramientas especializadas para continuar el proceso de autodescubrimiento más allá del programa.</p>
-                                
-                                <h5>Evaluaciones Recomendadas para Alfonso</h5>
-                                <ul>
-                                    <li><strong>StrengthsFinder (CliftonStrengths):</strong> Identificar tus top 5 fortalezas naturales</li>
-                                    <li><strong>MBTI Professional:</strong> Profundizar en preferencias de personalidad para decisiones de carrera</li>
-                                    <li><strong>Enneagrama:</strong> Entender motivaciones profundas y patrones de comportamiento</li>
-                                    <li><strong>Values in Action (VIA):</strong> Identificar fortalezas de carácter que te dan energía</li>
-                                    <li><strong>DISC Assessment:</strong> Optimizar estilo de comunicación y trabajo en equipo</li>
-                                </ul>
-
-                                <h5>Cronograma de Evaluaciones</h5>
-                                <ul>
-                                    <li><strong>Mes 1:</strong> StrengthsFinder para identificar talentos naturales</li>
-                                    <li><strong>Mes 3:</strong> MBTI para decisiones de carrera informadas</li>
-                                    <li><strong>Mes 6:</strong> Enneagrama para autoconocimiento profundo</li>
-                                    <li><strong>Anual:</strong> Revisión de valores y repriorización si es necesario</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Plan de Desarrollo Futuro y Ética en el Uso de IA</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Crecimiento Profesional a Largo Plazo</h4>
-                                <p>Establecer una visión de desarrollo que se extienda más allá de encontrar tu primera posición en el nuevo campo.</p>
-                                
-                                <h5>Metas de Desarrollo 1-3-5 Años</h5>
-                                <ul>
-                                    <li><strong>Año 1:</strong> Establecerse en el campo elegido, construir competencias básicas, formar red inicial</li>
-                                    <li><strong>Año 3:</strong> Desarrollar especialización unique, liderar proyectos, ser reconocido en la comunidad profesional</li>
-                                    <li><strong>Año 5:</strong> Convertirse en mentor para otros en transición, considerar emprendimiento o roles de liderazgo</li>
-                                </ul>
-
-                                <h5>Decálogo Ético para el Uso de IA en tu Desarrollo Profesional</h5>
-                                <ol>
-                                    <li><strong>Transparencia:</strong> Ser honesto sobre cuándo usas IA como herramienta de apoyo</li>
-                                    <li><strong>Complemento, no Reemplazo:</strong> Usar IA para potenciar creatividad, no para sustituirla</li>
-                                    <li><strong>Aprendizaje Auténtico:</strong> Asegurar que el uso de IA contribuya a tu crecimiento real</li>
-                                    <li><strong>Crédito Apropiado:</strong> Reconocer cuando IA contribuye significativamente a tu trabajo</li>
-                                    <li><strong>Verificación de Calidad:</strong> Siempre revisar y validar outputs de IA antes de usar</li>
-                                    <li><strong>Privacidad:</strong> Proteger información sensible al usar herramientas de IA</li>
-                                    <li><strong>Sesgo Consciente:</strong> Estar atento a posibles sesgos en recomendaciones de IA</li>
-                                    <li><strong>Desarrollo Humano:</strong> Mantener y desarrollar habilidades humanas únicas</li>
-                                    <li><strong>Ética Profesional:</strong> Usar IA de manera que fortalezca, no comprometa, la integridad profesional</li>
-                                    <li><strong>Reflexión Continua:</strong> Evaluar regularmente el impacto del uso de IA en tu desarrollo</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Trivia Final -->
-                    <div class="trivia-game">
-                        <div class="trivia-header">
-                            <h3 class="trivia-title">🎮 Trivia Final: Tu Journey Completo</h3>
-                            <p style="text-align: center; margin-top: 0.5rem; opacity: 0.8;">Evaluación comprehensiva de todo el programa</p>
-                        </div>
-                        
-                        <div id="trivia-setup-final" class="trivia-setup">
-                            <div class="setup-group">
-                                <div class="setup-label">📚 Todas las Categorías</div>
-                                <select id="categories-final" class="setup-select" multiple>
-                                    <option value="planificacion" selected>Planificación de Carrera</option>
-                                    <option value="plan-accion" selected>Plan de Acción</option>
-                                    <option value="emociones" selected>Gestión Emocional</option>
-                                    <option value="comunicacion" selected>Comunicación Asertiva</option>
-                                    <option value="marca-personal" selected>Marca Personal</option>
-                                    <option value="conversaciones" selected>Conversaciones Difíciles</option>
-                                    <option value="autoevaluacion" selected>Autoevaluación</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">⚡ Dificultad</div>
-                                <select id="difficulty-final" class="setup-select">
-                                    <option value="facil">Fácil</option>
-                                    <option value="medio">Medio</option>
-                                    <option value="dificil" selected>Difícil</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">🎯 Preguntas</div>
-                                <input type="number" id="questions-final" class="setup-input" value="10" min="5" max="20">
-                            </div>
-                            
-                            <div class="setup-group">
-                                <button class="trivia-button" onclick="startTrivia('final')">Evaluación Final</button>
-                            </div>
-                        </div>
-                        
-                        <div id="trivia-game-final" style="display: none;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="cta-section">
-            <h2 style="color: #2c3e50; margin-bottom: 1rem; font-size: 2rem;">¡Felicidades Alfonso! 🎉</h2>
-            <p style="color: #34495e; margin-bottom: 2rem; font-size: 1.1rem;">Has completado un journey transformador de autoconocimiento y planificación vocacional. Ahora tienes las herramientas para encontrar esa carrera que te brinde "flujo" auténtico y satisfacción diaria.</p>
-            
-            <div style="margin-bottom: 2rem;">
-                <button class="cta-button" onclick="scrollToTop()">Volver al Inicio</button>
-                <button class="cta-button secondary" onclick="downloadCertificate()">Descargar Certificado</button>
-                <button class="cta-button" onclick="printContent()">Guardar Contenido</button>
-            </div>
-
-            <div style="margin-top: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 15px; border: 1px solid #e9ecef;">
-                <h3 style="color: #2c3e50; margin-bottom: 1rem;">🎯 Tu Transformación Completada</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; color: #3498db;">8</div>
-                        <div style="color: #2c3e50;">Sesiones Completadas</div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; color: #e74c3c;">1</div>
-                        <div style="color: #2c3e50;">Plan de Acción Personalizado</div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; color: #f39c12;">+50</div>
-                        <div style="color: #2c3e50;">Herramientas y Técnicas</div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; color: #27ae60;">∞</div>
-                        <div style="color: #2c3e50;">Posibilidades de Flujo</div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, #2c3e50, #34495e); color: white; border-radius: 15px;">
-                <h3 style="margin-bottom: 1rem; text-align: center;">🎵 "La música de tu vida profesional está por comenzar" 🎵</h3>
-                <p style="text-align: center; font-style: italic; opacity: 0.9;">
-                    Recuerda: El éxito no está solo en el destino, sino en encontrar "flujo" en cada paso del journey. 
-                    Tu combinación única de creatividad musical, habilidades colaborativas y búsqueda de autenticidad 
-                    te llevará exactamente donde necesitas estar.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Variables globales para trivias
-        let triviaQuestions = {
-            planificacion: [
-                {
-                    question: "¿Cuál es el objetivo principal del mapeo de pasiones transferibles para Alfonso?",
-                    options: {
-                        A: "Abandonar completamente la ingeniería industrial",
-                        B: "Encontrar cómo la música y ejercicio se traducen en competencias profesionales",
-                        C: "Conseguir trabajo inmediatamente",
-                        D: "Evitar tomar decisiones difíciles"
-                    },
-                    correct: "B",
-                    explanation: "El mapeo ayuda a Alfonso a ver cómo sus pasiones naturales pueden convertirse en fortalezas profesionales en campos como producción musical o diseño UX."
-                },
-                {
-                    question: "¿Qué significa 'flujo' en el contexto vocacional de Alfonso?",
-                    options: {
-                        A: "Ganar mucho dinero rápidamente",
-                        B: "Trabajar sin esfuerzo",
-                        C: "Satisfacción profunda que viene del proceso de trabajo, no solo del resultado",
-                        D: "Cambiar de trabajo frecuentemente"
-                    },
-                    correct: "C",
-                    explanation: "Para Alfonso, 'flujo' significa encontrar satisfacción en el proceso diario de trabajo, no solo en lograr metas finales."
-                }
-            ],
-            plan: [
-                {
-                    question: "¿Qué significa la 'S' en la metodología SMART para Alfonso?",
-                    options: {
-                        A: "Simple",
-                        B: "Específico",
-                        C: "Serio",
-                        D: "Secundario"
-                    },
-                    correct: "B",
-                    explanation: "Específico significa definir exactamente qué carrera explorar, qué acciones tomar, con detalles claros y concretos."
-                },
-                {
-                    question: "¿Cuál es un ejemplo de meta SMART para Alfonso en producción musical?",
-                    options: {
-                        A: "Algún día haré música",
-                        B: "En 3 meses, habré completado un curso básico de Pro Tools y creado 3 demos musicales",
-                        C: "Quiero ser famoso",
-                        D: "La música es importante"
-                    },
-                    correct: "B",
-                    explanation: "Esta meta es específica (Pro Tools, 3 demos), medible (3 demos), alcanzable, relevante para Alfonso y temporal (3 meses)."
-                }
-            ],
-            emociones: [
-                {
-                    question: "¿Cuál es una técnica específica para que Alfonso maneje la ansiedad sobre su cambio de carrera?",
-                    options: {
-                        A: "Evitar pensar en el futuro",
-                        B: "Respiración 4-7-8 y meditación musical usando su guitarra",
-                        C: "Tomar decisiones impulsivas",
-                        D: "Compararse constantemente con otros"
-                    },
-                    correct: "B",
-                    explanation: "La técnica 4-7-8 combined con su pasión musical crea una herramienta personalizada para manejar ansiedad."
-                }
-            ],
-            comunicacion: [
-                {
-                    question: "¿Cómo debería Alfonso estructurar su pitch personal de 60 segundos?",
-                    options: {
-                        A: "Solo hablar de música",
-                        B: "Introducción (15s) + Valor único (30s) + Call to action (15s)",
-                        C: "Mencionar todos sus logros académicos",
-                        D: "Criticar la ingeniería industrial"
-                    },
-                    correct: "B",
-                    explanation: "Esta estructura permite presentar identidad, diferenciadores únicos y generar conexión en tiempo limitado."
-                }
-            ],
-            marca: [
-                {
-                    question: "¿Cuál es el diferenciador principal de la marca personal de Alfonso?",
-                    options: {
-                        A: "Ser mejor que todos",
-                        B: "Tener un título universitario",
-                        C: "Combinar perspectiva musical con mentalidad colaborativa y búsqueda de flujo",
-                        D: "Ser el más joven del grupo"
-                    },
-                    correct: "C",
-                    explanation: "La combinación única de música, colaboración y búsqueda de 'flujo' lo diferencia en el mercado profesional."
-                }
-            ],
-            conversaciones: [
-                {
-                    question: "¿Cómo debería Alfonso responder a la objeción familiar '¿Y la estabilidad económica?'?",
-                    options: {
-                        A: "No importa el dinero",
-                        B: "He investigado salarios promedio y crecimiento en [campo], y planeo una transición gradual",
-                        C: "La música siempre da dinero",
-                        D: "No quiero hablar de eso"
-                    },
-                    correct: "B",
-                    explanation: "Esta respuesta muestra investigación, planificación y responsabilidad financiera, addressing legitimate concerns."
-                }
-            ],
-            recapitulacion: [
-                {
-                    question: "¿Cuál es el logro más importante de Alfonso al completar este programa?",
-                    options: {
-                        A: "Conseguir trabajo inmediatamente",
-                        B: "Desarrollar una metodología personal para tomar decisiones profesionales auténticas",
-                        C: "Abandonar todos sus estudios previos",
-                        D: "Convencer a su familia de sus decisiones"
-                    },
-                    correct: "B",
-                    explanation: "La metodología personal le dará herramientas para toda la vida, más allá de esta decisión específica."
-                }
-            ],
-            autoevaluacion: [
-                {
-                    question: "¿Cuál de estos NO es una métrica personal de flujo para Alfonso?",
-                    options: {
-                        A: "Nivel de flujo diario (1-10)",
-                        B: "Alineación con valores (1-10)",
-                        C: "Número de likes en redes sociales",
-                        D: "Satisfacción colaborativa (1-10)"
-                    },
-                    correct: "C",
-                    explanation: "Las métricas de flujo se enfocan en satisfacción interna y alineación personal, no en validación externa."
-                }
-            ]
-        };
-
-        let currentTrivia = null;
-        let currentQuestion = 0;
-        let score = 0;
-        let questions = [];
-        let userAnswers = [];
-
-        // Progress bar animation
-        window.addEventListener('scroll', () => {
-            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            document.getElementById('progressBar').style.width = scrolled + '%';
-        });
-
-        function toggleSession(header) {
-            const sessionCard = header.closest('.session-card');
-            sessionCard.classList.toggle('expanded');
-        }
-
-        function toggleContent(header) {
-            event.stopPropagation();
-            const contentSection = header.closest('.content-section');
-            contentSection.classList.toggle('expanded');
-        }
-
-        function expandAll() {
-            document.querySelectorAll('.session-card').forEach(card => {
-                card.classList.add('expanded');
-            });
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.add('expanded');
-            });
-        }
-
-        function collapseAll() {
-            document.querySelectorAll('.session-card').forEach(card => {
-                card.classList.remove('expanded');
-            });
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('expanded');
-            });
-        }
-
-        function startTrivia(sessionName) {
-            const button = event.target;
-            button.disabled = true;
-            button.innerHTML = 'Cargando...';
-
-            // Get questions for this session
-            if (sessionName === 'final') {
-                // Mix questions from all sessions
-                questions = [];
-                Object.values(triviaQuestions).forEach(sessionQuestions => {
-                    questions = questions.concat(sessionQuestions);
-                });
-                questions = questions.sort(() => 0.5 - Math.random()).slice(0, 10);
-            } else {
-                questions = triviaQuestions[sessionName] || triviaQuestions.planificacion;
-            }
-
-            currentTrivia = sessionName;
-            currentQuestion = 0;
-            score = 0;
-            userAnswers = [];
-
-            startGame(sessionName);
-        }
-
-        function startGame(sessionName) {
-            const setupElement = document.getElementById(`trivia-setup-${sessionName}`);
-            const gameElement = document.getElementById(`trivia-game-${sessionName}`);
-            
-            if (setupElement && gameElement) {
-                setupElement.style.display = 'none';
-                gameElement.style.display = 'block';
-                showQuestion(sessionName);
-            }
-        }
-
-        function showQuestion(sessionName) {
-            if (currentQuestion >= questions.length) {
-                showResults(sessionName);
-                return;
-            }
-
-            const question = questions[currentQuestion];
-            const gameElement = document.getElementById(`trivia-game-${sessionName}`);
-            
-            if (!gameElement) return;
-            
-            gameElement.innerHTML = `
-                <div class="content-section">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <div style="font-weight: bold; color: #2c3e50;">Pregunta ${currentQuestion + 1} de ${questions.length}</div>
-                        <div style="color: #2c3e50;">Puntuación: ${score}/${questions.length}</div>
-                    </div>
-                    
-                    <div style="background: #2c3e50; border-radius: 10px; height: 20px; margin-bottom: 2rem; overflow: hidden;">
-                        <div style="background: white; height: 100%; width: ${((currentQuestion) / questions.length) * 100}%; transition: width 0.3s ease;"></div>
-                    </div>
-                    
-                    <div style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 2rem; text-align: center; font-weight: 500; color: #2c3e50;">
-                        ${question.question}
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
-                        ${Object.entries(question.options).map(([key, value]) => `
-                            <button onclick="selectAnswer('${key}', '${sessionName}')" 
-                                    style="background: white; border: 2px solid #2c3e50; color: #2c3e50; padding: 1rem; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; font-family: inherit; text-align: left; line-height: 1.4;"
-                                    data-option="${key}"
-                                    onmouseover="this.style.background='#f8f9fa'; this.style.transform='translateX(5px)'"
-                                    onmouseout="this.style.background='white'; this.style.transform='translateX(0)'">
-                                <strong>${key}:</strong> ${value}
-                            </button>
-                        `).join('')}
-                    </div>
-                    
-                    <div style="text-align: center;">
-                        <button onclick="nextQuestion('${sessionName}')" 
-                                id="next-button-${sessionName}" 
-                                disabled
-                                style="background: #2c3e50; color: white; border: none; padding: 1rem 2rem; border-radius: 5px; font-weight: bold; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; font-family: inherit; opacity: 0.5;">
-                            Siguiente Pregunta
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
-
-        function selectAnswer(selectedOption, sessionName) {
-            const buttons = document.querySelectorAll(`#trivia-game-${sessionName} button[data-option]`);
-            buttons.forEach(btn => {
-                btn.style.background = 'white';
-                btn.style.color = '#2c3e50';
-                btn.style.fontWeight = 'normal';
-            });
-            
-            const selectedButton = document.querySelector(`#trivia-game-${sessionName} button[data-option="${selectedOption}"]`);
-            if (selectedButton) {
-                selectedButton.style.background = '#2c3e50';
-                selectedButton.style.color = 'white';
-                selectedButton.style.fontWeight = 'bold';
-            }
-            
-            userAnswers[currentQuestion] = selectedOption;
-            const nextButton = document.getElementById(`next-button-${sessionName}`);
-            if (nextButton) {
-                nextButton.disabled = false;
-                nextButton.style.opacity = '1';
-            }
-        }
-
-        function nextQuestion(sessionName) {
-            const question = questions[currentQuestion];
-            const userAnswer = userAnswers[currentQuestion];
-            const isCorrect = userAnswer === question.correct;
-            
-            if (isCorrect) {
-                score++;
-            }
-            
-            // Show correct answer
-            const buttons = document.querySelectorAll(`#trivia-game-${sessionName} button[data-option]`);
-            buttons.forEach(btn => {
-                btn.disabled = true;
-                const option = btn.dataset.option;
-                if (option === question.correct) {
-                    btn.style.background = '#27ae60';
-                    btn.style.color = 'white';
-                    btn.style.transform = 'scale(1.05)';
-                } else if (option === userAnswer && !isCorrect) {
-                    btn.style.background = '#e74c3c';
-                    btn.style.color = 'white';
-                    btn.style.animation = 'shake 0.5s ease-in-out';
-                }
-            });
-            
-            setTimeout(() => {
-                currentQuestion++;
-                showQuestion(sessionName);
-            }, 1500);
-        }
-
-        function showResults(sessionName) {
-            const percentage = Math.round((score / questions.length) * 100);
-            const gameElement = document.getElementById(`trivia-game-${sessionName}`);
-            
-            let performanceMessage = '';
-            let performanceColor = '#27ae60';
-            
-            if (percentage >= 90) {
-                performanceMessage = '¡EXCELENTE! Dominas completamente los conceptos del programa';
-                performanceColor = '#27ae60';
-            } else if (percentage >= 70) {
-                performanceMessage = '¡Muy bien! Tienes un buen dominio de los temas';
-                performanceColor = '#3498db';
-            } else if (percentage >= 50) {
-                performanceMessage = 'Regular. Te recomendamos revisar algunos conceptos';
-                performanceColor = '#f39c12';
-            } else {
-                performanceMessage = 'Necesitas revisar más el material del programa';
-                performanceColor = '#e74c3c';
-            }
-            
-            gameElement.innerHTML = `
-                <div style="text-align: center; padding: 2rem; border: 2px solid #2c3e50; border-radius: 10px; background: white;">
-                    <h3 style="color: #2c3e50; font-size: 2rem; margin-bottom: 1rem; text-transform: uppercase;">¡Trivia Completada!</h3>
-                    <div style="color: ${performanceColor}; font-size: 3rem; font-weight: bold; margin: 1rem 0;">${percentage}%</div>
-                    <div style="font-size: 1.2rem; margin: 1rem 0; color: #2c3e50;">
-                        Respondiste correctamente ${score} de ${questions.length} preguntas
-                    </div>
-                    <div style="margin: 2rem 0; padding: 1rem; background: rgba(44, 62, 80, 0.1); border-radius: 10px;">
-                        <p style="color: ${performanceColor}; font-weight: bold;">${performanceMessage}</p>
-                    </div>
-                    <button onclick="restartTrivia('${sessionName}')" 
-                            style="background: #2c3e50; color: white; border: none; padding: 1rem 2rem; border-radius: 5px; font-weight: bold; text-transform: uppercase; cursor: pointer; margin: 0.5rem; transition: all 0.3s ease;">
-                        Intentar de Nuevo
-                    </button>
-                    <button onclick="reviewAnswers('${sessionName}')" 
-                            style="background: #7f8c8d; color: white; border: none; padding: 1rem 2rem; border-radius: 5px; font-weight: bold; text-transform: uppercase; cursor: pointer; margin: 0.5rem; transition: all 0.3s ease;">
-                        Revisar Respuestas
-                    </button>
-                </div>
-            `;
-        }
-
-        function restartTrivia(sessionName) {
-            const setupElement = document.getElementById(`trivia-setup-${sessionName}`);
-            const gameElement = document.getElementById(`trivia-game-${sessionName}`);
-            const button = document.querySelector(`#trivia-setup-${sessionName} .trivia-button`);
-            
-            if (setupElement && gameElement && button) {
-                setupElement.style.display = 'grid';
-                gameElement.style.display = 'none';
-                button.disabled = false;
-                button.innerHTML = 'Iniciar Trivia';
-            }
-            
-            currentTrivia = null;
-            currentQuestion = 0;
-            score = 0;
-            questions = [];
-            userAnswers = [];
-        }
-
-        function reviewAnswers(sessionName) {
-            const gameElement = document.getElementById(`trivia-game-${sessionName}`);
-            
-            let reviewHTML = `
-                <div style="text-align: center; padding: 2rem; border: 2px solid #2c3e50; border-radius: 10px; background: white;">
-                    <h3 style="color: #2c3e50; margin-bottom: 2rem;">📋 Revisión de Respuestas</h3>
-                    <div style="text-align: left; max-height: 400px; overflow-y: auto; margin: 2rem 0;">
-            `;
-            
-            questions.forEach((question, index) => {
-                const userAnswer = userAnswers[index];
-                const isCorrect = userAnswer === question.correct;
-                const statusIcon = isCorrect ? '✅' : '❌';
-                const statusColor = isCorrect ? '#27ae60' : '#e74c3c';
-                
-                reviewHTML += `
-                    <div style="margin-bottom: 2rem; padding: 1rem; border: 1px solid #2c3e50; border-radius: 10px;">
-                        <p style="font-weight: bold; color: ${statusColor};">
-                            ${statusIcon} Pregunta ${index + 1}: ${question.question}
-                        </p>
-                        <p style="margin: 0.5rem 0;">
-                            <strong>Tu respuesta:</strong> ${userAnswer} - ${question.options[userAnswer]}
-                        </p>
-                        ${!isCorrect ? `
-                            <p style="margin: 0.5rem 0; color: #27ae60;">
-                                <strong>Respuesta correcta:</strong> ${question.correct} - ${question.options[question.correct]}
-                            </p>
-                        ` : ''}
-                        <p style="margin: 0.5rem 0; font-size: 0.9rem; opacity: 0.8;">
-                            <strong>Explicación:</strong> ${question.explanation}
-                        </p>
-                    </div>
-                `;
-            });
-            
-            reviewHTML += `
-                    </div>
-                    <button onclick="restartTrivia('${sessionName}')" 
-                            style="background: #2c3e50; color: white; border: none; padding: 1rem 2rem; border-radius: 5px; font-weight: bold; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease;">
-                        Volver a Empezar
-                    </button>
-                </div>
-            `;
-            
-            gameElement.innerHTML = reviewHTML;
-        }
-
-        // Plan de Acción Functions
-        function savePlan() {
-            const formData = {};
-            const inputs = document.querySelectorAll('.action-plan input, .action-plan textarea');
-            inputs.forEach(input => {
-                if (input.value.trim()) {
-                    formData[input.placeholder || 'field'] = input.value;
-                }
-            });
-            
-            localStorage.setItem('alfonsoActionPlan', JSON.stringify(formData));
-            alert('✅ Plan guardado exitosamente en tu navegador');
-        }
-
-        function downloadPlan() {
-            const inputs = document.querySelectorAll('.action-plan input, .action-plan textarea');
-            let content = 'PLAN DE ACCIÓN PERSONAL - ALFONSO\nCurso de Orientación Vocacional\n\n';
-            
-            inputs.forEach(input => {
-                if (input.value.trim()) {
-                    content += `${input.placeholder}: ${input.value}\n\n`;
-                }
-            });
-            
-            const blob = new Blob([content], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'Plan_Accion_Alfonso.txt';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        function clearPlan() {
-            if (confirm('¿Estás seguro de que quieres limpiar todo el formulario?')) {
-                document.querySelectorAll('.action-plan input, .action-plan textarea').forEach(input => {
-                    input.value = '';
-                });
-            }
-        }
-
-        function downloadCertificate() {
-            alert('🎓 ¡Felicidades! Tu certificado de completación está siendo generado...');
-            // Aquí se podría implementar la generación real del certificado
-        }
-
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        function printContent() {
-            window.print();
-        }
-
-        // Card entrance animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.session-card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            observer.observe(card);
-        });
-
-        // Load saved plan on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const savedPlan = localStorage.getItem('alfonsoActionPlan');
-            if (savedPlan) {
-                try {
-                    const formData = JSON.parse(savedPlan);
-                    Object.entries(formData).forEach(([placeholder, value]) => {
-                        const input = document.querySelector(`.action-plan input[placeholder*="${placeholder}"], .action-plan textarea[placeholder*="${placeholder}"]`);
-                        if (input) {
-                            input.value = value;
-                        }
-                    });
-                } catch (e) {
-                    console.log('Error loading saved plan');
-                }
-            }
-        });
-
-        // Add keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey || e.metaKey) {
-                switch(e.key) {
-                    case 'e':
-                        e.preventDefault();
-                        expandAll();
-                        break;
-                    case 'q':
-                        e.preventDefault();
-                        collapseAll();
-                        break;
-                }
-            }
-        });
-    </script>
-</body>
-</html>
                 <p style="color: #34495e; text-align: center; margin-top: 1rem; font-size: 1.1rem;">
                     🚀 <strong>Descubre tu verdadera vocación y encuentra el "flujo" en tu carrera profesional</strong>
                 </p>
@@ -2204,6 +769,7 @@
             </div>
         </div>
 
+        <!-- INFORMACIÓN DEL PROGRAMA - INMEDIATAMENTE DESPUÉS DEL VIDEO -->
         <div class="instructions">
             <h3>🎯 Objetivo del Programa</h3>
             <p><strong>Al finalizar este programa, Alfonso podrá:</strong> Identificar y definir una trayectoria profesional auténtica que le brinde "flujo" - esa satisfacción profunda que viene del proceso mismo, no solo del resultado final - integrando sus pasiones por la música y el ejercicio con sus habilidades colaborativas y proactivas.</p>
@@ -2215,11 +781,13 @@
             <p><strong>Basado en tu perfil:</strong> Producción Musical, Diseño UX/UI, Musicoterapia, Gestión Cultural, Educación Musical con Tecnología, Psicología del Deporte y Coaching.</p>
         </div>
 
+        <!-- CONTROLES DEL CURSO -->
         <div style="text-align: center; margin-bottom: 2rem;">
             <button class="cta-button" onclick="expandAll()">Expandir Todo</button>
             <button class="cta-button secondary" onclick="collapseAll()">Contraer Todo</button>
         </div>
 
+        <!-- SESIONES DEL CURSO -->
         <div class="course-grid">
             <!-- Planificación de Carrera -->
             <div class="session-card" data-session="planificacion">
@@ -2263,106 +831,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Análisis de Aptitudes e Intereses Vocacionales</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Herramientas de Auto-descubrimiento</h4>
-                                <p>Utilizaremos evaluaciones especializadas para identificar áreas de oportunidad más allá de la ingeniería industrial.</p>
-                                
-                                <h5>Evaluaciones Personalizadas</h5>
-                                <ul>
-                                    <li>Test de intereses profesionales enfocados en campos creativos</li>
-                                    <li>Evaluación de inteligencias múltiples (musical, interpersonal, kinestésica)</li>
-                                    <li>Análisis de valores profesionales y búsqueda de propósito</li>
-                                    <li>Inventario de experiencias de "flujo" previas</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Investigación de Campos Profesionales Alternativos</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Campos Prioritarios para Alfonso</h4>
-                                <p>Basándose en tu perfil, exploraremos estos campos específicos:</p>
-                                
-                                <div class="academic-framework">
-                                    <div class="framework-title">🎯 Campos de Exploración Prioritarios</div>
-                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                                        <div style="background: white; padding: 1rem; border-radius: 8px; text-align: center; border: 1px solid #e9ecef;">
-                                            <h6 style="color: #3498db;">🎵 Producción Musical</h6>
-                                            <p style="font-size: 0.9rem;">Combina pasión musical con tecnología</p>
-                                        </div>
-                                        <div style="background: white; padding: 1rem; border-radius: 8px; text-align: center; border: 1px solid #e9ecef;">
-                                            <h6 style="color: #e74c3c;">🎨 Diseño UX/UI</h6>
-                                            <p style="font-size: 0.9rem;">Proceso creativo colaborativo</p>
-                                        </div>
-                                        <div style="background: white; padding: 1rem; border-radius: 8px; text-align: center; border: 1px solid #e9ecef;">
-                                            <h6 style="color: #f39c12;">🎭 Musicoterapia</h6>
-                                            <p style="font-size: 0.9rem;">Música con impacto humano</p>
-                                        </div>
-                                        <div style="background: white; padding: 1rem; border-radius: 8px; text-align: center; border: 1px solid #e9ecef;">
-                                            <h6 style="color: #27ae60;">🎪 Gestión Cultural</h6>
-                                            <p style="font-size: 0.9rem;">Organización y liderazgo creativo</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <h5>Plan de Exploración Inmediata</h5>
-                                <ul>
-                                    <li><strong>Mes 1-2:</strong> Investigación y contactos con profesionales de cada campo</li>
-                                    <li><strong>Mes 3-4:</strong> Experiencia práctica (crear música, diseñar app básica, organizar evento pequeño)</li>
-                                    <li><strong>Mes 5-6:</strong> Reflexión y decisión basada en experiencias de "flujo"</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Trivia Planificación de Carrera -->
-                    <div class="trivia-game">
-                        <div class="trivia-header">
-                            <h3 class="trivia-title">🎮 Trivia: Planificación de Carrera</h3>
-                            <p style="text-align: center; margin-top: 0.5rem; opacity: 0.8;">Evalúa tu comprensión sobre exploración vocacional</p>
-                        </div>
-                        
-                        <div id="trivia-setup-planificacion" class="trivia-setup">
-                            <div class="setup-group">
-                                <div class="setup-label">📚 Tema</div>
-                                <select class="setup-select" disabled>
-                                    <option>Exploración de Intereses y Campos Profesionales</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">⚡ Dificultad</div>
-                                <select id="difficulty-planificacion" class="setup-select">
-                                    <option value="facil">Fácil</option>
-                                    <option value="medio" selected>Medio</option>
-                                    <option value="dificil">Difícil</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">🎯 Preguntas</div>
-                                <input type="number" value="5" class="setup-input" readonly style="opacity: 0.6;">
-                            </div>
-                            
-                            <div class="setup-group">
-                                <button class="trivia-button" onclick="startTrivia('planificacion')">Iniciar Trivia</button>
-                            </div>
-                        </div>
-                        
-                        <div id="trivia-game-planificacion" style="display: none;"></div>
-                    </div>
                 </div>
             </div>
 
@@ -2375,41 +843,6 @@
                     <div class="expand-icon">▼</div>
                 </div>
                 <div class="content-container">
-                    <div class="content-section">
-                        <div class="content-header" onclick="toggleContent(this)">
-                            <div class="content-title">Establecimiento de Metas SMART</div>
-                            <div class="content-expand-icon">▼</div>
-                        </div>
-                        <div class="content-details">
-                            <div class="content-details-inner">
-                                <h4>Metodología SMART para Alfonso</h4>
-                                <p>Desarrollaremos objetivos específicos, medibles, alcanzables, relevantes y con plazo definido para tu exploración vocacional.</p>
-                                
-                                <div class="academic-framework">
-                                    <div class="framework-title">🎯 Estructura SMART para Orientación Vocacional</div>
-                                    <div class="methodology-diagram">
-                                        <div class="methodology-step">Específico<br><small>¿Qué carrera explorar?</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Medible<br><small>¿Cuántos contactos/proyectos?</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Alcanzable<br><small>¿Recursos disponibles?</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Relevante<br><small>¿Alineado con tus valores?</small></div>
-                                        <div class="arrow">→</div>
-                                        <div class="methodology-step">Temporal<br><small>¿Cuándo completar?</small></div>
-                                    </div>
-                                </div>
-
-                                <h5>Ejemplos de Metas SMART para Alfonso</h5>
-                                <ul>
-                                    <li><strong>Producción Musical:</strong> "En 3 meses, habré completado un curso básico de Pro Tools y creado 3 demos musicales"</li>
-                                    <li><strong>Diseño UX/UI:</strong> "En 6 semanas, habré diseñado el wireframe de una app musical y obtenido feedback de 5 usuarios"</li>
-                                    <li><strong>Network Building:</strong> "En 2 meses, habré contactado y tenido conversaciones de 30 minutos con 3 profesionales de cada campo de interés"</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Plan de Acción Interactivo -->
                     <div class="action-plan">
                         <div class="plan-header">
@@ -2466,124 +899,396 @@
                             </table>
                         </div>
 
-                        <div class="plan-section">
-                            <div class="plan-question">5. Plan de contingencia: Si un paso no se lograra, ¿qué harías?</div>
-                            <table class="plan-table">
-                                <thead>
-                                    <tr>
-                                        <th>Plan Alternativo</th>
-                                        <th>Fecha</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type="text" placeholder="Ej: Si no consigo contacto con productores, buscaré en plataformas online"></td>
-                                        <td><input type="date"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" placeholder="Ej: Si el curso UX está lleno, tomaré un curso online gratuito"></td>
-                                        <td><input type="date"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" placeholder="Ej: Si no hay eventos presenciales, participaré en webinars"></td>
-                                        <td><input type="date"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="plan-section">
-                            <div class="plan-question">6. Una vez conseguido tu propósito ¿qué recibirás al lograr lo que deseas?, ¿quiénes se beneficiarán?</div>
-                            <textarea class="plan-input" placeholder="Ejemplo: Recibiré satisfacción diaria en mi trabajo, podré combinar creatividad con estabilidad económica. Se beneficiarán mis futuros clientes/audiencia..."></textarea>
-                        </div>
-
-                        <div class="plan-section">
-                            <div class="plan-question">7. ¿Cómo te sentirás al lograr tu objetivo? ¿Qué te diría alguien que amas de lograr lo que deseas?</div>
-                            <textarea class="plan-input" placeholder="Visualiza las emociones positivas y el reconocimiento de personas importantes para ti..."></textarea>
-                        </div>
-
-                        <div class="plan-section">
-                            <div class="plan-question">8. Identifica cuatro evidencias de tu avance y aquella que indicará que ya has logrado tu objetivo</div>
-                            <div style="margin-top: 1rem;">
-                                <input type="text" class="plan-input" style="margin-bottom: 0.5rem;" placeholder="1. Evidencia de avance (ej: Completé mi primer demo musical)">
-                                <input type="text" class="plan-input" style="margin-bottom: 0.5rem;" placeholder="2. Evidencia de avance (ej: Tengo contacto regular con 3 profesionales)">
-                                <input type="text" class="plan-input" style="margin-bottom: 0.5rem;" placeholder="3. Evidencia de avance (ej: Obtuve feedback positivo en mi primer proyecto UX)">
-                                <input type="text" class="plan-input" style="margin-bottom: 0.5rem;" placeholder="4. Evidencia de objetivo logrado (ej: Recibí mi primera oferta laboral en el campo elegido)">
-                            </div>
-                        </div>
-
-                        <div class="plan-section">
-                            <div class="plan-question">9. ¿Qué podría salir mal?</div>
-                            <textarea class="plan-input" placeholder="Identifica posibles obstáculos: falta de tiempo, resistencia familiar, dificultad económica, competencia alta..."></textarea>
-                        </div>
-
-                        <div class="plan-section">
-                            <div class="plan-question">10. Define de qué manera te premiarás tus avances y el logro de tu objetivo</div>
-                            <div style="margin-top: 1rem;">
-                                <input type="text" class="plan-input" style="margin-bottom: 0.5rem;" placeholder="1er avance. Premio: (ej: Comprar nuevo software musical)">
-                                <input type="text" class="plan-input" style="margin-bottom: 0.5rem;" placeholder="2º avance. Premio: (ej: Asistir a concierto de mi artista favorito)">
-                                <input type="text" class="plan-input" style="margin-bottom: 0.5rem;" placeholder="3er avance. Premio: (ej: Sesión de grabación profesional)">
-                                <input type="text" class="plan-input" style="margin-bottom: 0.5rem;" placeholder="Logro de objetivo. Premio: (ej: Viaje de celebración)">
-                            </div>
-                        </div>
-
-                        <div class="plan-section">
-                            <div class="plan-question">11. ¿Cómo compensarás las áreas posiblemente afectadas una vez que logres tu objetivo?</div>
-                            <textarea class="plan-input" placeholder="Considera el equilibrio vida-trabajo, tiempo con familia/amigos, estabilidad económica durante la transición..."></textarea>
-                        </div>
-
-                        <div class="plan-section">
-                            <div class="plan-question">12. ¿Qué podría resultar algo realmente inesperado, fantástico, increíble, extraordinario?</div>
-                            <textarea class="plan-input" placeholder="Sueña en grande: ¿podrías crear tu propia empresa musical? ¿colaborar con artistas internacionales? ¿innovar en educación musical?"></textarea>
-                        </div>
-
                         <div style="text-align: center; margin-top: 2rem;">
                             <button class="plan-button" onclick="savePlan()">Guardar Plan</button>
                             <button class="plan-button" onclick="downloadPlan()">Descargar PDF</button>
                             <button class="plan-button" onclick="clearPlan()">Limpiar Formulario</button>
                         </div>
-
-                        <div style="margin-top: 2rem; padding: 1rem; background: white; border: 1px solid #2c3e50; border-radius: 10px;">
-                            <strong>Notas y Observaciones:</strong>
-                            <textarea class="plan-input" style="min-height: 60px;" placeholder="Espacio para notas adicionales, reflexiones o ajustes al plan..."></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Trivia Plan de Acción -->
-                    <div class="trivia-game">
-                        <div class="trivia-header">
-                            <h3 class="trivia-title">🎮 Trivia: Plan de Acción</h3>
-                            <p style="text-align: center; margin-top: 0.5rem; opacity: 0.8;">Evalúa tu comprensión sobre planificación estratégica</p>
-                        </div>
-                        
-                        <div id="trivia-setup-plan" class="trivia-setup">
-                            <div class="setup-group">
-                                <div class="setup-label">📚 Tema</div>
-                                <select class="setup-select" disabled>
-                                    <option>Metodología SMART y Planificación Estratégica</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">⚡ Dificultad</div>
-                                <select id="difficulty-plan" class="setup-select">
-                                    <option value="facil">Fácil</option>
-                                    <option value="medio" selected>Medio</option>
-                                    <option value="dificil">Difícil</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setup-group">
-                                <div class="setup-label">🎯 Preguntas</div>
-                                <input type="number" value="5" class="setup-input" readonly style="opacity: 0.6;">
-                            </div>
-                            
-                            <div class="setup-group">
-                                <button class="trivia-button" onclick="startTrivia('plan')">Iniciar Trivia</button>
-                            </div>
-                        </div>
-                        
-                        <div id="trivia-game-plan" style="display: none;"></div>
                     </div>
                 </div>
             </div>
+
+            <!-- ¿Qué Siento? (Las Emociones) -->
+            <div class="session-card" data-session="emociones">
+                <div class="session-header" onclick="toggleSession(this)">
+                    <div class="session-icon">💭</div>
+                    <div class="session-title">¿Qué Siento? (Las Emociones)</div>
+                    <div class="session-duration">Esencial</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="content-container">
+                    <div class="content-section">
+                        <div class="content-header" onclick="toggleContent(this)">
+                            <div class="content-title">Inteligencia Emocional en Decisiones Profesionales</div>
+                            <div class="content-expand-icon">▼</div>
+                        </div>
+                        <div class="content-details">
+                            <div class="content-details-inner">
+                                <h4>Gestionando la Ansiedad Vocacional</h4>
+                                <p>Para Alfonso, manejar las emociones relacionadas con el cambio de rumbo profesional es crucial para tomar decisiones auténticas y reducir la ansiedad sobre el futuro.</p>
+                                
+                                <h5>Técnicas de Respiración y Mindfulness</h5>
+                                <ul>
+                                    <li><strong>Respiración 4-7-8:</strong> Inhalar 4 seg, mantener 7 seg, exhalar 8 seg para calmar ansiedad</li>
+                                    <li><strong>Meditación Musical:</strong> Usar tu guitarra como ancla de atención plena</li>
+                                    <li><strong>Body Scan después del ejercicio:</strong> Aprovechar el estado post-ejercicio para reflexionar</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comunicación Asertiva -->
+            <div class="session-card" data-session="comunicacion">
+                <div class="session-header" onclick="toggleSession(this)">
+                    <div class="session-icon">🗣️</div>
+                    <div class="session-title">Comunicación Asertiva</div>
+                    <div class="session-duration">Habilidad Clave</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="content-container">
+                    <div class="content-section">
+                        <div class="content-header" onclick="toggleContent(this)">
+                            <div class="content-title">Networking Auténtico en la Industria Creativa</div>
+                            <div class="content-expand-icon">▼</div>
+                        </div>
+                        <div class="content-details">
+                            <div class="content-details-inner">
+                                <h4>Estrategias de Networking Para Alfonso</h4>
+                                <p>Conectar genuinamente con profesionales aprovechando tu autenticidad y pasión musical.</p>
+                                
+                                <h5>Pitch Personal de 60 Segundos</h5>
+                                <p><strong>Estructura sugerida para Alfonso:</strong></p>
+                                <ul>
+                                    <li><strong>Introducción (15 seg):</strong> "Soy Alfonso, músico y explorador de carreras que combinen creatividad con impacto"</li>
+                                    <li><strong>Valor único (30 seg):</strong> "Combino habilidades musicales con mentalidad colaborativa y busco campos donde pueda experimentar 'flujo' diario"</li>
+                                    <li><strong>Llamada a la acción (15 seg):</strong> "Me encantaría conocer tu experiencia en [campo específico]"</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marca Personal -->
+            <div class="session-card" data-session="marca">
+                <div class="session-header" onclick="toggleSession(this)">
+                    <div class="session-icon">🌟</div>
+                    <div class="session-title">Marca Personal</div>
+                    <div class="session-duration">Diferenciación</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="content-container">
+                    <div class="content-section">
+                        <div class="content-header" onclick="toggleContent(this)">
+                            <div class="content-title">Construyendo una Marca Personal Auténtica Musical-Profesional</div>
+                            <div class="content-expand-icon">▼</div>
+                        </div>
+                        <div class="content-details">
+                            <div class="content-details-inner">
+                                <h4>Tu Propuesta de Valor Única: Música + Profesionalismo</h4>
+                                <p>Alfonso, tu combinación de creatividad musical, habilidades colaborativas y búsqueda de "flujo" te posiciona de manera única en el mercado profesional.</p>
+                                
+                                <h5>Elementos de tu Marca Personal</h5>
+                                <ul>
+                                    <li><strong>Identidad Core:</strong> "Profesional que encuentra armonía entre creatividad y impacto"</li>
+                                    <li><strong>Diferenciador Musical:</strong> Perspectiva única que aporta la mentalidad musical a problemas profesionales</li>
+                                    <li><strong>Enfoque de Proceso:</strong> Valorar el journey tanto como el destination</li>
+                                    <li><strong>Colaboración Auténtica:</strong> Facilitar sinergia en equipos multidisciplinarios</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conversaciones Difíciles -->
+            <div class="session-card" data-session="conversaciones">
+                <div class="session-header" onclick="toggleSession(this)">
+                    <div class="session-icon">💬</div>
+                    <div class="session-title">Diseño de Conversaciones Difíciles</div>
+                    <div class="session-duration">Habilidad Avanzada</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="content-container">
+                    <div class="content-section">
+                        <div class="content-header" onclick="toggleContent(this)">
+                            <div class="content-title">Conversaciones sobre Cambio de Carrera</div>
+                            <div class="content-expand-icon">▼</div>
+                        </div>
+                        <div class="content-details">
+                            <div class="content-details-inner">
+                                <h4>Navegando "La Conversación Familiar"</h4>
+                                <p>Para Alfonso, uno de los mayores desafíos será comunicar su decisión de explorar alternativas a la ingeniería industrial a familia y amigos que tienen expectativas específicas.</p>
+                                
+                                <h5>Respuestas Preparadas para Objeciones Comunes</h5>
+                                <ul>
+                                    <li><strong>"¿Y la estabilidad económica?"</strong> → "He investigado salarios promedio y crecimiento en [campo], y planeo una transición gradual"</li>
+                                    <li><strong>"¿No es muy riesgoso?"</strong> → "El mayor riesgo es pasar décadas en algo que no me genera satisfacción. He minimizado riesgos con [plan específico]"</li>
+                                    <li><strong>"¿Ya tienes edad para estos cambios?"</strong> → "Esta exploración me ha mostrado la importancia de decisiones informadas y auténticas"</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recapitulación -->
+            <div class="session-card" data-session="recapitulacion">
+                <div class="session-header" onclick="toggleSession(this)">
+                    <div class="session-icon">🔄</div>
+                    <div class="session-title">Recapitulación</div>
+                    <div class="session-duration">Integración</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="content-container">
+                    <div class="content-section">
+                        <div class="content-header" onclick="toggleContent(this)">
+                            <div class="content-title">Integración de Aprendizajes del Programa</div>
+                            <div class="content-expand-icon">▼</div>
+                        </div>
+                        <div class="content-details">
+                            <div class="content-details-inner">
+                                <h4>Tu Journey de Transformación Vocacional</h4>
+                                <p>Alfonso, has recorrido un camino significativo desde la incertidumbre inicial hasta una visión clara de tu futuro profesional.</p>
+                                
+                                <h5>Logros Clave de tu Proceso</h5>
+                                <ul>
+                                    <li><strong>Claridad Vocacional:</strong> Pasaste de incertidumbre sobre ingeniería industrial a campos específicos de exploración</li>
+                                    <li><strong>Metodología Personal:</strong> Desarrollaste un sistema personal para tomar decisiones profesionales importantes</li>
+                                    <li><strong>Toolkit Emocional:</strong> Herramientas concretas para manejar ansiedad y mantener motivación</li>
+                                    <li><strong>Red de Contactos:</strong> Plan para construir relaciones profesionales en tu nuevo campo</li>
+                                    <li><strong>Narrativa Personal:</strong> Historia coherente que explica tu transición vocacional</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Autoevaluación -->
+            <div class="session-card" data-session="autoevaluacion">
+                <div class="session-header" onclick="toggleSession(this)">
+                    <div class="session-icon">📊</div>
+                    <div class="session-title">Autoevaluación</div>
+                    <div class="session-duration">Reflexión Final</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="content-container">
+                    <div class="content-section">
+                        <div class="content-header" onclick="toggleContent(this)">
+                            <div class="content-title">Dashboard Personal de Satisfacción Profesional</div>
+                            <div class="content-expand-icon">▼</div>
+                        </div>
+                        <div class="content-details">
+                            <div class="content-details-inner">
+                                <h4>Métricas Personales de Flujo</h4>
+                                <p>Alfonso, desarrollarás un sistema personalizado para monitorear tu nivel de "flujo" y satisfacción profesional a lo largo del tiempo.</p>
+                                
+                                <ul>
+                                    <li><strong>Nivel de Flujo Diario (1-10):</strong> ¿Qué tan absorto estuviste en tus actividades?</li>
+                                    <li><strong>Alineación con Valores (1-10):</strong> ¿Qué tan conectado te sientes con tus valores en el trabajo?</li>
+                                    <li><strong>Crecimiento Musical-Profesional (1-10):</strong> ¿Qué tanto estás integrando música en tu desarrollo profesional?</li>
+                                    <li><strong>Satisfacción Colaborativa (1-10):</strong> ¿Qué tan fulfilling son tus interacciones de equipo?</li>
+                                    <li><strong>Proyección a Futuro (1-10):</strong> ¿Qué tan optimista te sientes sobre tu dirección profesional?</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA FINAL -->
+        <div class="cta-section">
+            <h2 style="color: #2c3e50; margin-bottom: 1rem; font-size: 2rem;">¡Felicidades Alfonso! 🎉</h2>
+            <p style="color: #34495e; margin-bottom: 2rem; font-size: 1.1rem;">Has completado un journey transformador de autoconocimiento y planificación vocacional. Ahora tienes las herramientas para encontrar esa carrera que te brinde "flujo" auténtico y satisfacción diaria.</p>
+            
+            <div style="margin-bottom: 2rem;">
+                <button class="cta-button" onclick="scrollToTop()">Volver al Inicio</button>
+                <button class="cta-button secondary" onclick="downloadCertificate()">Descargar Certificado</button>
+                <button class="cta-button" onclick="printContent()">Guardar Contenido</button>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 15px; border: 1px solid #e9ecef;">
+                <h3 style="color: #2c3e50; margin-bottom: 1rem;">🎯 Tu Transformación Completada</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; color: #3498db;">8</div>
+                        <div style="color: #2c3e50;">Sesiones Completadas</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; color: #e74c3c;">1</div>
+                        <div style="color: #2c3e50;">Plan de Acción Personalizado</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; color: #f39c12;">+50</div>
+                        <div style="color: #2c3e50;">Herramientas y Técnicas</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; color: #27ae60;">∞</div>
+                        <div style="color: #2c3e50;">Posibilidades de Flujo</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, #2c3e50, #34495e); color: white; border-radius: 15px;">
+                <h3 style="margin-bottom: 1rem; text-align: center;">🎵 "La música de tu vida profesional está por comenzar" 🎵</h3>
+                <p style="text-align: center; font-style: italic; opacity: 0.9;">
+                    Recuerda: El éxito no está solo en el destino, sino en encontrar "flujo" en cada paso del journey. 
+                    Tu combinación única de creatividad musical, habilidades colaborativas y búsqueda de autenticidad 
+                    te llevará exactamente donde necesitas estar.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Progress bar animation
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        function toggleSession(header) {
+            const sessionCard = header.closest('.session-card');
+            sessionCard.classList.toggle('expanded');
+        }
+
+        function toggleContent(header) {
+            event.stopPropagation();
+            const contentSection = header.closest('.content-section');
+            contentSection.classList.toggle('expanded');
+        }
+
+        function expandAll() {
+            document.querySelectorAll('.session-card').forEach(card => {
+                card.classList.add('expanded');
+            });
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.add('expanded');
+            });
+        }
+
+        function collapseAll() {
+            document.querySelectorAll('.session-card').forEach(card => {
+                card.classList.remove('expanded');
+            });
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('expanded');
+            });
+        }
+
+        // Plan de Acción Functions
+        function savePlan() {
+            const formData = {};
+            const inputs = document.querySelectorAll('.action-plan input, .action-plan textarea');
+            inputs.forEach(input => {
+                if (input.value.trim()) {
+                    formData[input.placeholder || 'field'] = input.value;
+                }
+            });
+            
+            localStorage.setItem('alfonsoActionPlan', JSON.stringify(formData));
+            alert('✅ Plan guardado exitosamente en tu navegador');
+        }
+
+        function downloadPlan() {
+            const inputs = document.querySelectorAll('.action-plan input, .action-plan textarea');
+            let content = 'PLAN DE ACCIÓN PERSONAL - ALFONSO\nCurso de Orientación Vocacional\n\n';
+            
+            inputs.forEach(input => {
+                if (input.value.trim()) {
+                    content += `${input.placeholder}: ${input.value}\n\n`;
+                }
+            });
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Plan_Accion_Alfonso.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function clearPlan() {
+            if (confirm('¿Estás seguro de que quieres limpiar todo el formulario?')) {
+                document.querySelectorAll('.action-plan input, .action-plan textarea').forEach(input => {
+                    input.value = '';
+                });
+            }
+        }
+
+        function downloadCertificate() {
+            alert('🎓 ¡Felicidades! Tu certificado de completación está siendo generado...');
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function printContent() {
+            window.print();
+        }
+
+        // Card entrance animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.session-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                observer.observe(card);
+            });
+
+            // Load saved plan
+            const savedPlan = localStorage.getItem('alfonsoActionPlan');
+            if (savedPlan) {
+                try {
+                    const formData = JSON.parse(savedPlan);
+                    Object.entries(formData).forEach(([placeholder, value]) => {
+                        const input = document.querySelector(`.action-plan input[placeholder*="${placeholder}"], .action-plan textarea[placeholder*="${placeholder}"]`);
+                        if (input) {
+                            input.value = value;
+                        }
+                    });
+                } catch (e) {
+                    console.log('Error loading saved plan');
+                }
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case 'e':
+                        e.preventDefault();
+                        expandAll();
+                        break;
+                    case 'q':
+                        e.preventDefault();
+                        collapseAll();
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
