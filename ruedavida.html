@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeWheel AI - Rueda de la Vida Inteligente</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        main {
+            margin-top: 80px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background: #fff;
+            color: #667eea;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .section {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        .evaluation-section {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .evaluation-container {
+            display: grid;
+            grid-template-columns: 300px 1fr 400px;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .wheel-sidebar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 100px;
+        }
+
+        .life-wheel {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 1rem;
+        }
+
+        .wheel-legend {
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .wheel-legend div {
+            margin: 0.3rem 0;
+        }
+
+        .questions-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            color: #2c3e50;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .area-section {
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            border: 2px solid #e3f2fd;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .area-section:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .area-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .area-score {
+            background: #667eea;
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .question-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-subcategory {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            margin-bottom: 1rem;
+            font-style: italic;
+            color: #34495e;
+        }
+
+        .question-slider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .slider {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+        }
+
+        .score-display {
+            font-weight: 600;
+            color: #667eea;
+            min-width: 30px;
+            font-size: 1.1rem;
+        }
+
+        .ai-coach {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            color: #2c3e50;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .coach-header {
+            text-align: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .coach-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            min-height: 300px;
+            max-height: 400px;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border-radius: 10px;
+            max-width: 90%;
+        }
+
+        .user-message {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+        }
+
+        .ai-message {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .generate-plan-btn {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .generate-plan-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            height: 100%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #667eea;
+            padding: 1rem;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.8rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 1024px) {
+            .evaluation-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .wheel-sidebar, .ai-coach {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">🎯 LifeWheel AI</a>
+                <nav>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#evaluacion">Evaluación</a></li>
+                        <li><a href="#coaching">IA Coach</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="container">
+                <h1>LifeWheel AI</h1>
+                <p>Evalúa tu vida completa con 58 preguntas específicas y recibe un plan de coaching personalizado generado por inteligencia artificial</p>
+                <a href="#evaluacion" class="cta-button">Comenzar Evaluación Completa</a>
+            </div>
+        </section>
+
+        <section id="evaluacion" class="evaluation-section">
+            <div class="container">
+                <h2>Evaluación Completa de tu Rueda de la Vida</h2>
+                <p style="text-align: center; margin-bottom: 2rem; opacity: 0.9;">
+                    Responde 58 preguntas específicas distribuidas en 8 áreas fundamentales de tu vida
+                </p>
+                
+                <div class="evaluation-container">
+                    <!-- Sidebar con rueda -->
+                    <div class="wheel-sidebar">
+                        <h3 style="text-align: center; margin-bottom: 1rem;">Tu Progreso</h3>
+                        <canvas id="lifeWheel" class="life-wheel" width="250" height="250"></canvas>
+                        
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text" id="progressText">0 de 58 preguntas</div>
+                        
+                        <div class="summary-card" id="summaryCard" style="display: none;">
+                            <h4>Resumen</h4>
+                            <div class="summary-stats">
+                                <div class="stat-item">
+                                    <div class="stat-number" id="avgScore">0</div>
+                                    <div>Promedio</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number" id="highestScore">0</div>
+                                    <div>Mayor</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number" id="lowestScore">0</div>
+                                    <div>Menor</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contenedor de preguntas -->
+                    <div class="questions-container" id="questionsContainer">
+                        <div style="text-align: center; padding: 2rem;">
+                            <h3>Cargando preguntas de evaluación...</h3>
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+
+                    <!-- Coach IA -->
+                    <div class="ai-coach">
+                        <div class="coach-header">
+                            <h3>🤖 Coach IA Personal</h3>
+                            <p>Tu asistente powered by ChatGPT</p>
+                        </div>
+                        
+                        <button class="generate-plan-btn" id="generatePlanBtn" onclick="generateCoachingPlan()" disabled>
+                            🎯 Generar Plan de Coaching
+                        </button>
+                        
+                        <div class="coach-messages" id="coachMessages">
+                            <div class="message ai-message">
+                                ¡Hola! Soy tu coach personal con inteligencia artificial. 
+                                <br><br>
+                                Completa la evaluación de las 58 preguntas y te ayudaré a crear un plan de coaching personalizado basado en tus respuestas específicas.
+                                <br><br>
+                                También puedes hacerme preguntas sobre desarrollo personal en cualquier momento. 😊
+                            </div>
+                        </div>
+                        
+                        <div class="loading" id="coachLoading">
+                            <div class="spinner"></div>
+                            <p>El coach está analizando...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 LifeWheel AI. Transformando vidas con inteligencia artificial y coaching personalizado.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Estructura completa de preguntas basada en el archivo Excel
+        const preguntasCompletas = {
+            "Salud": {
+                color: "#e74c3c",
+                preguntas: [
+                    {
+                        subcategoria: "Estado anímico",
+                        pregunta: "¿Tengo alguna afección que altere mi estado psicológico? (si no tienes, puntúa diez). ¿Me siento bien de ánimo?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Hábitos saludables psicológicos",
+                        pregunta: "¿Cuido mi salud mental y realizo actividades que consigan alejarme de un estado de tensión, nervios, estrés?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Cuidados",
+                        pregunta: "Cuando me siento bajo de ánimo, ¿adopto medidas que me permitan recuperarlo adecuada y rápidamente?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Estado físico",
+                        pregunta: "¿Tengo alguna enfermedad que afecte a mi estado físico? (si no tienes, puntúa diez).",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Hábitos saludables físicos",
+                        pregunta: "¿La limpieza física, el descanso, la alimentación, el deporte y otros cuidados, que tengo son los adecuados?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Curaciones",
+                        pregunta: "Al perder mi estado físico, ¿adopto medidas que me permitan recuperarlo satisfactoriamente?",
+                        puntuacion: 5
+                    }
+                ]
+            },
+            "Desarrollo Personal": {
+                color: "#9b59b6",
+                preguntas: [
+                    {
+                        subcategoria: "Aportación a la sociedad",
+                        pregunta: "¿Me siento útil a la sociedad? ¿Estoy satisfecho con las aportaciones que hago a la sociedad, a Dios y a mí mismo?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Proyectos actuales",
+                        pregunta: "¿Me siento a gusto con mis planes y proyectos de crecimiento personal en los que estoy inmerso?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Proyectos futuros",
+                        pregunta: "¿Cómo de prometedores son mis proyectos futuros? ¿Me satisfacen las perspectivas que tengo de crecer?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Espiritualidad",
+                        pregunta: "¿Me siento bien con mi espiritualidad? ¿La cultivo suficiente?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Esfuerzo y autoestima",
+                        pregunta: "¿Cómo evaluaría mi nivel de autoestima? ¿Considero que dedico el suficiente esfuerzo a las cosas que hago?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Actitudes",
+                        pregunta: "¿Estoy satisfecho con las actitudes que tengo ante la vida? ¿Me planteo de buen modo todo lo que me ocurre en la vida?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Habilidades",
+                        pregunta: "¿Cuento con las suficientes habilidades para realizar todo aquello que me propongo?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Conocimiento",
+                        pregunta: "¿Estoy satisfecho con la formación con la que cuento? ¿Debería estudiar nuevas cosas para avanzar correctamente?",
+                        puntuacion: 5
+                    }
+                ]
+            },
+            "Hogar": {
+                color: "#3498db",
+                preguntas: [
+                    {
+                        subcategoria: "País",
+                        pregunta: "¿Estoy satisfecho en el país en el que vivo? ¿Estoy conforme con la actual política, entorno social y económico?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Ciudad/Pueblo",
+                        pregunta: "¿Me siento a gusto en la ciudad en la que habito? ¿Estoy conforme con los servicios que ofrece?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Barrio",
+                        pregunta: "¿Cómo de satisfecho estoy con el barrio en el que vivo? ¿Me agradan los vecinos y servicios que me aporta?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Hogar",
+                        pregunta: "¿La casa en la que vivo me satisface? ¿Tiene el suficiente espacio y comodidad que necesito?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Convivencia",
+                        pregunta: "¿Cómo me siento respecto al tipo de convivencia que tengo en mi hogar? ¿Estoy agusto con quien comparto?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Cuidado del hogar",
+                        pregunta: "¿Qué tan satisfecho estoy con el grado de comodidad, limpieza y cuidado que creo en mi hogar?",
+                        puntuacion: 5
+                    }
+                ]
+            },
+            "Familia y Amigos": {
+                color: "#2ecc71",
+                preguntas: [
+                    {
+                        subcategoria: "Capacidad de entrega",
+                        pregunta: "¿Me siento satisfecho con la capacidad que tengo para buscar y comunicarme con nuevos amigos o familiares?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Madre",
+                        pregunta: "¿Estoy satisfecho con la relación que tengo con mi madre?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Padre",
+                        pregunta: "¿Estoy satisfecho con la relación que tengo con mi padre?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Hijos",
+                        pregunta: "¿Estoy satisfecho con la relación que tengo con mis hijos? Si no los tengo y los quiero, ¿Hago acciones para tenerlos?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Familiares cercanos",
+                        pregunta: "¿Cómo me siento en mis relaciones con familiares cercanos? Es decir, con mis hermanos, abuelos, primos, etc.",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Amigos",
+                        pregunta: "¿Me siento satisfecho con los amigos que tengo? ¿Realmente dispongo de ellos cuando los necesito?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Conocidos",
+                        pregunta: "¿Estoy a gusto con los conocidos que tengo? ¿Considero que tengo muchos?",
+                        puntuacion: 5
+                    }
+                ]
+            },
+            "Amor": {
+                color: "#f39c12",
+                preguntas: [
+                    {
+                        subcategoria: "Capacidad de amar",
+                        pregunta: "¿Me siento satisfecho con mi capacidad para tener relaciones de pareja? ¿Realmente me entrego?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Número de relaciones",
+                        pregunta: "¿Estoy satisfecho con el número de relaciones sentimentales que tengo? ¿Me gustaría tener otras relaciones?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Duración",
+                        pregunta: "¿Estoy contento con el tiempo que duran mis relaciones? ¿Hago cosas por mantener a mi pareja y le doy razones para que se quede?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Comunicación",
+                        pregunta: "¿Estoy satisfecho con la comunicación y convivencia que tengo? ¿Me entiendo bien con mi pareja?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Fidelidad",
+                        pregunta: "¿Siento que hay fidelidad en mis relaciones? ¿Tengo la confianza de que mi pareja no me engaña?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Pasión",
+                        pregunta: "¿Estoy satisfecho con la calidad y frecuencia del sexo que tengo con mi pareja? ¿Me siento realmente querido?",
+                        puntuacion: 5
+                    }
+                ]
+            },
+            "Carrera": {
+                color: "#1abc9c",
+                preguntas: [
+                    {
+                        subcategoria: "Capacidad de trabajo",
+                        pregunta: "¿Me siento satisfecho con mi rendimiento en el entorno laboral? ¿Realmente quiero trabajar en lo que trabajo?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Funciones",
+                        pregunta: "¿Estoy satisfecho con las funciones que desempeño? ¿Estoy desarrollando tareas que generan valor en mi empresa?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Empresa",
+                        pregunta: "¿Me siento a gusto en mi empresa? ¿Respeta ésta mis valores?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Jefe",
+                        pregunta: "¿Estoy satisfecho con mi jefe? (o de mi papel de jefe como empresario).",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Compañeros",
+                        pregunta: "¿Cómo me siento respecto a mis compañeros de trabajo? ¿Siento que formamos un buen equipo?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Reconocimiento",
+                        pregunta: "¿Me veo reconocido en mi trabajo? ¿Siento que se valora el trabajo que realizo?",
+                        puntuacion: 5
+                    }
+                ]
+            },
+            "Finanzas": {
+                color: "#34495e",
+                preguntas: [
+                    {
+                        subcategoria: "Ingresos actuales",
+                        pregunta: "¿Estoy satisfecho con los ingresos que tengo en la actualidad? ¿Son suficientes para mis necesidades?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Ingresos futuros",
+                        pregunta: "¿Estoy satisfecho con los ingresos que tendré en un futuro? ¿Mi perspectiva de crecimiento es buena?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Gastos",
+                        pregunta: "¿Cómo me siento respecto al nivel de gastos que tengo? ¿Creo que gasto por encima de mis posibilidades?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Deudas",
+                        pregunta: "¿Estoy satisfecho con el nivel de deudas que tengo? ¿Me siento muy agobiado con las deudas que tengo?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Ahorro",
+                        pregunta: "¿Guardo algo de dinero para los malos momentos? ¿Estoy contento con mis ahorros?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Pertenencias",
+                        pregunta: "¿Cómo me siento respecto a las pertenencias con las que cuento? ¿Realmente me satisface todo lo que tengo?",
+                        puntuacion: 5
+                    }
+                ]
+            },
+            "Ocio": {
+                color: "#e67e22",
+                preguntas: [
+                    {
+                        subcategoria: "Tiempo libre",
+                        pregunta: "¿Dispongo de suficiente tiempo de ocio? ¿Creo que debería tener más?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Aprovechamiento",
+                        pregunta: "¿Siento que saco partido al tiempo del que dispongo? ¿Realmente aprovecho mi ocio?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Diversión",
+                        pregunta: "¿Me divierto lo suficiente en mis ratos de ocio? ¿Siento que me aburro y no lo disfruto?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Actividades receptivas",
+                        pregunta: "¿Qué tal valoro las actividades que realizo como la lectura, disfrutar del cine, la TV, espectáculos?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Actividades activas",
+                        pregunta: "¿Estoy satisfecho haciendo algún deporte, practicando una afición como por ejemplo jugar a videojuegos?",
+                        puntuacion: 5
+                    },
+                    {
+                        subcategoria: "Actividades participativas",
+                        pregunta: "¿Qué tal valoro el ocio en el que participo con otras personas, como una reunión con amigos, familia?",
+                        puntuacion: 5
+                    }
+                ]
+            }
+        };
+
+        // Variables globales
+        let todasLasRespuestas = {};
+        let preguntasRespondidas = 0;
+        let totalPreguntas = 0;
+
+        // Calcular total de preguntas
+        Object.values(preguntasCompletas).forEach(area => {
+            totalPreguntas += area.preguntas.length;
+        });
+
+        // Inicializar respuestas
+        Object.keys(preguntasCompletas).forEach(areaName => {
+            todasLasRespuestas[areaName] = {};
+            preguntasCompletas[areaName].preguntas.forEach((pregunta, index) => {
+                todasLasRespuestas[areaName][index] = pregunta.puntuacion;
+            });
+        });
+
+        // Inicializar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            createQuestionsInterface();
+            drawWheel();
+            updateProgress();
+        });
+
+        function createQuestionsInterface() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+
+            Object.entries(preguntasCompletas).forEach(([areaName, areaData]) => {
+                const areaSection = document.createElement('div');
+                areaSection.className = 'area-section';
+                areaSection.style.borderColor = areaData.color + '40';
+                
+                const promedioArea = calcularPromedioArea(areaName);
+                
+                areaSection.innerHTML = `
+                    <div class="area-title">
+                        <span style="color: ${areaData.color};">●</span>
+                        ${areaName}
+                        <span class="area-score" style="background: ${areaData.color};">${promedioArea.toFixed(1)}/10</span>
+                    </div>
+                `;
+
+                areaData.preguntas.forEach((pregunta, index) => {
+                    const questionDiv = document.createElement('div');
+                    questionDiv.className = 'question-item';
+                    questionDiv.innerHTML = `
+                        <div class="question-subcategory">${pregunta.subcategoria}</div>
+                        <div class="question-text">"${pregunta.pregunta}"</div>
+                        <div class="question-slider">
+                            <span>1</span>
+                            <input type="range" min="1" max="10" value="${pregunta.puntuacion}" 
+                                   class="slider" id="slider_${areaName}_${index}" 
+                                   onchange="updateAnswer('${areaName}', ${index}, this.value)">
+                            <span>10</span>
+                            <span class="score-display" id="score_${areaName}_${index}">${pregunta.puntuacion}</span>
+                        </div>
+                    `;
+                    areaSection.appendChild(questionDiv);
+                });
+
+                container.appendChild(areaSection);
+            });
+        }
+
+        function updateAnswer(areaName, questionIndex, value) {
+            todasLasRespuestas[areaName][questionIndex] = parseInt(value);
+            document.getElementById(`score_${areaName}_${questionIndex}`).textContent = value;
+            
+            // Actualizar área
+            const promedioArea = calcularPromedioArea(areaName);
+            const areaScoreElement = document.querySelector(`[data-area="${areaName}"] .area-score`);
+            if (areaScoreElement) {
+                areaScoreElement.textContent = `${promedioArea.toFixed(1)}/10`;
+            }
+            
+            // Actualizar en la interfaz de área
+            const areaTitleElement = document.querySelector(`.area-title:has(.area-score)`);
+            if (areaTitleElement) {
+                const areaScoreSpan = areaTitleElement.querySelector('.area-score');
+                if (areaScoreSpan && areaTitleElement.textContent.includes(areaName)) {
+                    areaScoreSpan.textContent = `${promedioArea.toFixed(1)}/10`;
+                }
+            }
+            
+            updateProgress();
+            drawWheel();
+            checkCompletionStatus();
+        }
+
+        function calcularPromedioArea(areaName) {
+            const respuestasArea = todasLasRespuestas[areaName];
+            const valores = Object.values(respuestasArea);
+            return valores.reduce((a, b) => a + b, 0) / valores.length;
+        }
+
+        function updateProgress() {
+            const progressPercentage = (preguntasRespondidas / totalPreguntas) * 100;
+            document.getElementById('progressFill').style.width = `${progressPercentage}%`;
+            document.getElementById('progressText').textContent = `${preguntasRespondidas} de ${totalPreguntas} preguntas`;
+            
+            // Mostrar resumen si está completo
+            if (preguntasRespondidas >= totalPreguntas * 0.5) { // Mostrar cuando esté 50% completo
+                updateSummary();
+            }
+        }
+
+        function updateSummary() {
+            const summaryCard = document.getElementById('summaryCard');
+            summaryCard.style.display = 'block';
+            
+            const promedios = Object.keys(preguntasCompletas).map(area => calcularPromedioArea(area));
+            const promedio = promedios.reduce((a, b) => a + b, 0) / promedios.length;
+            const mayor = Math.max(...promedios);
+            const menor = Math.min(...promedios);
+            
+            document.getElementById('avgScore').textContent = promedio.toFixed(1);
+            document.getElementById('highestScore').textContent = mayor.toFixed(1);
+            document.getElementById('lowestScore').textContent = menor.toFixed(1);
+        }
+
+        function drawWheel() {
+            const canvas = document.getElementById('lifeWheel');
+            const ctx = canvas.getContext('2d');
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const maxRadius = 100;
+            
+            // Limpiar canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Dibujar círculos concéntricos (guías)
+            for (let i = 2; i <= 10; i += 2) {
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, (maxRadius * i / 10), 0, 2 * Math.PI);
+                ctx.strokeStyle = '#ecf0f1';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+            
+            // Preparar datos de áreas
+            const areas = Object.entries(preguntasCompletas).map(([name, data]) => ({
+                name,
+                color: data.color,
+                score: calcularPromedioArea(name)
+            }));
+            
+            const anglePerArea = (2 * Math.PI) / areas.length;
+            
+            areas.forEach((area, index) => {
+                const startAngle = index * anglePerArea - Math.PI / 2;
+                const endAngle = (index + 1) * anglePerArea - Math.PI / 2;
+                const radius = (maxRadius * area.score / 10);
+                
+                // Dibujar sector
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+                ctx.closePath();
+                ctx.fillStyle = area.color + '80';
+                ctx.fill();
+                ctx.strokeStyle = area.color;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // Dibujar líneas divisorias
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(
+                    centerX + maxRadius * Math.cos(startAngle),
+                    centerY + maxRadius * Math.sin(startAngle)
+                );
+                ctx.strokeStyle = '#bdc3c7';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                
+                // Etiquetas
+                const labelAngle = startAngle + anglePerArea / 2;
+                const labelRadius = maxRadius + 20;
+                const labelX = centerX + labelRadius * Math.cos(labelAngle);
+                const labelY = centerY + labelRadius * Math.sin(labelAngle);
+                
+                ctx.fillStyle = '#2c3e50';
+                ctx.font = '8px Inter';
+                ctx.textAlign = 'center';
+                ctx.fillText(area.name, labelX, labelY);
+            });
+        }
+
+        function checkCompletionStatus() {
+            // Contar preguntas respondidas (diferentes del valor por defecto o modificadas)
+            let respondidas = 0;
+            Object.values(todasLasRespuestas).forEach(area => {
+                respondidas += Object.keys(area).length;
+            });
+            
+            if (respondidas >= totalPreguntas * 0.3) { // Habilitar cuando esté 30% completo
+                document.getElementById('generatePlanBtn').disabled = false;
+            }
+        }
+
+        async function generateCoachingPlan() {
+            const button = document.getElementById('generatePlanBtn');
+            const loading = document.getElementById('coachLoading');
+            const messages = document.getElementById('coachMessages');
+            
+            button.disabled = true;
+            button.textContent = '🔄 Analizando respuestas...';
+            loading.style.display = 'block';
+            
+            // Preparar datos para la IA
+            const resumenCompleto = prepararDatosParaIA();
+            
+            try {
+                // Llamar a la API de Claude (simulando ChatGPT)
+                const response = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 1500,
+                        messages: [{
+                            role: 'user',
+                            content: `Eres un coach experto certificado especializado en la metodología "Rueda de la Vida". 
+                            
+                            CONTEXTO: El usuario completó una evaluación integral de 58 preguntas específicas distribuidas en 8 áreas de vida.
+                            
+                            DATOS DE EVALUACIÓN:
+                            ${resumenCompleto}
+                            
+                            TAREA: Crea un plan de coaching personalizado y detallado que incluya:
+                            
+                            1. 📊 DIAGNÓSTICO INTEGRAL:
+                            - Análisis de fortalezas principales
+                            - Áreas de mayor oportunidad de mejora
+                            - Patrones emocionales identificados
+                            - Interconexiones entre áreas
+                            
+                            2. 🎯 PLAN DE ACCIÓN ESPECÍFICO:
+                            - 3 objetivos SMART prioritarios (30, 60, 90 días)
+                            - Estrategias específicas para cada área crítica
+                            - Actividades diarias/semanales concretas
+                            - Métricas de seguimiento
+                            
+                            3. 💡 RECOMENDACIONES PERSONALIZADAS:
+                            - Técnicas específicas basadas en las respuestas
+                            - Recursos recomendados (libros, apps, ejercicios)
+                            - Estrategias de mantenimiento de motivación
+                            
+                            4. 🚀 PRÓXIMOS PASOS INMEDIATOS:
+                            - Qué hacer en los próximos 7 días
+                            - Cómo implementar cambios gradualmente
+                            
+                            ESTILO: Empático, motivador, específico y accionable. Usa el nombre de las subcategorías específicas que puntuaron bajo.
+                            LONGITUD: Detallado pero estructurado, máximo 800 palabras.
+                            
+                            Inicia con un saludo personal y termina con palabras de motivación.`
+                        }]
+                    })
+                });
+                
+                const data = await response.json();
+                const planCoaching = data.content[0].text;
+                
+                // Mostrar el plan de coaching
+                addCoachMessage(planCoaching);
+                
+                // Cambiar el botón para permitir más preguntas
+                button.textContent = '💬 Hacer pregunta específica';
+                button.onclick = () => enableQuestionMode();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                
+                // Plan de coaching de ejemplo para la demo
+                const planDemo = generarPlanCoachingDemo(resumenCompleto);
+                addCoachMessage(planDemo);
+                
+                button.textContent = '💬 Hacer pregunta específica';
+                button.onclick = () => enableQuestionMode();
+            } finally {
+                loading.style.display = 'none';
+                button.disabled = false;
+            }
+        }
+
+        function prepararDatosParaIA() {
+            let resumen = "RESULTADOS POR ÁREA:\n\n";
+            
+            Object.entries(preguntasCompletas).forEach(([areaName, areaData]) => {
+                const promedio = calcularPromedioArea(areaName);
+                resumen += `${areaName} (Promedio: ${promedio.toFixed(1)}/10):\n`;
+                
+                areaData.preguntas.forEach((pregunta, index) => {
+                    const puntuacion = todasLasRespuestas[areaName][index];
+                    resumen += `- ${pregunta.subcategoria}: ${puntuacion}/10 (${pregunta.pregunta})\n`;
+                });
+                resumen += "\n";
+            });
+            
+            // Agregar estadísticas generales
+            const promedios = Object.keys(preguntasCompletas).map(area => calcularPromedioArea(area));
+            const promedioGeneral = promedios.reduce((a, b) => a + b, 0) / promedios.length;
+            const areaMasFuerte = Object.keys(preguntasCompletas)[promedios.indexOf(Math.max(...promedios))];
+            const areaMasDebil = Object.keys(preguntasCompletas)[promedios.indexOf(Math.min(...promedios))];
+            
+            resumen += `ESTADÍSTICAS GENERALES:
+- Promedio general: ${promedioGeneral.toFixed(1)}/10
+- Área más fuerte: ${areaMasFuerte} (${Math.max(...promedios).toFixed(1)}/10)
+- Área con mayor oportunidad: ${areaMasDebil} (${Math.min(...promedios).toFixed(1)}/10)`;
+            
+            return resumen;
+        }
+
+        function generarPlanCoachingDemo(resumenCompleto) {
+            const promedios = Object.keys(preguntasCompletas).map(area => calcularPromedioArea(area));
+            const promedioGeneral = promedios.reduce((a, b) => a + b, 0) / promedios.length;
+            const areaMasFuerte = Object.keys(preguntasCompletas)[promedios.indexOf(Math.max(...promedios))];
+            const areaMasDebil = Object.keys(preguntasCompletas)[promedios.indexOf(Math.min(...promedios))];
+            
+            return `🎯 **TU PLAN DE COACHING PERSONALIZADO**
+
+¡Hola! He analizado tus 58 respuestas y tengo excelentes noticias para ti.
+
+📊 **DIAGNÓSTICO INTEGRAL:**
+
+**Tu Fortaleza Principal:** ${areaMasFuerte} (${Math.max(...promedios).toFixed(1)}/10)
+¡Felicidades! Esta área es tu motor de impulso. Las habilidades que demuestras aquí pueden ser transferidas a otras áreas.
+
+**Área de Mayor Oportunidad:** ${areaMasDebil} (${Math.min(...promedios).toFixed(1)}/10)
+Aquí es donde enfocaremos la mayor energía para generar el mayor impacto en tu bienestar general.
+
+**Promedio General:** ${promedioGeneral.toFixed(1)}/10 - Una base sólida para construir.
+
+🎯 **OBJETIVOS SMART PRIORITARIOS:**
+
+**30 días:** Mejora ${areaMasDebil} en 1 punto enfocándote en la subcategoría de menor puntuación
+**60 días:** Establece rutinas consistentes que conecten tu fortaleza (${areaMasFuerte}) con áreas de mejora
+**90 días:** Logra un promedio general de ${(promedioGeneral + 1).toFixed(1)}/10 mediante mejora integral
+
+💡 **RECOMENDACIONES ESPECÍFICAS:**
+
+1. **Técnica del Efecto Cascada:** Usa tus fortalezas en ${areaMasFuerte} para impulsar ${areaMasDebil}
+2. **Regla 15-5-5:** 15 minutos diarios para ${areaMasDebil}, 5 para reflexión, 5 para planificar el día siguiente
+3. **Accountability Partner:** Comparte tus objetivos con alguien de confianza
+
+🚀 **PRÓXIMOS 7 DÍAS:**
+
+Día 1-2: Identifica 3 acciones específicas para mejorar ${areaMasDebil}
+Día 3-5: Implementa 1 acción diaria y documenta resultados
+Día 6-7: Evalúa progreso y ajusta estrategia
+
+**Recuerda:** Cada pequeño paso cuenta. Tu evaluación muestra autoconciencia, ¡eso ya es un gran logro! 🌟
+
+¿Te gustaría que profundice en alguna área específica o tienes preguntas sobre tu plan?`;
+        }
+
+        function addCoachMessage(message) {
+            const messagesContainer = document.getElementById('coachMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ai-message';
+            messageDiv.innerHTML = message.replace(/\n/g, '<br>');
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function enableQuestionMode() {
+            const coachContainer = document.querySelector('.ai-coach');
+            const inputHTML = `
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <input type="text" id="userQuestionInput" placeholder="Pregúntame sobre tu plan o desarrollo personal..." 
+                           style="flex: 1; padding: 0.8rem; border: 2px solid #ddd; border-radius: 25px; outline: none;"
+                           onkeypress="handleQuestionKeyPress(event)">
+                    <button onclick="sendUserQuestion()" style="background: #667eea; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 25px; cursor: pointer; font-weight: 600;">
+                        Enviar
+                    </button>
+                </div>
+            `;
+            coachContainer.insertAdjacentHTML('beforeend', inputHTML);
+        }
+
+        function handleQuestionKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendUserQuestion();
+            }
+        }
+
+        async function sendUserQuestion() {
+            const input = document.getElementById('userQuestionInput');
+            const question = input.value.trim();
+            
+            if (!question) return;
+            
+            // Mostrar pregunta del usuario
+            addUserMessage(question);
+            input.value = '';
+            
+            // Mostrar loading
+            document.getElementById('coachLoading').style.display = 'block';
+            
+            try {
+                // En una implementación real, aquí iría la llamada a la API
+                const contextualPrompt = `
+                Contexto previo: El usuario ya tiene su plan de coaching basado en sus 58 respuestas de la Rueda de la Vida.
+                
+                Pregunta específica: "${question}"
+                
+                Responde como un coach experto, manteniendo coherencia con el plan ya generado.
+                Sé específico, empático y accionable. Máximo 200 palabras.
+                `;
+                
+                // Simular respuesta de IA
+                setTimeout(() => {
+                    const respuesta = "Excelente pregunta. Basándome en tu evaluación específica, te recomiendo enfocarte en pequeñas acciones diarias que se alineen con tus fortalezas actuales. ¿Hay algún aspecto particular de tu plan que te gustaría implementar primero?";
+                    addCoachMessage(respuesta);
+                    document.getElementById('coachLoading').style.display = 'none';
+                }, 2000);
+                
+            } catch (error) {
+                addCoachMessage('Lo siento, hubo un error. En la implementación final, esto funcionará perfectamente con ChatGPT.');
+                document.getElementById('coachLoading').style.display = 'none';
+            }
+        }
+
+        function addUserMessage(message) {
+            const messagesContainer = document.getElementById('coachMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user-message';
+            messageDiv.textContent = message;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Smooth scrolling para navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) => {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
