@@ -490,6 +490,7 @@
                         <div style="text-align: center; padding: 2rem;">
                             <h3>Cargando preguntas de evaluación...</h3>
                             <div class="spinner"></div>
+                            <p>Si las preguntas no cargan, <button onclick="location.reload()" style="background: #667eea; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">haz clic aquí para recargar</button></p>
                         </div>
                     </div>
 
@@ -835,10 +836,12 @@
         let preguntasRespondidas = 0;
         let totalPreguntas = 0;
 
-        // Calcular total de preguntas
+        // Calcular total de preguntas y inicializar respuestas al cargar
+        console.log('Inicializando datos...');
         Object.values(preguntasCompletas).forEach(area => {
             totalPreguntas += area.preguntas.length;
         });
+        console.log('Total de preguntas calculado:', totalPreguntas);
 
         // Inicializar respuestas
         Object.keys(preguntasCompletas).forEach(areaName => {
@@ -847,33 +850,70 @@
                 todasLasRespuestas[areaName][index] = pregunta.puntuacion;
             });
         });
+        console.log('Respuestas inicializadas:', todasLasRespuestas);
 
         // Inicializar la página
         document.addEventListener('DOMContentLoaded', function() {
-            createQuestionsInterface();
-            drawWheel();
-            updateProgress();
+            console.log('DOM cargado, iniciando aplicación...');
+            console.log('Total de preguntas configuradas:', totalPreguntas);
+            try {
+                createQuestionsInterface();
+                drawWheel();
+                updateProgress();
+                console.log('Aplicación inicializada correctamente');
+            } catch (error) {
+                console.error('Error al inicializar:', error);
+                // Fallback: mostrar mensaje de error
+                const container = document.getElementById('questionsContainer');
+                if (container) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 2rem; color: #e74c3c;">
+                            <h3>Error al cargar las preguntas</h3>
+                            <p>Reintentando en 2 segundos...</p>
+                        </div>
+                    `;
+                    setTimeout(() => {
+                        createQuestionsInterface();
+                        drawWheel();
+                        updateProgress();
+                    }, 2000);
+                }
+            }
         });
 
         function createQuestionsInterface() {
+            console.log('Creando interfaz de preguntas...');
             const container = document.getElementById('questionsContainer');
+            
+            if (!container) {
+                console.error('Container no encontrado!');
+                return;
+            }
+            
             container.innerHTML = '';
+            console.log('Areas a procesar:', Object.keys(preguntasCompletas));
 
             Object.entries(preguntasCompletas).forEach(([areaName, areaData]) => {
+                console.log(`Procesando área: ${areaName} con ${areaData.preguntas.length} preguntas`);
+                
                 const areaSection = document.createElement('div');
                 areaSection.className = 'area-section';
                 areaSection.style.borderColor = areaData.color + '40';
                 
                 const promedioArea = calcularPromedioArea(areaName);
+                console.log(`Promedio para ${areaName}: ${promedioArea}`);
                 
-                areaSection.innerHTML = `
-                    <div class="area-title">
-                        <span style="color: ${areaData.color};">●</span>
-                        ${areaName}
-                        <span class="area-score" style="background: ${areaData.color};">${promedioArea.toFixed(1)}/10</span>
-                    </div>
+                // Crear el encabezado del área
+                const areaHeader = document.createElement('div');
+                areaHeader.className = 'area-title';
+                areaHeader.innerHTML = `
+                    <span style="color: ${areaData.color};">●</span>
+                    ${areaName}
+                    <span class="area-score" style="background: ${areaData.color};" id="area-score-${areaName}">${promedioArea.toFixed(1)}/10</span>
                 `;
+                areaSection.appendChild(areaHeader);
 
+                // Crear las preguntas
                 areaData.preguntas.forEach((pregunta, index) => {
                     const questionDiv = document.createElement('div');
                     questionDiv.className = 'question-item';
@@ -884,7 +924,8 @@
                             <span>1</span>
                             <input type="range" min="1" max="10" value="${pregunta.puntuacion}" 
                                    class="slider" id="slider_${areaName}_${index}" 
-                                   onchange="updateAnswer('${areaName}', ${index}, this.value)">
+                                   onchange="updateAnswer('${areaName}', ${index}, this.value)"
+                                   oninput="updateAnswer('${areaName}', ${index}, this.value)">
                             <span>10</span>
                             <span class="score-display" id="score_${areaName}_${index}">${pregunta.puntuacion}</span>
                         </div>
@@ -894,37 +935,56 @@
 
                 container.appendChild(areaSection);
             });
+            
+            console.log('Interfaz de preguntas creada exitosamente');
         }
 
         function updateAnswer(areaName, questionIndex, value) {
-            todasLasRespuestas[areaName][questionIndex] = parseInt(value);
-            document.getElementById(`score_${areaName}_${questionIndex}`).textContent = value;
+            console.log(`Actualizando: ${areaName}, pregunta ${questionIndex}, valor ${value}`);
             
-            // Actualizar área
-            const promedioArea = calcularPromedioArea(areaName);
-            const areaScoreElement = document.querySelector(`[data-area="${areaName}"] .area-score`);
-            if (areaScoreElement) {
-                areaScoreElement.textContent = `${promedioArea.toFixed(1)}/10`;
-            }
-            
-            // Actualizar en la interfaz de área
-            const areaTitleElement = document.querySelector(`.area-title:has(.area-score)`);
-            if (areaTitleElement) {
-                const areaScoreSpan = areaTitleElement.querySelector('.area-score');
-                if (areaScoreSpan && areaTitleElement.textContent.includes(areaName)) {
-                    areaScoreSpan.textContent = `${promedioArea.toFixed(1)}/10`;
+            try {
+                todasLasRespuestas[areaName][questionIndex] = parseInt(value);
+                
+                // Actualizar display del score
+                const scoreElement = document.getElementById(`score_${areaName}_${questionIndex}`);
+                if (scoreElement) {
+                    scoreElement.textContent = value;
                 }
+                
+                // Actualizar promedio del área
+                const promedioArea = calcularPromedioArea(areaName);
+                const areaScoreElement = document.getElementById(`area-score-${areaName}`);
+                if (areaScoreElement) {
+                    areaScoreElement.textContent = `${promedioArea.toFixed(1)}/10`;
+                }
+                
+                updateProgress();
+                drawWheel();
+                checkCompletionStatus();
+                
+                console.log(`Respuesta actualizada correctamente para ${areaName}`);
+            } catch (error) {
+                console.error('Error actualizando respuesta:', error);
             }
-            
-            updateProgress();
-            drawWheel();
-            checkCompletionStatus();
         }
 
         function calcularPromedioArea(areaName) {
-            const respuestasArea = todasLasRespuestas[areaName];
-            const valores = Object.values(respuestasArea);
-            return valores.reduce((a, b) => a + b, 0) / valores.length;
+            try {
+                const respuestasArea = todasLasRespuestas[areaName];
+                if (!respuestasArea) {
+                    console.warn(`No se encontraron respuestas para área: ${areaName}`);
+                    return 5;
+                }
+                const valores = Object.values(respuestasArea);
+                if (valores.length === 0) {
+                    console.warn(`No hay valores para área: ${areaName}`);
+                    return 5;
+                }
+                return valores.reduce((a, b) => a + b, 0) / valores.length;
+            } catch (error) {
+                console.error(`Error calculando promedio para ${areaName}:`, error);
+                return 5;
+            }
         }
 
         function updateProgress() {
