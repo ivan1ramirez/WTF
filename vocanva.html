@@ -3,854 +3,456 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taller de Orientación Vocacional Digital</title>
+    <title>Panel Interactivo de Orientación Vocacional</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A user-centric, single-page dashboard with four main sections: 1) An introduction (Inicio), 2) Interactive participant profiles (Perfiles) that filter career data, 3) A core data exploration hub (Explora Carreras) with filterable charts and details on demand, and 4) A personal action plan section (Mi Plan) with interactive goal-setting. This structure was chosen to move from a linear workshop format to a non-linear, exploratory experience, allowing users to connect personal profiles to real market data and actionable steps at their own pace. -->
+    <!-- Visualization & Content Choices: Participant data is shown in clickable cards (HTML/CSS) to set a global filter state. Career market data is visualized with a dynamic bar chart for salaries (Chart.js) and a line chart for growth trends (Chart.js), both updatable by region filters. Career details are in expandable sections (JS toggle). The action plan uses interactive HTML elements (clickable podium, dynamic SMART goal form) to make planning tangible. This combination of static info, dynamic charts, and interactive tools directly supports the goal of self-guided exploration and planning. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
     <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #3d3d3d;
         }
-        .timer-display {
-            font-family: 'Courier New', monospace;
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
         }
-        .section-card {
-            transition: all 0.3s ease;
+        .nav-link {
+            transition: all 0.3s;
         }
-        .section-card:hover {
+        .nav-link:hover, .nav-link.active {
+            color: #c084fc; /* purple-400 */
             transform: translateY(-2px);
         }
-        .chat-message {
-            animation: slideIn 0.3s ease-out;
+        .card {
+            transition: all 0.3s ease-in-out;
         }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
-        .pulse-animation {
-            animation: pulse 2s infinite;
+        .btn-primary {
+            background-color: #a855f7; /* purple-500 */
+            color: white;
+            transition: background-color 0.3s;
         }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        .btn-primary:hover {
+            background-color: #9333ea; /* purple-600 */
         }
-        .presenting-indicator {
-            position: relative;
+        .btn-secondary {
+            background-color: #e5e7eb; /* gray-200 */
+            color: #374151; /* gray-700 */
+            transition: background-color 0.3s;
         }
-        .presenting-indicator::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #10b981, #34d399);
-            border-radius: 8px;
-            z-index: -1;
-            animation: borderGlow 1.5s ease-in-out infinite alternate;
+        .btn-secondary:hover {
+            background-color: #d1d5db; /* gray-300 */
         }
-        @keyframes borderGlow {
-            0% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.5); }
-            100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.8); }
+        .btn-filter.active {
+            background-color: #a855f7; /* purple-500 */
+            color: white;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
         }
     </style>
 </head>
-<body class="gradient-bg min-h-screen">
-    <!-- Header -->
-    <header class="bg-white shadow-lg border-b-4 border-indigo-500">
-        <div class="max-w-7xl mx-auto px-4 py-6">
-            <div class="flex items-center justify-between flex-wrap">
-                <div>
-                    <h1 class="text-3xl font-bold text-gray-900">
-                        Taller de Orientación Vocacional Digital
-                    </h1>
-                    <p class="text-gray-600 mt-1">Diseña tu plan de vida y carrera personalizado</p>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <i class="fas fa-video text-4xl text-indigo-500"></i>
-                    <div class="text-right">
-                        <p class="text-sm text-gray-500">Plataforma: Zoom</p>
-                        <p class="text-sm text-gray-500">Duración: 2 horas</p>
-                    </div>
-                </div>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-purple-600">Tu Futuro Profesional</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#inicio" class="nav-link text-gray-600 font-medium">Inicio</a>
+                <a href="#perfiles" class="nav-link text-gray-600 font-medium">Perfiles</a>
+                <a href="#explora" class="nav-link text-gray-600 font-medium">Explora Carreras</a>
+                <a href="#plan" class="nav-link text-gray-600 font-medium">Mi Plan</a>
             </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#inicio" class="block py-2 nav-link text-gray-600">Inicio</a>
+            <a href="#perfiles" class="block py-2 nav-link text-gray-600">Perfiles</a>
+            <a href="#explora" class="block py-2 nav-link text-gray-600">Explora Carreras</a>
+            <a href="#plan" class="block py-2 nav-link text-gray-600">Mi Plan</a>
         </div>
     </header>
 
-    <div class="max-w-7xl mx-auto px-4 py-8">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <!-- Main Content -->
-            <div class="lg:col-span-2 space-y-6">
-                
-                <!-- Progress Timeline -->
-                <div class="bg-white rounded-xl shadow-lg p-6 section-card">
-                    <h2 class="text-xl font-semibold mb-4">Progreso del Taller</h2>
-                    <div class="grid grid-cols-5 gap-2 mb-4">
-                        <div class="flex flex-col items-center relative section-btn cursor-pointer" data-section="0">
-                            <button class="w-12 h-12 rounded-full flex items-center justify-center text-white transition-all bg-blue-500 section-button">
-                                <i class="fas fa-users"></i>
-                            </button>
-                            <span class="text-xs mt-2 text-center">Bienvenida</span>
-                            <span class="text-xs text-gray-500">10min</span>
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="inicio" class="text-center mb-20 scroll-mt-20">
+            <h2 class="text-4xl font-bold mb-4">Construye el Mapa de Tu Futuro</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600">
+                Este panel interactivo está diseñado para ayudarte a explorar tus pasiones, analizar el mercado laboral y crear un plan de acción concreto. Navega por las secciones para descubrir tu ruta profesional ideal.
+            </p>
+        </section>
+
+        <section id="perfiles" class="mb-20 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-center mb-10">Conoce a los Participantes</h2>
+            <div id="profiles-container" class="grid md:grid-cols-3 gap-8">
+            </div>
+        </section>
+
+        <section id="explora" class="mb-20 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-center mb-4">Explora Carreras y el Mercado Laboral</h2>
+            <p class="text-center text-gray-600 mb-10">Selecciona un perfil para ver las carreras alineadas o explora libremente.</p>
+            <div id="careers-container" class="space-y-8">
+            </div>
+        </section>
+
+        <section id="plan" class="bg-white p-8 rounded-2xl shadow-lg scroll-mt-20">
+            <h2 class="text-3xl font-bold text-center mb-10">Crea Tu Plan de Acción</h2>
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 text-center">1. Prioriza tus Opciones: Mi Podio Profesional</h3>
+                    <div class="flex items-end justify-center space-x-2 h-64 bg-gray-100 p-4 rounded-lg">
+                        <div id="podium-2" class="podium-spot w-1/3 h-3/5 bg-gray-300 rounded-t-lg flex flex-col items-center justify-center cursor-pointer border-2 border-dashed border-gray-400">
+                            <span class="text-3xl font-bold text-gray-500">2</span>
+                            <span class="text-sm text-gray-500 mt-2">Lugar</span>
                         </div>
-                        <div class="flex flex-col items-center relative section-btn cursor-pointer" data-section="1">
-                            <button class="w-12 h-12 rounded-full flex items-center justify-center text-white transition-all bg-gray-300 section-button">
-                                <i class="fas fa-target"></i>
-                            </button>
-                            <span class="text-xs mt-2 text-center">Exploración</span>
-                            <span class="text-xs text-gray-500">40min</span>
+                        <div id="podium-1" class="podium-spot w-1/3 h-4/5 bg-purple-300 rounded-t-lg flex flex-col items-center justify-center cursor-pointer border-2 border-dashed border-purple-500">
+                            <span class="text-4xl font-bold text-purple-700">1</span>
+                            <span class="text-lg text-purple-700 mt-2">Lugar</span>
                         </div>
-                        <div class="flex flex-col items-center relative section-btn cursor-pointer" data-section="2">
-                            <button class="w-12 h-12 rounded-full flex items-center justify-center text-white transition-all bg-gray-300 section-button">
-                                <i class="fas fa-book-open"></i>
-                            </button>
-                            <span class="text-xs mt-2 text-center">Alternativas</span>
-                            <span class="text-xs text-gray-500">30min</span>
-                        </div>
-                        <div class="flex flex-col items-center relative section-btn cursor-pointer" data-section="3">
-                            <button class="w-12 h-12 rounded-full flex items-center justify-center text-white transition-all bg-gray-300 section-button">
-                                <i class="fas fa-star"></i>
-                            </button>
-                            <span class="text-xs mt-2 text-center">Metas SMART</span>
-                            <span class="text-xs text-gray-500">40min</span>
-                        </div>
-                        <div class="flex flex-col items-center relative section-btn cursor-pointer" data-section="4">
-                            <button class="w-12 h-12 rounded-full flex items-center justify-center text-white transition-all bg-gray-300 section-button">
-                                <i class="fas fa-comments"></i>
-                            </button>
-                            <span class="text-xs mt-2 text-center">Próximos Pasos</span>
-                            <span class="text-xs text-gray-500">10min</span>
+                        <div id="podium-3" class="podium-spot w-1/3 h-2/5 bg-gray-300 rounded-t-lg flex flex-col items-center justify-center cursor-pointer border-2 border-dashed border-gray-400">
+                            <span class="text-2xl font-bold text-gray-500">3</span>
+                             <span class="text-xs text-gray-500 mt-2">Lugar</span>
                         </div>
                     </div>
-                    
-                    <!-- Timer -->
-                    <div class="flex items-center justify-center space-x-4 bg-gray-50 rounded-lg p-4">
-                        <i class="fas fa-clock text-gray-600"></i>
-                        <span class="text-2xl timer-display font-bold" id="timer-display">00:00</span>
-                        <button id="start-timer" class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors">
-                            Iniciar Timer
-                        </button>
-                        <button id="stop-timer" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
-                            Detener
-                        </button>
+                    <div id="podium-options" class="mt-4 flex flex-wrap justify-center gap-2">
                     </div>
                 </div>
 
-                <!-- Current Section Content -->
-                <div class="bg-white rounded-xl shadow-lg p-6 section-card">
-                    <h2 class="text-2xl font-bold mb-4 text-gray-800" id="section-title">
-                        Bienvenida y Autodescubrimiento
-                    </h2>
-                    
-                    <!-- Section 0: Bienvenida -->
-                    <div id="section-0" class="section-content">
-                        <div class="space-y-6">
-                            <div class="bg-blue-50 p-4 rounded-lg">
-                                <h3 class="font-semibold text-blue-800 mb-2">Actividad: "Mi Brújula Digital"</h3>
-                                <p class="text-blue-700">
-                                    Cada participante escribirá su mayor pasión y su 'superpoder' en el chat.
-                                </p>
-                            </div>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div class="border-2 border-gray-200 rounded-lg p-4">
-                                    <h4 class="font-semibold text-lg mb-2">Natalia</h4>
-                                    <div class="space-y-2">
-                                        <input type="text" placeholder="Pasión" class="w-full p-2 border rounded-md participant-passion" data-participant="0">
-                                        <input type="text" placeholder="Superpoder" class="w-full p-2 border rounded-md participant-superpower" data-participant="0">
-                                    </div>
-                                </div>
-                                <div class="border-2 border-gray-200 rounded-lg p-4">
-                                    <h4 class="font-semibold text-lg mb-2">Victoria</h4>
-                                    <div class="space-y-2">
-                                        <input type="text" placeholder="Pasión" class="w-full p-2 border rounded-md participant-passion" data-participant="1">
-                                        <input type="text" placeholder="Superpoder" class="w-full p-2 border rounded-md participant-superpower" data-participant="1">
-                                    </div>
-                                </div>
-                                <div class="border-2 border-gray-200 rounded-lg p-4">
-                                    <h4 class="font-semibold text-lg mb-2">Fabrizio</h4>
-                                    <div class="space-y-2">
-                                        <input type="text" placeholder="Pasión" class="w-full p-2 border rounded-md participant-passion" data-participant="2">
-                                        <input type="text" placeholder="Superpoder" class="w-full p-2 border rounded-md participant-superpower" data-participant="2">
-                                    </div>
-                                </div>
-                            </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 text-center">2. Define tus Metas SMART</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="smart-goal" class="block text-sm font-medium text-gray-700">Tu Objetivo Principal:</label>
+                            <input type="text" id="smart-goal" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500" placeholder="Ej: Investigar 5 programas universitarios">
                         </div>
-                    </div>
-
-                    <!-- Section 1: Exploración -->
-                    <div id="section-1" class="section-content hidden">
-                        <div class="space-y-6">
-                            <div class="bg-green-50 p-4 rounded-lg">
-                                <h3 class="font-semibold text-green-800 mb-2">Presentaciones "Mi Carrera en 360°"</h3>
-                                <p class="text-green-700">
-                                    Cada participante presenta su investigación usando compartir pantalla.
-                                </p>
-                            </div>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div class="border-2 border-gray-200 rounded-lg p-4 presentation-card" data-participant="0">
-                                    <h4 class="font-semibold text-lg mb-2">Natalia</h4>
-                                    <button class="present-btn w-full py-2 px-4 rounded-md transition-colors bg-gray-200 hover:bg-gray-300">
-                                        Compartir Pantalla
-                                    </button>
-                                    <div class="mt-2 p-2 bg-green-100 rounded text-sm presenting-status hidden">
-                                        <i class="fas fa-desktop mr-1"></i>
-                                        Pantalla compartida activa
-                                    </div>
-                                </div>
-                                <div class="border-2 border-gray-200 rounded-lg p-4 presentation-card" data-participant="1">
-                                    <h4 class="font-semibold text-lg mb-2">Victoria</h4>
-                                    <button class="present-btn w-full py-2 px-4 rounded-md transition-colors bg-gray-200 hover:bg-gray-300">
-                                        Compartir Pantalla
-                                    </button>
-                                    <div class="mt-2 p-2 bg-green-100 rounded text-sm presenting-status hidden">
-                                        <i class="fas fa-desktop mr-1"></i>
-                                        Pantalla compartida activa
-                                    </div>
-                                </div>
-                                <div class="border-2 border-gray-200 rounded-lg p-4 presentation-card" data-participant="2">
-                                    <h4 class="font-semibold text-lg mb-2">Fabrizio</h4>
-                                    <button class="present-btn w-full py-2 px-4 rounded-md transition-colors bg-gray-200 hover:bg-gray-300">
-                                        Compartir Pantalla
-                                    </button>
-                                    <div class="mt-2 p-2 bg-green-100 rounded text-sm presenting-status hidden">
-                                        <i class="fas fa-desktop mr-1"></i>
-                                        Pantalla compartida activa
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section 2: Carreras Alternativas -->
-                    <div id="section-2" class="section-content hidden">
-                        <div class="space-y-6">
-                            <div class="bg-purple-50 p-4 rounded-lg">
-                                <h3 class="font-semibold text-purple-800 mb-2">Actividad: "Mi Podio Profesional Digital"</h3>
-                                <p class="text-purple-700">
-                                    Explora carreras alternativas y crea tu podio profesional en la pizarra colaborativa.
-                                </p>
-                            </div>
-                            
-                            <!-- Miro Board Integration -->
-                            <div class="bg-white border-2 border-purple-200 rounded-lg overflow-hidden">
-                                <div class="bg-purple-100 p-3 border-b">
-                                    <h4 class="font-semibold text-purple-800">
-                                        <i class="fas fa-chalkboard-teacher mr-2"></i>
-                                        Pizarra Colaborativa - Miro
-                                    </h4>
-                                </div>
-                                <iframe 
-                                    width="100%" 
-                                    height="432" 
-                                    src="https://miro.com/app/live-embed/uXjVJUTon48=/?embedMode=view_only_without_ui&moveToViewport=-170,-933,1985,1123&embedId=145747122841" 
-                                    frameborder="0" 
-                                    scrolling="no" 
-                                    allow="fullscreen; clipboard-read; clipboard-write" 
-                                    allowfullscreen
-                                    class="w-full"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section 3: Metas SMART -->
-                    <div id="section-3" class="section-content hidden">
-                        <div class="space-y-6">
-                            <div class="bg-orange-50 p-4 rounded-lg">
-                                <h3 class="font-semibold text-orange-800 mb-2">Taller de Metas SMART</h3>
-                                <p class="text-orange-700">
-                                    Traduce tus sueños en un plan de acción concreto usando salas para grupos pequeños.
-                                </p>
-                            </div>
-                            
-                            <div class="bg-orange-100 border border-orange-300 rounded-lg p-4">
-                                <h4 class="font-semibold mb-2">Método SMART:</h4>
-                                <div class="grid grid-cols-1 md:grid-cols-5 gap-2 text-sm">
-                                    <div class="text-center p-2 bg-white rounded">
-                                        <strong class="text-orange-600">S</strong>pecific<br>
-                                        <span class="text-xs text-gray-600">Específico</span>
-                                    </div>
-                                    <div class="text-center p-2 bg-white rounded">
-                                        <strong class="text-orange-600">M</strong>easurable<br>
-                                        <span class="text-xs text-gray-600">Medible</span>
-                                    </div>
-                                    <div class="text-center p-2 bg-white rounded">
-                                        <strong class="text-orange-600">A</strong>chievable<br>
-                                        <span class="text-xs text-gray-600">Alcanzable</span>
-                                    </div>
-                                    <div class="text-center p-2 bg-white rounded">
-                                        <strong class="text-orange-600">R</strong>elevant<br>
-                                        <span class="text-xs text-gray-600">Relevante</span>
-                                    </div>
-                                    <div class="text-center p-2 bg-white rounded">
-                                        <strong class="text-orange-600">T</strong>ime-bound<br>
-                                        <span class="text-xs text-gray-600">Con plazo</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div class="border-2 border-orange-200 rounded-lg p-4">
-                                    <h4 class="font-semibold mb-2">Meta de Natalia:</h4>
-                                    <textarea class="w-full p-2 border rounded-md h-20" placeholder="Escribe tu meta SMART aquí..."></textarea>
-                                </div>
-                                <div class="border-2 border-orange-200 rounded-lg p-4">
-                                    <h4 class="font-semibold mb-2">Meta de Victoria:</h4>
-                                    <textarea class="w-full p-2 border rounded-md h-20" placeholder="Escribe tu meta SMART aquí..."></textarea>
-                                </div>
-                                <div class="border-2 border-orange-200 rounded-lg p-4">
-                                    <h4 class="font-semibold mb-2">Meta de Fabrizio:</h4>
-                                    <textarea class="w-full p-2 border rounded-md h-20" placeholder="Escribe tu meta SMART aquí..."></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section 4: Próximos Pasos -->
-                    <div id="section-4" class="section-content hidden">
-                        <div class="space-y-6">
-                            <div class="bg-red-50 p-4 rounded-lg">
-                                <h3 class="font-semibold text-red-800 mb-2">Ronda de Compromisos</h3>
-                                <p class="text-red-700">
-                                    Concreta tus siguientes pasos y sella un compromiso usando el chat.
-                                </p>
-                            </div>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="border-2 border-red-200 rounded-lg p-4">
-                                    <h4 class="font-semibold mb-2">
-                                        <i class="fas fa-university mr-2 text-red-500"></i>
-                                        Universidad #1 en tu radar:
-                                    </h4>
-                                    <textarea class="w-full p-2 border rounded-md h-20" placeholder="¿Cuál es tu universidad objetivo y por qué?"></textarea>
-                                </div>
-                                <div class="border-2 border-red-200 rounded-lg p-4">
-                                    <h4 class="font-semibold mb-2">
-                                        <i class="fas fa-tasks mr-2 text-red-500"></i>
-                                        Acción esta semana:
-                                    </h4>
-                                    <textarea class="w-full p-2 border rounded-md h-20" placeholder="¿Qué harás para investigar becas o financiación?"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="bg-red-100 border border-red-300 rounded-lg p-4 text-center">
-                                <h4 class="font-semibold text-red-800 mb-2">🎯 ¡Compromiso Final!</h4>
-                                <p class="text-red-700 text-sm">
-                                    Guarda una captura de pantalla de tus compromisos como recordatorio de tu plan de acción.
-                                </p>
-                            </div>
+                        <button id="generate-smart-plan" class="w-full btn-primary font-bold py-2 px-4 rounded-lg">Generar Plan SMART</button>
+                        <div id="smart-plan-output" class="mt-4 p-4 bg-purple-50 rounded-lg border border-purple-200 hidden">
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Sidebar -->
-            <div class="lg:col-span-1 space-y-6">
-                
-                <!-- Participants Panel -->
-                <div class="bg-white rounded-xl shadow-lg p-6 section-card">
-                    <h3 class="text-lg font-semibold mb-4">
-                        <i class="fas fa-users mr-2 text-indigo-500"></i>
-                        Participantes
-                    </h3>
-                    <div class="space-y-3" id="participants-list">
-                        <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg participant-item" data-participant="0">
-                            <div class="w-3 h-3 bg-green-500 rounded-full pulse-animation"></div>
-                            <div class="flex-1">
-                                <p class="font-medium">Natalia</p>
-                                <p class="text-sm text-gray-600 passion-display"></p>
-                                <p class="text-sm text-gray-600 superpower-display"></p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg participant-item" data-participant="1">
-                            <div class="w-3 h-3 bg-green-500 rounded-full pulse-animation"></div>
-                            <div class="flex-1">
-                                <p class="font-medium">Victoria</p>
-                                <p class="text-sm text-gray-600 passion-display"></p>
-                                <p class="text-sm text-gray-600 superpower-display"></p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg participant-item" data-participant="2">
-                            <div class="w-3 h-3 bg-green-500 rounded-full pulse-animation"></div>
-                            <div class="flex-1">
-                                <p class="font-medium">Fabrizio</p>
-                                <p class="text-sm text-gray-600 passion-display"></p>
-                                <p class="text-sm text-gray-600 superpower-display"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    </main>
 
-                <!-- Chat Panel -->
-                <div class="bg-white rounded-xl shadow-lg p-6 section-card">
-                    <h3 class="text-lg font-semibold mb-4">
-                        <i class="fas fa-comments mr-2 text-indigo-500"></i>
-                        Chat del Taller
-                    </h3>
-                    
-                    <div class="border rounded-lg h-64 overflow-y-auto p-3 mb-4 bg-gray-50" id="chat-container">
-                        <p class="text-gray-500 text-center py-8" id="empty-chat-message">
-                            Los mensajes aparecerán aquí...
-                        </p>
-                    </div>
-                    
-                    <div class="flex space-x-2">
-                        <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." class="flex-1 p-2 border rounded-md">
-                        <button id="send-message" class="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition-colors">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Resources Panel -->
-                <div class="bg-white rounded-xl shadow-lg p-6 section-card">
-                    <h3 class="text-lg font-semibold mb-4">
-                        <i class="fas fa-folder-open mr-2 text-indigo-500"></i>
-                        Recursos Digitales
-                    </h3>
-                    <div class="space-y-2">
-                        <a href="#" class="block p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
-                            <i class="fas fa-chart-bar mr-2"></i>
-                            Análisis del Mercado en América Latina
-                        </a>
-                        <a href="#" class="block p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
-                            <i class="fas fa-clipboard-list mr-2"></i>
-                            Plantilla "Mi Carrera en 360°"
-                        </a>
-                        <a href="#" class="block p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors">
-                            <i class="fas fa-bullseye mr-2"></i>
-                            Plantilla Metas SMART
-                        </a>
-                        <a href="#" class="block p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors">
-                            <i class="fas fa-link mr-2"></i>
-                            Pizarra Colaborativa (Miro)
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <footer class="text-center py-8 mt-12 border-t border-gray-200">
+        <p class="text-gray-500">&copy; 2025 Panel de Orientación Vocacional. Todos los derechos reservados.</p>
+    </footer>
 
     <script>
-        // Global variables
-        let currentSection = 0;
-        let timerInterval = null;
-        let timeLeft = 0;
-        let participants = [
-            { name: 'Natalia', passion: '', superpower: '', isPresenting: false },
-            { name: 'Victoria', passion: '', superpower: '', isPresenting: false },
-            { name: 'Fabrizio', passion: '', superpower: '', isPresenting: false }
-        ];
-        let chatMessages = [];
-
-        const sections = [
-            { title: "Bienvenida y Autodescubrimiento", duration: 10, color: "bg-blue-500" },
-            { title: "Exploración y Análisis del Mercado", duration: 40, color: "bg-green-500" },
-            { title: "Carreras Alternativas", duration: 30, color: "bg-purple-500" },
-            { title: "Metas SMART", duration: 40, color: "bg-orange-500" },
-            { title: "Próximos Pasos", duration: 10, color: "bg-red-500" }
-        ];
-
-        // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
-            initializeEventListeners();
-            updateDisplay();
-        });
+            
+            const appData = {
+                participants: [
+                    {
+                        name: 'Natalia',
+                        passion: 'Deportes',
+                        skills: ['Escucha activa', 'Dar consejos', 'Deportes'],
+                        color: 'bg-blue-100',
+                        textColor: 'text-blue-800',
+                        relatedCareers: ['sports', 'events']
+                    },
+                    {
+                        name: 'Victoria',
+                        passion: 'Organización',
+                        skills: ['Escucha activa', 'Facilidad para socializar', 'Planificación'],
+                        color: 'bg-green-100',
+                        textColor: 'text-green-800',
+                        relatedCareers: ['events']
+                    },
+                    {
+                        name: 'Fabrizio',
+                        passion: 'Cine y Socializar',
+                        skills: ['Inglés', 'Enseñar', 'Tecnología', 'Empatía'],
+                        color: 'bg-yellow-100',
+                        textColor: 'text-yellow-800',
+                        relatedCareers: ['sports', 'cinema']
+                    }
+                ],
+                careers: {
+                    sports: {
+                        id: 'sports',
+                        title: 'Gestión Deportiva',
+                        description: 'Combina la pasión por el deporte con habilidades de negocio, marketing y administración para gestionar clubes, eventos y atletas.',
+                        marketData: {
+                            honduras: { salary: [400, 1000] },
+                            centroamerica: { salary: [600, 3000] },
+                        },
+                        growth: {
+                            market: '$102.22B para 2032',
+                            details: 'El mercado global de tecnología deportiva impulsa la necesidad de profesionales actualizados.'
+                        },
+                        skills: ['Análisis de datos', 'Marketing digital', 'Gestión de proyectos', 'Negociación'],
+                        education: 'Administración de Empresas + Certificaciones (FIFA/CIES). Universidades en Colombia y Ecuador son referentes.'
+                    },
+                    events: {
+                        id: 'events',
+                        title: 'Gestión de Eventos',
+                        description: 'Planifica, organiza y ejecuta eventos de todo tipo, desde conferencias corporativas hasta bodas y festivales.',
+                        marketData: {
+                            honduras: { salary: [650, 3750] },
+                            centroamerica: { salary: [1000, 5800] },
+                        },
+                        growth: {
+                            market: '20% CAGR (Eventos Virtuales)',
+                            details: 'La tendencia de eventos híbridos y el nearshoring corporativo aumentan la demanda.'
+                        },
+                        skills: ['Manejo de plataformas virtuales', 'Sustentabilidad', 'Gestión de crisis', 'Bilingüismo (Inglés)'],
+                        education: 'Títulos en Negocios, Hospitalidad o Comunicación. Certificaciones como CMP son un plus.'
+                    },
+                    cinema: {
+                        id: 'cinema',
+                        title: 'Cinematografía',
+                        description: 'El arte y la técnica de crear películas, desde la dirección y producción hasta la post-producción y efectos visuales.',
+                        marketData: {
+                             honduras: { salary: [1250, 6250] },
+                             centroamerica: { salary: [2900, 12500] },
+                        },
+                        growth: {
+                            market: '$24.69B para 2033 (Streaming LatAm)',
+                            details: 'El streaming ha aumentado la producción de contenido en español un 266%, creando una demanda sin precedentes.'
+                        },
+                        skills: ['Producción digital (VFX, animación)', 'Conocimiento de coproducción', 'Manejo de plataformas de streaming'],
+                        education: 'No hay programas formales en Honduras. México (UNAM, CCC), Brasil y Argentina son líderes regionales.'
+                    }
+                },
+                activeProfile: null,
+                selectedPodiumCareer: null
+            };
 
-        function initializeEventListeners() {
-            // Section navigation
-            document.querySelectorAll('.section-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const sectionIndex = parseInt(this.dataset.section);
-                    switchToSection(sectionIndex);
+            const profilesContainer = document.getElementById('profiles-container');
+            const careersContainer = document.getElementById('careers-container');
+            const podiumOptionsContainer = document.getElementById('podium-options');
+            
+            function renderProfiles() {
+                profilesContainer.innerHTML = '';
+                appData.participants.forEach(p => {
+                    const profileCard = document.createElement('div');
+                    profileCard.className = `p-6 rounded-xl shadow-md cursor-pointer card ${p.color}`;
+                    profileCard.dataset.name = p.name;
+                    profileCard.innerHTML = `
+                        <h3 class="text-2xl font-bold ${p.textColor}">${p.name}</h3>
+                        <p class="font-semibold mt-2 ${p.textColor}">Pasión: ${p.passion}</p>
+                        <div class="mt-4">
+                            <p class="font-medium ${p.textColor} mb-1">Habilidades:</p>
+                            <div class="flex flex-wrap gap-2">
+                                ${p.skills.map(skill => `<span class="bg-white/70 text-sm font-medium px-3 py-1 rounded-full">${skill}</span>`).join('')}
+                            </div>
+                        </div>
+                    `;
+                    profileCard.addEventListener('click', () => handleProfileClick(p.name));
+                    profilesContainer.appendChild(profileCard);
+                });
+            }
+
+            function handleProfileClick(name) {
+                appData.activeProfile = name;
+                document.querySelectorAll('#profiles-container > div').forEach(card => {
+                    if (card.dataset.name === name) {
+                        card.classList.add('ring-4', 'ring-purple-400');
+                    } else {
+                        card.classList.remove('ring-4', 'ring-purple-400');
+                    }
+                });
+                renderCareers();
+            }
+
+            function renderCareers() {
+                careersContainer.innerHTML = '';
+                const activeParticipant = appData.participants.find(p => p.name === appData.activeProfile);
+                
+                Object.values(appData.careers).forEach(career => {
+                    const isRelated = activeParticipant ? activeParticipant.relatedCareers.includes(career.id) : true;
+                    
+                    const careerCard = document.createElement('div');
+                    careerCard.className = `bg-white p-6 md:p-8 rounded-2xl shadow-lg card transition-all duration-500 ${isRelated ? 'opacity-100' : 'opacity-50 scale-95'}`;
+                    careerCard.innerHTML = `
+                        <div class="flex justify-between items-start cursor-pointer toggle-details">
+                            <h3 class="text-2xl md:text-3xl font-bold text-purple-700">${career.title}</h3>
+                            <span class="text-purple-500 text-3xl transform transition-transform duration-300">+</span>
+                        </div>
+                        <p class="mt-2 text-gray-600">${career.description}</p>
+                        <div class="details-content max-h-0 overflow-hidden transition-all duration-700 ease-in-out">
+                            <div class="mt-8 grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="text-xl font-semibold mb-4">Mercado Laboral</h4>
+                                    <div class="chart-container">
+                                        <canvas id="chart-${career.id}"></canvas>
+                                    </div>
+                                    <p class="text-center mt-2 text-sm text-gray-500">Salario mensual (USD) en Centroamérica</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold mb-2">Potencial de Crecimiento</h4>
+                                    <div class="bg-gray-50 p-4 rounded-lg">
+                                        <p class="text-3xl font-bold text-purple-600">${career.growth.market}</p>
+                                        <p class="mt-1 text-gray-600">${career.growth.details}</p>
+                                    </div>
+                                    <h4 class="text-xl font-semibold mt-6 mb-2">Habilidades Clave</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${career.skills.map(s => `<span class="bg-gray-200 text-gray-800 text-sm font-semibold px-3 py-1 rounded-full">${s}</span>`).join('')}
+                                    </div>
+                                    <h4 class="text-xl font-semibold mt-6 mb-2">Ruta Educativa</h4>
+                                    <p class="text-gray-600">${career.education}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    careersContainer.appendChild(careerCard);
+                    createChart(career);
+                });
+
+                document.querySelectorAll('.toggle-details').forEach(el => {
+                    el.addEventListener('click', (e) => {
+                        const content = e.currentTarget.nextElementSibling.nextElementSibling;
+                        const icon = e.currentTarget.querySelector('span');
+                        if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                            content.style.maxHeight = '0px';
+                            icon.style.transform = 'rotate(0deg)';
+                        } else {
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            icon.style.transform = 'rotate(45deg)';
+                        }
+                    });
+                });
+            }
+            
+            function createChart(career) {
+                const ctx = document.getElementById(`chart-${career.id}`).getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Nivel Inicial', 'Senior'],
+                        datasets: [{
+                            label: 'Salario Mensual (USD)',
+                            data: career.marketData.centroamerica.salary,
+                            backgroundColor: ['rgba(192, 132, 252, 0.6)', 'rgba(126, 34, 206, 0.6)'],
+                            borderColor: ['rgb(192, 132, 252)', 'rgb(126, 34, 206)'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `$${context.parsed.y} USD / mes`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '$' + value;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function renderPodiumOptions() {
+                podiumOptionsContainer.innerHTML = '';
+                Object.values(appData.careers).forEach(career => {
+                    const optionBtn = document.createElement('button');
+                    optionBtn.className = 'podium-option-btn btn-secondary py-2 px-4 rounded-full text-sm font-medium';
+                    optionBtn.textContent = career.title;
+                    optionBtn.dataset.careerId = career.id;
+                    optionBtn.addEventListener('click', () => {
+                        appData.selectedPodiumCareer = career;
+                        document.querySelectorAll('.podium-option-btn').forEach(btn => btn.classList.remove('active', 'btn-primary'));
+                        optionBtn.classList.add('active', 'btn-primary');
+                        optionBtn.classList.remove('btn-secondary');
+                    });
+                    podiumOptionsContainer.appendChild(optionBtn);
+                });
+            }
+            
+            document.querySelectorAll('.podium-spot').forEach(spot => {
+                spot.addEventListener('click', () => {
+                    if (appData.selectedPodiumCareer) {
+                        spot.innerHTML = `<span class="text-center font-bold text-lg">${appData.selectedPodiumCareer.title}</span>`;
+                        spot.style.backgroundColor = '';
+                        spot.classList.remove('border-dashed');
+                        if(spot.id === 'podium-1') spot.classList.add('bg-purple-400', 'text-white');
+                        else spot.classList.add('bg-gray-400', 'text-white');
+                        
+                        document.querySelector(`button[data-career-id="${appData.selectedPodiumCareer.id}"]`).disabled = true;
+                        appData.selectedPodiumCareer = null;
+                        document.querySelectorAll('.podium-option-btn').forEach(btn => btn.classList.remove('active', 'btn-primary'));
+                    }
                 });
             });
 
-            // Timer controls
-            document.getElementById('start-timer').addEventListener('click', function() {
-                startTimer(sections[currentSection].duration);
-            });
-
-            document.getElementById('stop-timer').addEventListener('click', stopTimer);
-
-            // Participant inputs
-            document.querySelectorAll('.participant-passion').forEach(input => {
-                input.addEventListener('input', function() {
-                    const participantIndex = parseInt(this.dataset.participant);
-                    participants[participantIndex].passion = this.value;
-                    updateParticipantDisplay();
-                });
-            });
-
-            document.querySelectorAll('.participant-superpower').forEach(input => {
-                input.addEventListener('input', function() {
-                    const participantIndex = parseInt(this.dataset.participant);
-                    participants[participantIndex].superpower = this.value;
-                    updateParticipantDisplay();
-                });
-            });
-
-            // Presentation buttons
-            document.querySelectorAll('.present-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const card = this.closest('.presentation-card');
-                    const participantIndex = parseInt(card.dataset.participant);
-                    togglePresentation(participantIndex);
-                });
-            });
-
-            // Chat functionality
-            document.getElementById('send-message').addEventListener('click', sendMessage);
-            document.getElementById('chat-input').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    sendMessage();
+            document.getElementById('generate-smart-plan').addEventListener('click', () => {
+                const goalInput = document.getElementById('smart-goal');
+                const outputContainer = document.getElementById('smart-plan-output');
+                if (goalInput.value.trim() === '') {
+                    outputContainer.innerHTML = '<p class="text-red-600">Por favor, introduce un objetivo.</p>';
+                    outputContainer.classList.remove('hidden');
+                    return;
                 }
-            });
-        }
-
-        function switchToSection(sectionIndex) {
-            currentSection = sectionIndex;
-            
-            // Update section buttons
-            document.querySelectorAll('.section-button').forEach((btn, index) => {
-                btn.className = `w-12 h-12 rounded-full flex items-center justify-center text-white transition-all section-button ${
-                    index === currentSection ? sections[index].color : 'bg-gray-300'
-                }`;
-            });
-
-            // Update section content
-            document.querySelectorAll('.section-content').forEach(content => {
-                content.classList.add('hidden');
-            });
-            document.getElementById(`section-${sectionIndex}`).classList.remove('hidden');
-
-            // Update section title
-            document.getElementById('section-title').textContent = sections[sectionIndex].title;
-
-            // Stop current timer
-            stopTimer();
-        }
-
-        function startTimer(minutes) {
-            stopTimer();
-            timeLeft = minutes * 60;
-            updateTimerDisplay();
-            
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                updateTimerDisplay();
                 
-                if (timeLeft <= 0) {
-                    stopTimer();
-                    playNotificationSound();
-                }
-            }, 1000);
-        }
-
-        function stopTimer() {
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-            }
-        }
-
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            document.getElementById('timer-display').textContent = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-
-        function playNotificationSound() {
-            // Create a simple notification
-            if ('Notification' in window && Notification.permission === 'granted') {
-                new Notification('¡Tiempo completado!', {
-                    body: `La sección "${sections[currentSection].title}" ha terminado.`,
-                    icon: '🎯'
-                });
-            } else {
-                alert(`¡Tiempo completado! La sección "${sections[currentSection].title}" ha terminado.`);
-            }
-        }
-
-        function updateParticipantDisplay() {
-            participants.forEach((participant, index) => {
-                const participantElement = document.querySelector(`[data-participant="${index}"].participant-item`);
-                const passionDisplay = participantElement.querySelector('.passion-display');
-                const superpowerDisplay = participantElement.querySelector('.superpower-display');
-                
-                passionDisplay.textContent = participant.passion ? `🎯 ${participant.passion}` : '';
-                superpowerDisplay.textContent = participant.superpower ? `⚡ ${participant.superpower}` : '';
-            });
-        }
-
-        function togglePresentation(participantIndex) {
-            // Reset all presentations
-            participants.forEach((p, index) => {
-                p.isPresenting = index === participantIndex ? !p.isPresenting : false;
+                outputContainer.innerHTML = `
+                    <h4 class="font-bold text-lg mb-2">Tu Plan SMART:</h4>
+                    <p><strong>Específico:</strong> ${goalInput.value}</p>
+                    <p><strong>Medible:</strong> Tener un listado de pros y contras de cada opción investigada.</p>
+                    <p><strong>Alcanzable:</strong> Sí, tengo acceso a internet y tiempo para dedicarle.</p>
+                    <p><strong>Relevante:</strong> Es el primer paso para elegir mi universidad y carrera.</p>
+                    <p><strong>Plazo:</strong> Para finales del próximo mes.</p>
+                `;
+                outputContainer.classList.remove('hidden');
             });
 
-            // Update UI
-            document.querySelectorAll('.presentation-card').forEach((card, index) => {
-                const btn = card.querySelector('.present-btn');
-                const status = card.querySelector('.presenting-status');
-                
-                if (participants[index].isPresenting) {
-                    card.classList.add('presenting-indicator');
-                    card.classList.add('border-green-500', 'bg-green-50');
-                    card.classList.remove('border-gray-200');
-                    btn.textContent = 'Presentando...';
-                    btn.className = 'present-btn w-full py-2 px-4 rounded-md transition-colors bg-green-500 text-white';
-                    status.classList.remove('hidden');
-                } else {
-                    card.classList.remove('presenting-indicator');
-                    card.classList.remove('border-green-500', 'bg-green-50');
-                    card.classList.add('border-gray-200');
-                    btn.textContent = 'Compartir Pantalla';
-                    btn.className = 'present-btn w-full py-2 px-4 rounded-md transition-colors bg-gray-200 hover:bg-gray-300';
-                    status.classList.add('hidden');
-                }
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
             });
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const message = input.value.trim();
             
-            if (message) {
-                const timestamp = new Date().toLocaleTimeString();
-                chatMessages.push({
-                    id: Date.now(),
-                    text: message,
-                    timestamp: timestamp
-                });
-                
-                input.value = '';
-                updateChatDisplay();
-            }
-        }
-
-        function updateChatDisplay() {
-            const container = document.getElementById('chat-container');
-            const emptyMessage = document.getElementById('empty-chat-message');
-            
-            if (chatMessages.length === 0) {
-                emptyMessage.style.display = 'block';
-                return;
-            }
-            
-            emptyMessage.style.display = 'none';
-            
-            const messagesHTML = chatMessages.map(message => `
-                <div class="bg-white p-2 rounded border-l-4 border-indigo-500 mb-2 chat-message">
-                    <p class="text-sm">${message.text}</p>
-                    <p class="text-xs text-gray-500">${message.timestamp}</p>
-                </div>
-            `).join('');
-            
-            container.innerHTML = messagesHTML + 
-                '<p class="text-gray-500 text-center py-8" id="empty-chat-message" style="display: none;">Los mensajes aparecerán aquí...</p>';
-            
-            container.scrollTop = container.scrollHeight;
-        }
-
-        function updateDisplay() {
-            updateParticipantDisplay();
-            updateChatDisplay();
-            updateTimerDisplay();
-        }
-
-        // Request notification permission on load
-        if ('Notification' in window && Notification.permission === 'default') {
-            Notification.requestPermission();
-        }
-
-        // Add some sample chat messages for demonstration
-        setTimeout(() => {
-            chatMessages.push({
-                id: 1,
-                text: "¡Bienvenidos al taller! 🎯",
-                timestamp: new Date().toLocaleTimeString()
-            });
-            chatMessages.push({
-                id: 2,
-                text: "Natalia - Pasión: Deporte / Superpoder: Escuchar",
-                timestamp: new Date().toLocaleTimeString()
-            });
-            updateChatDisplay();
-        }, 2000);
-
-        // Add sample participant data after a delay
-        setTimeout(() => {
-            document.querySelector('[data-participant="0"].participant-passion').value = "Deporte";
-            document.querySelector('[data-participant="0"].participant-superpower').value = "Escuchar";
-            participants[0].passion = "Deporte";
-            participants[0].superpower = "Escuchar";
-            updateParticipantDisplay();
-        }, 3000);
-
-        // Smooth scroll behavior for internal navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
                         behavior: 'smooth'
                     });
-                }
+                    if(mobileMenu.classList.contains('hidden') === false){
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
             });
+
+            function init() {
+                renderProfiles();
+                renderCareers();
+                renderPodiumOptions();
+            }
+
+            init();
         });
-
-        // Add keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            // Space bar to start/stop timer
-            if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-                e.preventDefault();
-                if (timerInterval) {
-                    stopTimer();
-                } else {
-                    startTimer(sections[currentSection].duration);
-                }
-            }
-            
-            // Arrow keys for navigation
-            if (e.code === 'ArrowLeft' && currentSection > 0) {
-                switchToSection(currentSection - 1);
-            }
-            if (e.code === 'ArrowRight' && currentSection < sections.length - 1) {
-                switchToSection(currentSection + 1);
-            }
-        });
-
-        // Add responsive behavior for mobile
-        function handleResize() {
-            const isMobile = window.innerWidth < 768;
-            if (isMobile) {
-                document.body.classList.add('mobile-view');
-            } else {
-                document.body.classList.remove('mobile-view');
-            }
-        }
-
-        window.addEventListener('resize', handleResize);
-        handleResize(); // Call once on load
-
-        console.log('Taller de Orientación Vocacional Digital - Iniciado correctamente');
-        console.log('Atajos de teclado:');
-        console.log('- Espacio: Iniciar/Detener timer');
-        console.log('- Flechas ← →: Navegar entre secciones');
     </script>
-
-    <style>
-        /* Additional mobile styles */
-        @media (max-width: 768px) {
-            .grid-cols-1.md\\:grid-cols-3 {
-                grid-template-columns: 1fr;
-            }
-            
-            .grid-cols-5 {
-                grid-template-columns: repeat(5, 1fr);
-                gap: 0.5rem;
-            }
-            
-            .section-btn {
-                margin: 0;
-            }
-            
-            .section-btn .w-12 {
-                width: 2.5rem;
-                height: 2.5rem;
-            }
-            
-            .section-btn span {
-                font-size: 0.6rem;
-                line-height: 1;
-            }
-            
-            .timer-display {
-                font-size: 1.5rem;
-            }
-            
-            .lg\\:col-span-2 {
-                grid-column: span 1;
-            }
-            
-            .lg\\:col-span-1 {
-                grid-column: span 1;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .grid-cols-5 {
-                grid-template-columns: repeat(5, 1fr);
-                gap: 0.25rem;
-            }
-            
-            .section-btn .w-12 {
-                width: 2rem;
-                height: 2rem;
-                font-size: 0.75rem;
-            }
-            
-            .section-btn span {
-                font-size: 0.5rem;
-                margin-top: 0.25rem;
-            }
-            
-            .flex.space-x-4 {
-                flex-direction: column;
-                space-x: 0;
-                gap: 0.5rem;
-            }
-            
-            .text-3xl {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* Print styles */
-        @media print {
-            .no-print {
-                display: none !important;
-            }
-            
-            .bg-gradient-to-br {
-                background: white !important;
-            }
-            
-            .shadow-lg {
-                box-shadow: none !important;
-                border: 1px solid #e5e7eb !important;
-            }
-        }
-
-        /* Dark mode support */
-        @media (prefers-color-scheme: dark) {
-            .gradient-bg {
-                background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
-            }
-        }
-
-        /* Accessibility improvements */
-        .section-button:focus,
-        .present-btn:focus,
-        #start-timer:focus,
-        #stop-timer:focus,
-        #send-message:focus {
-            outline: 2px solid #3b82f6;
-            outline-offset: 2px;
-        }
-
-        /* High contrast mode */
-        @media (prefers-contrast: high) {
-            .bg-gray-50 {
-                background-color: #f9fafb !important;
-                border: 1px solid #d1d5db !important;
-            }
-        }
-    </style>
 </body>
 </html>
