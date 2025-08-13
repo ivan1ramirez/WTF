@@ -1,0 +1,406 @@
+import React, { useState, useEffect } from 'react';
+import { Clock, Users, Target, BookOpen, Star, MessageCircle, Video, Monitor } from 'lucide-react';
+
+const VocationalGuidanceWorkshop = () => {
+  const [currentSection, setCurrentSection] = useState(0);
+  const [participants, setParticipants] = useState([
+    { name: 'Natalia', passion: '', superpower: '', isPresenting: false },
+    { name: 'Victoria', passion: '', superpower: '', isPresenting: false },
+    { name: 'Fabrizio', passion: '', superpower: '', isPresenting: false }
+  ]);
+  const [chatMessages, setChatMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+  const [currentTimer, setCurrentTimer] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(0);
+
+  const sections = [
+    {
+      title: "Bienvenida y Autodescubrimiento",
+      duration: 10,
+      color: "bg-blue-500",
+      icon: <Users className="w-6 h-6" />
+    },
+    {
+      title: "Exploración y Análisis del Mercado",
+      duration: 40,
+      color: "bg-green-500",
+      icon: <Target className="w-6 h-6" />
+    },
+    {
+      title: "Carreras Alternativas",
+      duration: 30,
+      color: "bg-purple-500",
+      icon: <BookOpen className="w-6 h-6" />
+    },
+    {
+      title: "Metas SMART",
+      duration: 40,
+      color: "bg-orange-500",
+      icon: <Star className="w-6 h-6" />
+    },
+    {
+      title: "Próximos Pasos",
+      duration: 10,
+      color: "bg-red-500",
+      icon: <MessageCircle className="w-6 h-6" />
+    }
+  ];
+
+  // Timer functionality
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [timeLeft]);
+
+  const startTimer = (minutes) => {
+    setTimeLeft(minutes * 60);
+  };
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  // Chat functionality
+  const addMessage = () => {
+    if (newMessage.trim()) {
+      setChatMessages([...chatMessages, {
+        id: Date.now(),
+        text: newMessage,
+        timestamp: new Date().toLocaleTimeString()
+      }]);
+      setNewMessage('');
+    }
+  };
+
+  // Participant management
+  const updateParticipant = (index, field, value) => {
+    const updated = [...participants];
+    updated[index][field] = value;
+    setParticipants(updated);
+  };
+
+  const setPresenting = (index) => {
+    const updated = participants.map((p, i) => ({
+      ...p,
+      isPresenting: i === index
+    }));
+    setParticipants(updated);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      {/* Header */}
+      <header className="bg-white shadow-lg border-b-4 border-indigo-500">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">
+                Taller de Orientación Vocacional Digital
+              </h1>
+              <p className="text-gray-600 mt-1">Diseña tu plan de vida y carrera personalizado</p>
+            </div>
+            <div className="flex items-center space-x-4">
+              <Video className="w-8 h-8 text-indigo-500" />
+              <div className="text-right">
+                <p className="text-sm text-gray-500">Plataforma: Zoom</p>
+                <p className="text-sm text-gray-500">Duración: 2 horas</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-6">
+            
+            {/* Progress Timeline */}
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h2 className="text-xl font-semibold mb-4">Progreso del Taller</h2>
+              <div className="flex items-center justify-between mb-4">
+                {sections.map((section, index) => (
+                  <div key={index} className="flex flex-col items-center relative">
+                    <button
+                      onClick={() => setCurrentSection(index)}
+                      className={`w-12 h-12 rounded-full flex items-center justify-center text-white transition-all ${
+                        index === currentSection ? section.color : 'bg-gray-300'
+                      } ${index <= currentSection ? 'opacity-100' : 'opacity-50'}`}
+                    >
+                      {section.icon}
+                    </button>
+                    <span className="text-xs mt-2 text-center max-w-20">
+                      {section.title}
+                    </span>
+                    <span className="text-xs text-gray-500">{section.duration}min</span>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Timer */}
+              <div className="flex items-center justify-center space-x-4 bg-gray-50 rounded-lg p-4">
+                <Clock className="w-5 h-5 text-gray-600" />
+                <span className="text-2xl font-mono font-bold">
+                  {timeLeft > 0 ? formatTime(timeLeft) : "00:00"}
+                </span>
+                <button
+                  onClick={() => startTimer(sections[currentSection].duration)}
+                  className="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors"
+                >
+                  Iniciar Timer
+                </button>
+              </div>
+            </div>
+
+            {/* Current Section Content */}
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h2 className="text-2xl font-bold mb-4 text-gray-800">
+                {sections[currentSection].title}
+              </h2>
+              
+              {currentSection === 0 && (
+                <div className="space-y-6">
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-blue-800 mb-2">Actividad: "Mi Brújula Digital"</h3>
+                    <p className="text-blue-700">
+                      Cada participante escribirá su mayor pasión y su 'superpoder' en el chat.
+                    </p>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {participants.map((participant, index) => (
+                      <div key={index} className="border-2 border-gray-200 rounded-lg p-4">
+                        <h4 className="font-semibold text-lg mb-2">{participant.name}</h4>
+                        <div className="space-y-2">
+                          <input
+                            type="text"
+                            placeholder="Pasión"
+                            value={participant.passion}
+                            onChange={(e) => updateParticipant(index, 'passion', e.target.value)}
+                            className="w-full p-2 border rounded-md"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Superpoder"
+                            value={participant.superpower}
+                            onChange={(e) => updateParticipant(index, 'superpower', e.target.value)}
+                            className="w-full p-2 border rounded-md"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {currentSection === 1 && (
+                <div className="space-y-6">
+                  <div className="bg-green-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-green-800 mb-2">Presentaciones "Mi Carrera en 360°"</h3>
+                    <p className="text-green-700">
+                      Cada participante presenta su investigación usando compartir pantalla.
+                    </p>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {participants.map((participant, index) => (
+                      <div key={index} className={`border-2 rounded-lg p-4 transition-all ${
+                        participant.isPresenting ? 'border-green-500 bg-green-50' : 'border-gray-200'
+                      }`}>
+                        <h4 className="font-semibold text-lg mb-2">{participant.name}</h4>
+                        <button
+                          onClick={() => setPresenting(index)}
+                          className={`w-full py-2 px-4 rounded-md transition-colors ${
+                            participant.isPresenting 
+                              ? 'bg-green-500 text-white' 
+                              : 'bg-gray-200 hover:bg-gray-300'
+                          }`}
+                        >
+                          {participant.isPresenting ? 'Presentando...' : 'Compartir Pantalla'}
+                        </button>
+                        {participant.isPresenting && (
+                          <div className="mt-2 p-2 bg-green-100 rounded text-sm">
+                            <Monitor className="w-4 h-4 inline mr-1" />
+                            Pantalla compartida activa
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {currentSection === 2 && (
+                <div className="space-y-6">
+                  <div className="bg-purple-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-purple-800 mb-2">Actividad: "Mi Podio Profesional Digital"</h3>
+                    <p className="text-purple-700">
+                      Explora carreras alternativas y crea tu podio profesional en la pizarra colaborativa.
+                    </p>
+                  </div>
+                  
+                  {/* Miro Board Integration */}
+                  <div className="bg-white border-2 border-purple-200 rounded-lg overflow-hidden">
+                    <div className="bg-purple-100 p-3 border-b">
+                      <h4 className="font-semibold text-purple-800">Pizarra Colaborativa - Miro</h4>
+                    </div>
+                    <iframe 
+                      width="100%" 
+                      height="432" 
+                      src="https://miro.com/app/live-embed/uXjVJUTon48=/?embedMode=view_only_without_ui&moveToViewport=-170,-933,1985,1123&embedId=145747122841" 
+                      frameBorder="0" 
+                      scrolling="no" 
+                      allow="fullscreen; clipboard-read; clipboard-write" 
+                      allowFullScreen
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {currentSection === 3 && (
+                <div className="space-y-6">
+                  <div className="bg-orange-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-orange-800 mb-2">Taller de Metas SMART</h3>
+                    <p className="text-orange-700">
+                      Traduce tus sueños en un plan de acción concreto usando salas para grupos pequeños.
+                    </p>
+                  </div>
+                  
+                  <div className="bg-orange-100 border border-orange-300 rounded-lg p-4">
+                    <h4 className="font-semibold mb-2">Método SMART:</h4>
+                    <ul className="space-y-1 text-sm">
+                      <li><strong>S</strong>pecific - Específico</li>
+                      <li><strong>M</strong>easurable - Medible</li>
+                      <li><strong>A</strong>chievable - Alcanzable</li>
+                      <li><strong>R</strong>elevant - Relevante</li>
+                      <li><strong>T</strong>ime-bound - Con plazo definido</li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {currentSection === 4 && (
+                <div className="space-y-6">
+                  <div className="bg-red-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-red-800 mb-2">Ronda de Compromisos</h3>
+                    <p className="text-red-700">
+                      Concreta tus siguientes pasos y sella un compromiso usando el chat.
+                    </p>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="border-2 border-red-200 rounded-lg p-4">
+                      <h4 className="font-semibold mb-2">Universidad #1 en tu radar:</h4>
+                      <textarea 
+                        className="w-full p-2 border rounded-md h-20"
+                        placeholder="¿Cuál es tu universidad objetivo y por qué?"
+                      />
+                    </div>
+                    <div className="border-2 border-red-200 rounded-lg p-4">
+                      <h4 className="font-semibold mb-2">Acción esta semana:</h4>
+                      <textarea 
+                        className="w-full p-2 border rounded-md h-20"
+                        placeholder="¿Qué harás para investigar becas o financiación?"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-6">
+            
+            {/* Participants Panel */}
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h3 className="text-lg font-semibold mb-4">Participantes</h3>
+              <div className="space-y-3">
+                {participants.map((participant, index) => (
+                  <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <div>
+                      <p className="font-medium">{participant.name}</p>
+                      {participant.passion && (
+                        <p className="text-sm text-gray-600">🎯 {participant.passion}</p>
+                      )}
+                      {participant.superpower && (
+                        <p className="text-sm text-gray-600">⚡ {participant.superpower}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Chat Panel */}
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h3 className="text-lg font-semibold mb-4">Chat del Taller</h3>
+              
+              <div className="border rounded-lg h-64 overflow-y-auto p-3 mb-4 bg-gray-50">
+                {chatMessages.length === 0 ? (
+                  <p className="text-gray-500 text-center py-8">
+                    Los mensajes aparecerán aquí...
+                  </p>
+                ) : (
+                  <div className="space-y-2">
+                    {chatMessages.map((message) => (
+                      <div key={message.id} className="bg-white p-2 rounded border-l-4 border-indigo-500">
+                        <p className="text-sm">{message.text}</p>
+                        <p className="text-xs text-gray-500">{message.timestamp}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
+              <div className="flex space-x-2">
+                <input
+                  type="text"
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  placeholder="Escribe tu mensaje..."
+                  className="flex-1 p-2 border rounded-md"
+                  onKeyPress={(e) => e.key === 'Enter' && addMessage()}
+                />
+                <button
+                  onClick={addMessage}
+                  className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition-colors"
+                >
+                  Enviar
+                </button>
+              </div>
+            </div>
+
+            {/* Resources Panel */}
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h3 className="text-lg font-semibold mb-4">Recursos Digitales</h3>
+              <div className="space-y-2">
+                <a href="#" className="block p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                  📊 Análisis del Mercado en América Latina
+                </a>
+                <a href="#" className="block p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+                  📋 Plantilla "Mi Carrera en 360°"
+                </a>
+                <a href="#" className="block p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors">
+                  🎯 Plantilla Metas SMART
+                </a>
+                <a href="#" className="block p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors">
+                  🔗 Pizarra Colaborativa (Miro)
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default VocationalGuidanceWorkshop;
