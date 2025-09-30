@@ -1,0 +1,1990 @@
+import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight, ShoppingCart, Scale, Building2, FileText, Users, Package } from 'lucide-react';
+
+const PresentacionDerechoMercantil = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    // Slide 1: Portada
+    {
+      title: "Fuentes del Derecho Mercantil y Actos de Comercio",
+      content: (
+        <div className="flex flex-col items-center justify-center h-full space-y-8">
+          <div className="flex space-x-6">
+            <Scale className="w-20 h-20 text-blue-600" />
+            <ShoppingCart className="w-20 h-20 text-green-600" />
+            <Building2 className="w-20 h-20 text-purple-600" />
+          </div>
+          <h2 className="text-4xl font-bold text-gray-800 text-center">
+            Derecho Mercantil en México
+          </h2>
+          <p className="text-xl text-gray-600">Sesión 1: Fundamentos y Casos Prácticos</p>
+          <p className="text-lg text-gray-500">Duración: 60 minutos</p>
+        </div>
+      )
+    },
+
+    // Slide 2: Objetivos
+    {
+      title: "Objetivos de Aprendizaje",
+      content: (
+        <div className="space-y-6">
+          <p className="text-lg text-gray-700 mb-8">Al finalizar esta sesión, serás capaz de:</p>
+          <div className="grid grid-cols-1 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+              <p className="font-semibold text-blue-900">✓ Identificar y distinguir las fuentes del Derecho Mercantil</p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+              <p className="font-semibold text-green-900">✓ Comprender el concepto y clasificación de los actos de comercio</p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+              <p className="font-semibold text-purple-900">✓ Aplicar estos conceptos a casos reales del contexto mexicano</p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-500">
+              <p className="font-semibold text-orange-900">✓ Analizar situaciones comerciales desde una perspectiva jurídica</p>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 3: Introducción contextual
+    {
+      title: "¿Por qué es importante el Derecho Mercantil?",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6 rounded-lg">
+            <p className="text-xl font-semibold mb-3">Contexto Mexicano</p>
+            <p className="text-lg">México tiene más de 4.9 millones de empresas registradas y es la 15ª economía mundial</p>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-6 mt-8">
+            <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-blue-500">
+              <ShoppingCart className="w-12 h-12 text-blue-600 mb-4" />
+              <h3 className="font-bold text-lg mb-2">Comercio Electrónico</h3>
+              <p className="text-gray-600">Mercado Libre, Amazon México, Liverpool</p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-green-500">
+              <Building2 className="w-12 h-12 text-green-600 mb-4" />
+              <h3 className="font-bold text-lg mb-2">Empresas</h3>
+              <p className="text-gray-600">FEMSA, Bimbo, América Móvil</p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-purple-500">
+              <Package className="w-12 h-12 text-purple-600 mb-4" />
+              <h3 className="font-bold text-lg mb-2">Importación/Exportación</h3>
+              <p className="text-gray-600">T-MEC, relaciones comerciales</p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-orange-500">
+              <Users className="w-12 h-12 text-orange-600 mb-4" />
+              <h3 className="font-bold text-lg mb-2">Emprendimiento</h3>
+              <p className="text-gray-600">Startups, PyMEs, negocios familiares</p>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 4: Fuentes Formales - Introducción
+    {
+      title: "1.1 Fuentes Formales del Derecho Mercantil",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-600">
+            <h3 className="text-xl font-bold text-blue-900 mb-3">¿Qué son las Fuentes Formales?</h3>
+            <p className="text-gray-700 text-lg">Son los procesos de creación de las normas jurídicas que regulan el comercio en México</p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 mt-6">
+            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+              <div className="flex items-start space-x-4">
+                <div className="bg-blue-100 p-3 rounded-full">
+                  <FileText className="w-8 h-8 text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-lg text-gray-800 mb-2">1. Legislación</h4>
+                  <p className="text-gray-600 mb-2">Leyes escritas aprobadas por el Congreso</p>
+                  <div className="bg-gray-50 p-3 rounded text-sm">
+                    <p className="font-semibold text-blue-700">Ejemplos principales:</p>
+                    <ul className="list-disc list-inside mt-2 space-y-1">
+                      <li>Código de Comercio (1889, vigente)</li>
+                      <li>Ley General de Sociedades Mercantiles</li>
+                      <li>Ley General de Títulos y Operaciones de Crédito</li>
+                      <li>Ley de Concursos Mercantiles</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+              <div className="flex items-start space-x-4">
+                <div className="bg-green-100 p-3 rounded-full">
+                  <Scale className="w-8 h-8 text-green-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-lg text-gray-800 mb-2">2. Jurisprudencia</h4>
+                  <p className="text-gray-600 mb-2">Interpretación de las leyes por tribunales</p>
+                  <div className="bg-gray-50 p-3 rounded text-sm">
+                    <p className="font-semibold text-green-700">Criterios obligatorios de:</p>
+                    <ul className="list-disc list-inside mt-2 space-y-1">
+                      <li>Suprema Corte de Justicia de la Nación</li>
+                      <li>Tribunales Colegiados de Circuito</li>
+                      <li>Se forma con 5 resoluciones en el mismo sentido</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+              <div className="flex items-start space-x-4">
+                <div className="bg-purple-100 p-3 rounded-full">
+                  <Users className="w-8 h-8 text-purple-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-lg text-gray-800 mb-2">3. Usos y Costumbres Mercantiles</h4>
+                  <p className="text-gray-600 mb-2">Prácticas comerciales reiteradas y aceptadas</p>
+                  <div className="bg-gray-50 p-3 rounded text-sm">
+                    <p className="font-semibold text-purple-700">Ejemplos en México:</p>
+                    <ul className="list-disc list-inside mt-2 space-y-1">
+                      <li>Horarios comerciales extendidos</li>
+                      <li>Uso de facturas electrónicas (CFDI)</li>
+                      <li>Prácticas de pago: contado, crédito a 30 días</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 5: Caso Práctico Fuentes Formales
+    {
+      title: "Caso Práctico: Fuentes Formales",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-yellow-900 mb-3">📋 Caso: Disputa entre Bimbo y un Distribuidor</h3>
+            <p className="text-gray-700 mb-4">
+              Un distribuidor de Grupo Bimbo en Guadalajara demanda a la empresa por incumplimiento de contrato. 
+              El contrato establece términos de entrega, pero no especifica qué sucede si hay desabasto por causas de fuerza mayor.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4">
+            <div className="bg-blue-50 p-5 rounded-lg">
+              <p className="font-bold text-blue-900 mb-2">🔍 ¿Qué fuentes formales aplican?</p>
+              <div className="space-y-2 text-gray-700">
+                <p><span className="font-semibold">1. Legislación:</span> Se aplica el Código de Comercio y el Código Civil Federal (supletorio)</p>
+                <p><span className="font-semibold">2. Jurisprudencia:</span> El juez consulta criterios de la SCJN sobre fuerza mayor en contratos mercantiles</p>
+                <p><span className="font-semibold">3. Usos mercantiles:</span> Se consideran las prácticas comunes en la industria de distribución de alimentos</p>
+              </div>
+            </div>
+
+            <div className="bg-green-50 p-5 rounded-lg">
+              <p className="font-bold text-green-900 mb-2">✅ Resolución:</p>
+              <p className="text-gray-700">
+                El tribunal aplica las tres fuentes: revisa el contrato (legislación), consulta jurisprudencia sobre 
+                casos similares, y considera que en la industria alimentaria es costumbre tener planes de contingencia. 
+                Bimbo debe compensar al distribuidor, pero no por daños punitivos.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-purple-100 p-4 rounded-lg mt-4">
+            <p className="text-sm text-purple-900">
+              <span className="font-bold">💡 Aprendizaje:</span> Las fuentes formales trabajan en conjunto. 
+              La ley es la base, la jurisprudencia la interpreta, y los usos comerciales llenan vacíos.
+            </p>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 6: Fuentes Materiales
+    {
+      title: "1.2 Fuentes Materiales del Derecho Mercantil",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-green-50 p-6 rounded-lg border-l-4 border-green-600">
+            <h3 className="text-xl font-bold text-green-900 mb-3">¿Qué son las Fuentes Materiales?</h3>
+            <p className="text-gray-700 text-lg">Son los factores sociales, económicos y políticos que motivan la creación de normas mercantiles</p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl">💰</span>
+              </div>
+              <h4 className="font-bold text-lg mb-3">Factores Económicos</h4>
+              <ul className="text-gray-600 space-y-2 text-sm">
+                <li>• Necesidad de regular el comercio electrónico</li>
+                <li>• Protección al consumidor</li>
+                <li>• Competencia económica</li>
+                <li>• Globalización y tratados comerciales</li>
+              </ul>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl">👥</span>
+              </div>
+              <h4 className="font-bold text-lg mb-3">Factores Sociales</h4>
+              <ul className="text-gray-600 space-y-2 text-sm">
+                <li>• Digitalización de transacciones</li>
+                <li>• Cambios en hábitos de consumo</li>
+                <li>• Exigencia de transparencia</li>
+                <li>• Protección de datos personales</li>
+              </ul>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl">🏛️</span>
+              </div>
+              <h4 className="font-bold text-lg mb-3">Factores Políticos</h4>
+              <ul className="text-gray-600 space-y-2 text-sm">
+                <li>• Políticas públicas de comercio</li>
+                <li>• Acuerdos internacionales (T-MEC)</li>
+                <li>• Regulación gubernamental</li>
+                <li>• Reformas fiscales y comerciales</li>
+              </ul>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="bg-orange-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl">🔬</span>
+              </div>
+              <h4 className="font-bold text-lg mb-3">Factores Tecnológicos</h4>
+              <ul className="text-gray-600 space-y-2 text-sm">
+                <li>• Comercio electrónico (Mercado Libre)</li>
+                <li>• Fintech y pagos digitales</li>
+                <li>• Blockchain y criptomonedas</li>
+                <li>• Inteligencia artificial en negocios</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 7: Caso Práctico Fuentes Materiales
+    {
+      title: "Caso Práctico: Fuentes Materiales",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-yellow-900 mb-3">📋 Caso: Reforma a la Ley Fintech (2018)</h3>
+            <p className="text-gray-700 mb-4">
+              México fue el primer país de América Latina en crear una ley para regular empresas de tecnología 
+              financiera como Kueski, Konfío, Clip y otras plataformas de préstamos y pagos digitales.
+            </p>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h4 className="font-bold text-lg mb-4 text-gray-800">¿Qué fuentes materiales motivaron esta ley?</h4>
+            
+            <div className="space-y-4">
+              <div className="flex items-start space-x-3">
+                <div className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">1</div>
+                <div className="flex-1">
+                  <p className="font-semibold text-gray-800">Factor Económico</p>
+                  <p className="text-gray-600 text-sm">Crecimiento exponencial de empresas fintech (más de 400 en México). Necesidad de proteger inversiones y prevenir fraudes.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-3">
+                <div className="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">2</div>
+                <div className="flex-1">
+                  <p className="font-semibold text-gray-800">Factor Social</p>
+                  <p className="text-gray-600 text-sm">56% de mexicanos no tenían acceso a servicios bancarios tradicionales. Las fintech democratizaron el acceso al crédito.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-3">
+                <div className="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">3</div>
+                <div className="flex-1">
+                  <p className="font-semibold text-gray-800">Factor Tecnológico</p>
+                  <p className="text-gray-600 text-sm">Auge de aplicaciones móviles para pagos y préstamos. Mayor conectividad a internet (70% de la población).</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-3">
+                <div className="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">4</div>
+                <div className="flex-1">
+                  <p className="font-semibold text-gray-800">Factor Político</p>
+                  <p className="text-gray-600 text-sm">Presión de organismos internacionales para regular el sector. Compromiso de México con la innovación financiera.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-green-100 p-4 rounded-lg">
+            <p className="text-sm text-green-900">
+              <span className="font-bold">💡 Aprendizaje:</span> Las leyes no surgen de la nada. Son respuesta a necesidades 
+              reales de la sociedad y la economía. La Ley Fintech es un ejemplo perfecto de cómo las fuentes materiales 
+              impulsan cambios legislativos.
+            </p>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 8: Fuentes Históricas
+    {
+      title: "1.3 Fuentes Históricas del Derecho Mercantil",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-amber-50 p-6 rounded-lg border-l-4 border-amber-600">
+            <h3 className="text-xl font-bold text-amber-900 mb-3">¿Qué son las Fuentes Históricas?</h3>
+            <p className="text-gray-700 text-lg">Son documentos y leyes del pasado que ya no tienen vigencia, pero que influyeron en el desarrollo del derecho mercantil actual</p>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h4 className="font-bold text-lg mb-4 text-gray-800">Evolución Histórica en México</h4>
+            
+            <div className="space-y-4">
+              <div className="border-l-4 border-blue-500 pl-4 py-2">
+                <p className="font-bold text-blue-900">Época Colonial (1521-1821)</p>
+                <p className="text-gray-600 text-sm">• Ordenanzas de Bilbao (1737) - regulaban el comercio en la Nueva España</p>
+                <p className="text-gray-600 text-sm">• Consulado de Mercaderes de la Ciudad de México</p>
+              </div>
+
+              <div className="border-l-4 border-green-500 pl-4 py-2">
+                <p className="font-bold text-green-900">México Independiente (1821-1854)</p>
+                <p className="text-gray-600 text-sm">• Se siguieron aplicando las Ordenanzas de Bilbao</p>
+                <p className="text-gray-600 text-sm">• Primeras leyes mexicanas sobre comercio</p>
+              </div>
+
+              <div className="border-l-4 border-purple-500 pl-4 py-2">
+                <p className="font-bold text-purple-900">Primer Código de Comercio (1854)</p>
+                <p className="text-gray-600 text-sm">• Conocido como "Código Lares"</p>
+                <p className="text-gray-600 text-sm">• Primer intento de codificación mercantil mexicana</p>
+              </div>
+
+              <div className="border-l-4 border-orange-500 pl-4 py-2">
+                <p className="font-bold text-orange-900">Código de Comercio de 1889</p>
+                <p className="text-gray-600 text-sm">• Código actual, vigente hasta hoy</p>
+                <p className="text-gray-600 text-sm">• Ha tenido múltiples reformas pero mantiene su estructura base</p>
+              </div>
+
+              <div className="border-l-4 border-red-500 pl-4 py-2">
+                <p className="font-bold text-red-900">Leyes Especiales (Siglo XX)</p>
+                <p className="text-gray-600 text-sm">• Ley General de Sociedades Mercantiles (1934)</p>
+                <p className="text-gray-600 text-sm">• Ley General de Títulos y Operaciones de Crédito (1932)</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 p-4 rounded-lg">
+            <p className="text-sm text-blue-900">
+              <span className="font-bold">💡 Dato Curioso:</span> El Código de Comercio de 1889 tiene más de 130 años 
+              de antigüedad, pero sigue siendo la base del derecho mercantil mexicano, adaptándose a las necesidades modernas.
+            </p>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 9: Caso Práctico Fuentes Históricas
+    {
+      title: "Caso Práctico: Fuentes Históricas",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-yellow-900 mb-3">📋 Caso: Liverpool y el Pagaré</h3>
+            <p className="text-gray-700 mb-4">
+              Una cliente compra un televisor en Liverpool a crédito y firma un pagaré (documento que promete pagar una cantidad). 
+              No realiza los pagos y Liverpool la demanda judicialmente para cobrar la deuda mediante el pagaré.
+            </p>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h4 className="font-bold text-lg mb-4 text-gray-800">¿Cómo intervienen las fuentes históricas?</h4>
+            
+            <div className="space-y-4">
+              <div className="bg-blue-50 p-4 rounded-lg">
+                <p className="font-semibold text-blue-900 mb-2">🏛️ Origen del Pagaré</p>
+                <p className="text-gray-700 text-sm">
+                  El pagaré tiene sus raíces en la Edad Media europea, cuando los comerciantes necesitaban 
+                  documentos que garantizaran el pago de mercancías. En México, se reguló por primera vez 
+                  en el Código de Comercio de 1854 (Código Lares).
+                </p>
+              </div>
+
+              <div className="bg-green-50 p-4 rounded-lg">
+                <p className="font-semibold text-green-900 mb-2">📜 Evolución Legal</p>
+                <p className="text-gray-700 text-sm">
+                  En 1932, México promulgó la Ley General de Títulos y Operaciones de Crédito, que establece 
+                  las características actuales del pagaré. Esta ley se basó en principios históricos del 
+                  derecho mercantil europeo adaptados a la realidad mexicana.
+                </p>
+              </div>
+
+              <div className="bg-purple-50 p-4 rounded-lg">
+                <p className="font-semibold text-purple-900 mb-2">⚖️ Aplicación Actual</p>
+                <p className="text-gray-700 text-sm">
+                  El juez aplica la ley vigente (1932), pero su interpretación considera los principios 
+                  históricos: buena fe, protección al comercio, y seguridad jurídica en las transacciones.
+                  Liverpool puede ejecutar el pagaré de forma expedita gracias a estos principios centenarios.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-amber-100 p-4 rounded-lg">
+            <p className="text-sm text-amber-900">
+              <span className="font-bold">💡 Aprendizaje:</span> Aunque las fuentes históricas ya no tienen vigencia, 
+              sus principios siguen vivos en las leyes actuales. El pagaré que firmamos hoy en Liverpool tiene 
+              una historia de más de 500 años.
+            </p>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 10: Fuentes Supletorias
+    {
+      title: "1.4 Fuentes Supletorias del Derecho Mercantil",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-600">
+            <h3 className="text-xl font-bold text-purple-900 mb-3">¿Qué son las Fuentes Supletorias?</h3>
+            <p className="text-gray-700 text-lg">Son ordenamientos jurídicos que se aplican cuando el derecho mercantil no regula específicamente una situación</p>
+          </div>
+
+          <div className="bg-gradient-to-r from-purple-100 to-blue-100 p-6 rounded-lg mb-6">
+            <p className="text-center text-lg font-semibold text-gray-800 mb-3">Jerarquía de Aplicación</p>
+            <div className="flex items-center justify-center space-x-3">
+              <div className="bg-white px-4 py-2 rounded shadow">
+                <p className="font-bold text-purple-900">1º Derecho Mercantil</p>
+              </div>
+              <span className="text-2xl">→</span>
+              <div className="bg-white px-4 py-2 rounded shadow">
+                <p className="font-bold text-blue-900">2º Derecho Civil</p>
+              </div>
+              <span className="text-2xl">→</span>
+              <div className="bg-white px-4 py-2 rounded shadow">
+                <p className="font-bold text-green-900">3º Usos y Costumbres</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4">
+            <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-blue-500">
+              <h4 className="font-bold text-lg mb-3 text-gray-800">📚 Derecho Civil (Principal Supletorio)</h4>
+              <p className="text-gray-600 mb-3">Código Civil Federal - Artículo 2º del Código de Comercio</p>
+              <div className="bg-gray-50 p-4 rounded">
+                <p className="text-sm font-semibold text-gray-700 mb-2">Se aplica en casos de:</p>
+                <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                  <li>Contratos no regulados específicamente por el derecho mercantil</li>
+                  <li>Capacidad de las personas para celebrar actos de comercio</li>
+                  <li>Vicios del consentimiento (error, dolo, mala fe)</li>
+                  <li>Nulidad de actos jurídicos</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-green-500">
+              <h4 className="font-bold text-lg mb-3 text-gray-800">⚖️ Derecho Común y Procesal</h4>
+              <p className="text-gray-600 mb-3">Cuando ni el derecho mercantil ni el civil resuelven la situación</p>
+              <div className="bg-gray-50 p-4 rounded">
+                <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                  <li>Código de Procedimientos Civiles (para procedimientos judiciales)</li>
+                  <li>Ley Federal de Protección al Consumidor</li>
+                  <li>Ley Federal de Competencia Económica</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-orange-500">
+              <h4 className="font-bold text-lg mb-3 text-gray-800">🔍 Usos y Costumbres Comerciales</h4>
+              <p className="text-gray-600 mb-3">Cuando no hay regulación legal específica</p>
+              <div className="bg-gray-50 p-4 rounded">
+                <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                  <li>Prácticas establecidas en el sector comercial específico</li>
+                  <li>Solo si no contradicen la ley</li>
+                  <li>Deben ser generales, constantes y uniformes</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 11: Caso Práctico Fuentes Supletorias
+    {
+      title: "Caso Práctico: Fuentes Supletorias",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-yellow-900 mb-3">📋 Caso: Contrato de Franquicia de Oxxo</h3>
+            <p className="text-gray-700 mb-4">
+              Un empresario firma un contrato de franquicia para abrir una tienda Oxxo en Monterrey. 
+              El contrato establece obligaciones de pago, imagen comercial y operación, pero NO especifica 
+              qué sucede si el franquiciatario tiene un accidente y queda incapacitado temporalmente.
+            </p>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h4 className="font-bold text-lg mb-4 text-gray-800">¿Cómo se resuelve aplicando fuentes supletorias?</h4>
+            
+            <div className="space-y-4">
+              <div className="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                <p className="font-semibold text-red-900 mb-2">❌ Paso 1: Buscar en Derecho Mercantil</p>
+                <p className="text-gray-700 text-sm">
+                  El Código de Comercio y la Ley de Propiedad Industrial (que regula marcas y franquicias) 
+                  NO establecen reglas específicas sobre incapacidad temporal del franquiciatario.
+                </p>
+              </div>
+
+              <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                <p className="font-semibold text-blue-900 mb-2">✅ Paso 2: Aplicar Derecho Civil (Supletorio)</p>
+                <p className="text-gray-700 text-sm mb-2">
+                  Se aplica el Código Civil Federal, artículos sobre obligaciones y contratos:
+                </p>
+                <ul className="list-disc list-inside text-sm text-gray-600 space-y-1 ml-4">
+                  <li>Art. 2011: Las obligaciones se pueden cumplir por un representante</li>
+                  <li>Art. 2104: El caso fortuito libera temporalmente de obligaciones</li>
+                  <li>El franquiciatario puede designar un administrador temporal</li>
+                </ul>
+              </div>
+
+              <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                <p className="font-semibold text-green-900 mb-2">⚖️ Paso 3: Considerar Usos Comerciales</p>
+                <p className="text-gray-700 text-sm">
+                  En la práctica comercial de franquicias en México, es costumbre que ante situaciones 
+                  imprevistas, el franquiciante (Oxxo) y franquiciatario busquen soluciones de mutuo acuerdo, 
+                  como permitir un administrador temporal aprobado por ambas partes.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-purple-100 p-4 rounded-lg">
+            <p className="text-sm text-purple-900">
+              <span className="font-bold">💡 Aprendizaje:</span> Las fuentes supletorias llenan los vacíos legales. 
+              En este caso, aunque el derecho mercantil no regula la situación, el derecho civil y los usos 
+              comerciales permiten encontrar una solución justa.
+            </p>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 12: Transición a Actos de Comercio
+    {
+      title: "Transición: De las Fuentes a los Actos de Comercio",
+      content: (
+        <div className="flex flex-col items-center justify-center h-full space-y-8">
+          <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-8 rounded-lg shadow-xl max-w-3xl">
+            <h3 className="text-2xl font-bold mb-4 text-center">Recapitulación: Fuentes del Derecho Mercantil</h3>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="bg-white bg-opacity-20 p-3 rounded">
+                <p className="font-bold mb-1">✓ Fuentes Formales</p>
+                <p className="text-xs">Legislación, Jurisprudencia, Usos</p>
+              </div>
+              <div className="bg-white bg-opacity-20 p-3 rounded">
+                <p className="font-bold mb-1">✓ Fuentes Materiales</p>
+                <p className="text-xs">Factores económicos, sociales, políticos</p>
+              </div>
+              <div className="bg-white bg-opacity-20 p-3 rounded">
+                <p className="font-bold mb-1">✓ Fuentes Históricas</p>
+                <p className="text-xs">Evolución del derecho comercial</p>
+              </div>
+              <div className="bg-white bg-opacity-20 p-3 rounded">
+                <p className="font-bold mb-1">✓ Fuentes Supletorias</p>
+                <p className="text-xs">Derecho Civil y otros ordenamientos</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <div className="text-6xl mb-4">⬇️</div>
+            <h3 className="text-3xl font-bold text-gray-800 mb-3">Ahora: ¿Qué son los Actos de Comercio?</h3>
+            <p className="text-xl text-gray-600 max-w-2xl">
+              Las fuentes nos dicen de DÓNDE viene el derecho mercantil. 
+              Los actos de comercio nos dicen QUÉ actividades regula.
+            </p>
+          </div>
+
+          <div className="flex space-x-4">
+            <ShoppingCart className="w-16 h-16 text-green-600" />
+            <Building2 className="w-16 h-16 text-blue-600" />
+            <Package className="w-16 h-16 text-purple-600" />
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 13: Actos de Comercio - Concepto
+    {
+      title: "2.1 Actos de Comercio - Concepto",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-green-50 p-6 rounded-lg border-l-4 border-green-600">
+            <h3 className="text-xl font-bold text-green-900 mb-3">¿Qué es un Acto de Comercio?</h3>
+            <p className="text-gray-700 text-lg mb-4">
+              Son todas aquellas operaciones y actividades que la ley considera de naturaleza comercial 
+              y que, por lo tanto, están reguladas por el derecho mercantil.
+            </p>
+            <div className="bg-white p-4 rounded">
+              <p className="text-sm text-gray-600 italic">
+                "Son actos de comercio los que menciona el Código de Comercio en su artículo 75, 
+                y todos los que sean de naturaleza análoga" - Definición legal
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl">✅</span>
+              </div>
+              <h4 className="font-bold text-lg mb-3 text-green-900">SÍ son Actos de Comercio</h4>
+              <ul className="text-gray-600 space-y-2 text-sm">
+                <li>• Comprar productos para revenderlos</li>
+                <li>• Operar una tienda física o en línea</li>
+                <li>• Transportar mercancías por pago</li>
+                <li>• Operaciones bancarias</li>
+                <li>• Emisión de acciones de empresas</li>
+                <li>• Contratos de franquicia</li>
+                <li>• Importación y exportación</li>
+              </ul>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="bg-red-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl">❌</span>
+              </div>
+              <h4 className="font-bold text-lg mb-3 text-red-900">NO son Actos de Comercio</h4>
+              <ul className="text-gray-600 space-y-2 text-sm">
+                <li>• Comprar algo para uso personal</li>
+                <li>• Vender tu coche usado</li>
+                <li>• Trabajar como empleado</li>
+                <li>• Actividades agrícolas primarias</li>
+                <li>• Servicios profesionales independientes (médicos, abogados)</li>
+                <li>• Donaciones y actos gratuitos</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 p-6 rounded-lg">
+            <h4 className="font-bold text-lg mb-3 text-blue-900">🔑 Elementos Clave</h4>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="bg-white p-4 rounded shadow">
+                <p className="font-semibold text-gray-800 mb-1">1. Finalidad</p>
+                <p className="text-xs text-gray-600">Ánimo de lucro, especulación comercial</p>
+              </div>
+              <div className="bg-white p-4 rounded shadow">
+                <p className="font-semibold text-gray-800 mb-1">2. Habitualidad</p>
+                <p className="text-xs text-gray-600">Realizarse de forma constante o profesional</p>
+              </div>
+              <div className="bg-white p-4 rounded shadow">
+                <p className="font-semibold text-gray-800 mb-1">3. Intermediación</p>
+                <p className="text-xs text-gray-600">Comprar para vender, mediar en operaciones</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 14: Clasificación de Actos de Comercio
+    {
+      title: "2.2 Clasificación de Actos de Comercio",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-600">
+            <h3 className="text-xl font-bold text-purple-900 mb-3">Clasificación Principal</h3>
+            <p className="text-gray-700 text-lg">
+              Los actos de comercio se clasifican según qué tan "comerciales" son por su naturaleza
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6">
+            <div className="bg-gradient-to-r from-orange-100 to-orange-50 p-6 rounded-lg shadow-lg border-l-4 border-orange-500">
+              <div className="flex items-start space-x-4">
+                <div className="bg-orange-500 text-white rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0 text-xl font-bold">
+                  1
+                </div>
+                <div className="flex-1">
+                  <h4 className="text-xl font-bold text-orange-900 mb-3">Actos de Mercantilidad Condicionada</h4>
+                  <p className="text-gray-700 mb-3">
+                    Son actos que PUEDEN ser mercantiles o civiles, dependiendo de las circunstancias y la intención de quien los realiza
+                  </p>
+                  <div className="bg-white p-4 rounded">
+                    <p className="font-semibold text-gray-800 mb-2">Características:</p>
+                    <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                      <li>Su naturaleza depende del CONTEXTO</li>
+                      <li>Requieren INTENCIÓN de especular</li>
+                      <li>Necesitan HABITUALIDAD para ser mercantiles</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-blue-100 to-blue-50 p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+              <div className="flex items-start space-x-4">
+                <div className="bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0 text-xl font-bold">
+                  2
+                </div>
+                <div className="flex-1">
+                  <h4 className="text-xl font-bold text-blue-900 mb-3">Actos Absolutamente Mercantiles</h4>
+                  <p className="text-gray-700 mb-3">
+                    Son actos que SIEMPRE son comerciales, sin importar quién los realiza o con qué intención
+                  </p>
+                  <div className="bg-white p-4 rounded">
+                    <p className="font-semibold text-gray-800 mb-2">Características:</p>
+                    <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                      <li>Su naturaleza mercantil es INHERENTE</li>
+                      <li>NO importa la intención</li>
+                      <li>SIEMPRE se rigen por el derecho mercantil</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 p-5 rounded-lg border-2 border-yellow-400">
+            <p className="text-center text-lg font-semibold text-yellow-900">
+              💡 La diferencia clave: Los condicionados PUEDEN SER o NO SER mercantiles. 
+              Los absolutos SIEMPRE SON mercantiles.
+            </p>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 15: Actos de Mercantilidad Condicionada
+    {
+      title: "2.2.1 Actos de Mercantilidad Condicionada",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-600">
+            <h3 className="text-xl font-bold text-orange-900 mb-3">Actos de Mercantilidad Condicionada</h3>
+            <p className="text-gray-700 text-lg">
+              Se convierten en actos de comercio SOLO si se cumplen ciertas condiciones
+            </p>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
+            <h4 className="font-bold text-lg mb-4 text-gray-800">📋 Principales Tipos (Art. 75 Código de Comercio)</h4>
+            
+            <div className="space-y-4">
+              <div className="border-l-4 border-orange-500 pl-4 py-3 bg-orange-50">
+                <p className="font-bold text-orange-900 mb-2">1. Compraventas con ánimo de especulación</p>
+                <p className="text-gray-700 text-sm mb-2">
+                  <span className="font-semibold">Definición:</span> Comprar bienes muebles o inmuebles con la intención de revenderlos
+                </p>
+                <div className="bg-white p-3 rounded mt-2">
+                  <p className="text-xs font-semibold text-gray-700 mb-1">Ejemplos:</p>
+                  <p className="text-xs text-green-700">✅ MERCANTIL: Comprar 100 celulares para revenderlos en tu tienda</p>
+                  <p className="text-xs text-red-700">❌ CIVIL: Comprar un celular para uso personal</p>
+                </div>
+              </div>
+
+              <div className="border-l-4 border-blue-500 pl-4 py-3 bg-blue-50">
+                <p className="font-bold text-blue-900 mb-2">2. Comisiones mercantiles</p>
+                <p className="text-gray-700 text-sm mb-2">
+                  <span className="font-semibold">Definición:</span> Actuar como intermediario en operaciones comerciales
+                </p>
+                <div className="bg-white p-3 rounded mt-2">
+                  <p className="text-xs font-semibold text-gray-700 mb-1">Ejemplos:</p>
+                  <p className="text-xs text-green-700">✅ MERCANTIL: Ser comisionista de ventas de automóviles</p>
+                  <p className="text-xs text-red-700">❌ CIVIL: Hacer un favor a un amigo vendiéndole algo sin comisión</p>
+                </div>
+              </div>
+
+              <div className="border-l-4 border-green-500 pl-4 py-3 bg-green-50">
+                <p className="font-bold text-green-900 mb-2">3. Empresas de transporte</p>
+                <p className="text-gray-700 text-sm mb-2">
+                  <span className="font-semibold">Definición:</span> Transportar personas o mercancías de forma habitual y con lucro
+                </p>
+                <div className="bg-white p-3 rounded mt-2">
+                  <p className="text-xs font-semibold text-gray-700 mb-1">Ejemplos:</p>
+                  <p className="text-xs text-green-700">✅ MERCANTIL: Operar una empresa de paquetería (Estafeta, FedEx)</p>
+                  <p className="text-xs text-red-700">❌ CIVIL: Llevar a un familiar al aeropuerto en tu coche</p>
+                </div>
+              </div>
+
+              <div className="border-l-4 border-purple-500 pl-4 py-3 bg-purple-50">
+                <p className="font-bold text-purple-900 mb-2">4. Depósito mercantil</p>
+                <p className="text-gray-700 text-sm mb-2">
+                  <span className="font-semibold">Definición:</span> Guardar mercancías de otros con finalidad comercial
+                </p>
+                <div className="bg-white p-3 rounded mt-2">
+                  <p className="text-xs font-semibold text-gray-700 mb-1">Ejemplos:</p>
+                  <p className="text-xs text-green-700">✅ MERCANTIL: Almacenes fiscalizados, bodegas comerciales</p>
+                  <p className="text-xs text-red-700">❌ CIVIL: Guardar las herramientas de un amigo en tu garage</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-yellow-100 p-4 rounded-lg">
+            <p className="text-sm text-yellow-900">
+              <span className="font-bold">🔑 Clave:</span> En los actos condicionados, pregúntate: 
+              ¿Hay ánimo de lucro? ¿Es habitual? ¿Hay especulación? Si la respuesta es SÍ, es mercantil.
+            </p>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 16: Caso Práctico Mercantilidad Condicionada
+    {
+      title: "Caso Práctico: Mercantilidad Condicionada",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-yellow-900 mb-3">📋 Caso: María y su Tienda de Ropa en Línea</h3>
+            <p className="text-gray-700 mb-4">
+              María compra ropa en el Centro de la Ciudad de México para revenderla en su página de Facebook 
+              e Instagram. Inició hace 6 meses y ya tiene ingresos constantes. Un proveedor la demanda por 
+              incumplimiento de pago de $50,000 pesos.
+            </p>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h4 className="font-bold text-lg mb-4 text-gray-800">🔍 Análisis del Caso</h4>
+            
+            <div className="space-y-4">
+              <div className="bg-blue-50 p-4 rounded-lg">
+                <p className="font-semibold text-blue-900 mb-2">Pregunta 1: ¿Es un acto de comercio?</p>
+                <p className="text-gray-700 text-sm mb-3">
+                  Analicemos si se cumplen las condiciones:
+                </p>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-start space-x-2">
+                    <span className="text-green-600 font-bold">✓</span>
+                    <p><span className="font-semibold">Ánimo de especulación:</span> Compra para revender con ganancia</p>
+                  </div>
+                  <div className="flex items-start space-x-2">
+                    <span className="text-green-600 font-bold">✓</span>
+                    <p><span className="font-semibold">Habitualidad:</span> Lleva 6 meses haciéndolo constantemente</p>
+                  </div>
+                  <div className="flex items-start space-x-2">
+                    <span className="text-green-600 font-bold">✓</span>
+                    <p><span className="font-semibold">Finalidad de lucro:</span> Tiene ingresos constantes</p>
+                  </div>
+                </div>
+                <div className="bg-green-100 p-3 rounded mt-3">
+                  <p className="font-bold text-green-900">✅ Conclusión: SÍ es un acto de comercio</p>
+                </div>
+              </div>
+
+              <div className="bg-purple-50 p-4 rounded-lg">
+                <p className="font-semibold text-purple-900 mb-2">Pregunta 2: ¿Qué derecho se aplica?</p>
+                <p className="text-gray-700 text-sm mb-2">
+                  Al ser un acto de comercio, se aplica:
+                </p>
+                <ul className="list-disc list-inside text-sm text-gray-600 space-y-1 ml-4">
+                  <li>Código de Comercio</li>
+                  <li>Tribunales mercantiles (no civiles)</li>
+                  <li>Procedimientos mercantiles más ágiles</li>
+                  <li>María es considerada "comerciante" aunque no tenga RFC empresarial</li>
+                </ul>
+              </div>
+
+              <div className="bg-orange-50 p-4 rounded-lg">
+                <p className="font-semibold text-orange-900 mb-2">Pregunta 3: ¿Qué consecuencias tiene?</p>
+                <ul className="list-disc list-inside text-sm text-gray-600 space-y-1 ml-4">
+                  <li>El proveedor puede demandarla en juicio mercantil</li>
+                  <li>Términos procesales más cortos que en juicio civil</li>
+                  <li>María debe llevar contabilidad (aunque sea simplificada)</li>
+                  <li>Puede ser sujeta a inspecciones fiscales</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-red-100 p-4 rounded-lg">
+            <p className="text-sm text-red-900">
+              <span className="font-bold">⚠️ Lección importante:</span> Aunque María venda por redes sociales 
+              "informalmente", está realizando actos de comercio. La ley la considera comerciante y debe cumplir 
+              obligaciones mercantiles y fiscales. ¡No importa si no tiene local físico!
+            </p>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 17: Actos Absolutamente Mercantiles
+    {
+      title: "2.2.2 Actos Absolutamente Mercantiles",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-600">
+            <h3 className="text-xl font-bold text-blue-900 mb-3">Actos Absolutamente Mercantiles</h3>
+            <p className="text-gray-700 text-lg">
+              Son SIEMPRE mercantiles por su propia naturaleza, independientemente de quién los realice
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6 rounded-lg mb-6">
+            <p className="text-center text-xl font-bold">
+              🎯 Característica Principal: NO IMPORTA la intención, habitualidad o quién los realiza
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4">
+            <div className="bg-white p-5 rounded-lg shadow-lg border-l-4 border-blue-500">
+              <h4 className="font-bold text-lg text-blue-900 mb-3">1. Operaciones Bancarias</h4>
+              <p className="text-gray-700 text-sm mb-3">
+                Cualquier operación realizada por bancos e instituciones financieras
+              </p>
+              <div className="bg-gray-50 p-3 rounded">
+                <p className="text-xs font-semibold text-gray-700 mb-2">Ejemplos:</p>
+                <ul className="list-disc list-inside text-xs text-gray-600 space-y-1">
+                  <li>Abrir una cuenta en BBVA, Santander, Banorte</li>
+                  <li>Solicitar un crédito hipotecario</li>
+                  <li>Realizar transferencias electrónicas</li>
+                  <li>Emisión de tarjetas de crédito</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-white p-5 rounded-lg shadow-lg border-l-4 border-green-500">
+              <h4 className="font-bold text-lg text-green-900 mb-3">2. Emisión y Negociación de Títulos de Crédito</h4>
+              <p className="text-gray-700 text-sm mb-3">
+                Creación y operación con documentos como cheques, pagarés, letras de cambio
+              </p>
+              <div className="bg-gray-50 p-3 rounded">
+                <p className="text-xs font-semibold text-gray-700 mb-2">Ejemplos:</p>
+                <ul className="list-disc list-inside text-xs text-gray-600 space-y-1">
+                  <li>Firmar un pagaré en Liverpool o Coppel</li>
+                  <li>Emitir un cheque para pagar servicios</li>
+                  <li>Endosar (transferir) un cheque a otra persona</li>
+                  <li>Operaciones en la Bolsa Mexicana de Valores</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-white p-5 rounded-lg shadow-lg border-l-4 border-purple-500">
+              <h4 className="font-bold text-lg text-purple-900 mb-3">3. Operaciones de Sociedades Mercantiles</h4>
+              <p className="text-gray-700 text-sm mb-3">
+                Todos los actos realizados por empresas constituidas como sociedades mercantiles
+              </p>
+              <div className="bg-gray-50 p-3 rounded">
+                <p className="text-xs font-semibold text-gray-700 mb-2">Ejemplos:</p>
+                <ul className="list-disc list-inside text-xs text-gray-600 space-y-1">
+                  <li>Cualquier contrato firmado por Coca-Cola FEMSA S.A. de C.V.</li>
+                  <li>Compras realizadas por Walmart de México S.A.B. de C.V.</li>
+                  <li>Emisión de acciones de empresas públicas</li>
+                  <li>Fusiones y adquisiciones entre empresas</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-white p-5 rounded-lg shadow-lg border-l-4 border-orange-500">
+              <h4 className="font-bold text-lg text-orange-900 mb-3">4. Contratos de Seguro</h4>
+              <p className="text-gray-700 text-sm mb-3">
+                Cualquier póliza de seguro, sin importar si es personal o empresarial
+              </p>
+              <div className="bg-gray-50 p-3 rounded">
+                <p className="text-xs font-semibold text-gray-700 mb-2">Ejemplos:</p>
+                <ul className="list-disc list-inside text-xs text-gray-600 space-y-1">
+                  <li>Seguro de auto con Qualitas, GNP, AXA</li>
+                  <li>Seguro de gastos médicos</li>
+                  <li>Seguro de vida</li>
+                  <li>Seguro de daños para empresas</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-white p-5 rounded-lg shadow-lg border-l-4 border-red-500">
+              <h4 className="font-bold text-lg text-red-900 mb-3">5. Empresas de Espectáculos Públicos</h4>
+              <p className="text-gray-700 text-sm mb-3">
+                Organización de eventos masivos con finalidad de lucro
+              </p>
+              <div className="bg-gray-50 p-3 rounded">
+                <p className="text-xs font-semibold text-gray-700 mb-2">Ejemplos:</p>
+                <ul className="list-disc list-inside text-xs text-gray-600 space-y-1">
+                  <li>Conciertos de Bad Bunny, Luis Miguel en el Foro Sol</li>
+                  <li>Obras de teatro en producción comercial</li>
+                  <li>Eventos deportivos (partidos de fútbol, box)</li>
+                  <li>Circos con fines comerciales</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-white p-5 rounded-lg shadow-lg border-l-4 border-pink-500">
+              <h4 className="font-bold text-lg text-pink-900 mb-3">6. Operaciones de Bolsa</h4>
+              <p className="text-gray-700 text-sm mb-3">
+                Compraventa de valores en mercados bursátiles
+              </p>
+              <div className="bg-gray-50 p-3 rounded">
+                <p className="text-xs font-semibold text-gray-700 mb-2">Ejemplos:</p>
+                <ul className="list-disc list-inside text-xs text-gray-600 space-y-1">
+                  <li>Comprar acciones de CEMEX, América Móvil en la BMV</li>
+                  <li>Invertir en ETFs o fondos de inversión</li>
+                  <li>Operaciones de intermediarios bursátiles</li>
+                  <li>Corretaje de valores</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-yellow-100 p-4 rounded-lg mt-4">
+            <p className="text-sm text-yellow-900">
+              <span className="font-bold">⚡ Recuerda:</span> En estos actos NO se pregunta "¿hay ánimo de lucro?" 
+              o "¿es habitual?". Son SIEMPRE mercantiles por ley, incluso si los realizas una sola vez en tu vida.
+            </p>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 18: Caso Práctico Actos Absolutamente Mercantiles
+    {
+      title: "Caso Práctico: Actos Absolutamente Mercantiles",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-yellow-900 mb-3">📋 Caso: Pedro y su Cheque sin Fondos</h3>
+            <p className="text-gray-700 mb-4">
+              Pedro es un maestro de primaria que nunca ha tenido un negocio. Le pide a su vecino (dueño de 
+              una ferretería) que le venda material para remodelar su casa. Le da un cheque por $20,000 pesos, 
+              pero el cheque es rechazado por falta de fondos. El vecino lo demanda.
+            </p>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h4 className="font-bold text-lg mb-4 text-gray-800">🔍 Análisis Jurídico</h4>
+            
+            <div className="space-y-4">
+              <div className="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                <p className="font-semibold text-red-900 mb-2">❓ Pedro argumenta en su defensa:</p>
+                <div className="bg-white p-3 rounded mt-2">
+                  <p className="text-sm text-gray-700 italic">
+                    "Yo no soy comerciante, solo soy maestro. Compré los materiales para MI CASA, no para 
+                    venderlos. No tengo intención de lucrar. Por lo tanto, esto NO debería ser un juicio mercantil."
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                <p className="font-semibold text-blue-900 mb-2">⚖️ Resolución del Juez:</p>
+                <div className="space-y-3">
+                  <div className="bg-white p-3 rounded">
+                    <p className="text-sm font-semibold text-gray-800 mb-2">1. Identificación del Acto</p>
+                    <p className="text-xs text-gray-600">
+                      El cheque es un TÍTULO DE CRÉDITO regulado por la Ley General de Títulos y 
+                      Operaciones de Crédito. Los títulos de crédito son ACTOS ABSOLUTAMENTE MERCANTILES.
+                    </p>
+                  </div>
+
+                  <div className="bg-white p-3 rounded">
+                    <p className="text-sm font-semibold text-gray-800 mb-2">2. Naturaleza del Acto</p>
+                    <p className="text-xs text-gray-600">
+                      NO IMPORTA que Pedro sea maestro (no comerciante). NO IMPORTA que lo usó para su casa 
+                      (no para negocio). NO IMPORTA que no tenga ánimo de lucro. El CHEQUE es mercantil POR SU 
+                      PROPIA NATURALEZA.
+                    </p>
+                  </div>
+
+                  <div className="bg-white p-3 rounded">
+                    <p className="text-sm font-semibold text-gray-800 mb-2">3. Derecho Aplicable</p>
+                    <p className="text-xs text-gray-600">
+                      Se aplica el Código de Comercio y la Ley de Títulos de Crédito. El juicio es MERCANTIL, 
+                      no civil. El procedimiento es más rápido y las sanciones pueden ser más severas.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                <p className="font-semibold text-green-900 mb-2">✅ Conclusión del Caso:</p>
+                <ul className="list-disc list-inside text-sm text-gray-700 space-y-2">
+                  <li>El juicio procede en la vía MERCANTIL</li>
+                  <li>Pedro debe pagar el cheque más intereses moratorios mercantiles</li>
+                  <li>Puede enfrentar consecuencias penales por libramiento de cheque sin fondos (delito)</li>
+                  <li>Su condición de "no comerciante" NO cambia la naturaleza del acto</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-purple-100 p-4 rounded-lg">
+            <p className="text-sm text-purple-900">
+              <span className="font-bold">💡 Aprendizaje Clave:</span> Los actos absolutamente mercantiles "atrapan" 
+              a CUALQUIER persona, sea o no comerciante. Si emites un cheque, compras acciones, o contratas un 
+              seguro, estás en el mundo mercantil aunque seas empleado, profesionista independiente o estudiante.
+            </p>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 19: Comparación Final
+    {
+      title: "Comparación: Condicionados vs Absolutos",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-orange-500 to-blue-500 text-white p-6 rounded-lg">
+            <h3 className="text-2xl font-bold text-center mb-3">¿Cuál es la diferencia clave?</h3>
+            <p className="text-center text-lg">Aprende a distinguirlos con esta tabla comparativa</p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-6">
+            {/* Columna Condicionados */}
+            <div className="bg-orange-50 p-6 rounded-lg border-2 border-orange-500">
+              <div className="bg-orange-500 text-white py-3 px-4 rounded-lg mb-4 text-center">
+                <h4 className="text-xl font-bold">Actos Condicionados</h4>
+              </div>
+
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded shadow">
+                  <p className="font-bold text-orange-900 text-sm mb-2">🎯 Naturaleza</p>
+                  <p className="text-xs text-gray-700">PUEDEN ser mercantiles o civiles según circunstancias</p>
+                </div>
+
+                <div className="bg-white p-4 rounded shadow">
+                  <p className="font-bold text-orange-900 text-sm mb-2">🔍 Requisitos</p>
+                  <p className="text-xs text-gray-700">
+                    • Ánimo de especulación<br/>
+                    • Habitualidad<br/>
+                    • Finalidad de lucro
+                  </p>
+                </div>
+
+                <div className="bg-white p-4 rounded shadow">
+                  <p className="font-bold text-orange-900 text-sm mb-2">👤 ¿Quién?</p>
+                  <p className="text-xs text-gray-700">Depende de la INTENCIÓN de quien lo realiza</p>
+                </div>
+
+                <div className="bg-white p-4 rounded shadow">
+                  <p className="font-bold text-orange-900 text-sm mb-2">📋 Ejemplos</p>
+                  <p className="text-xs text-gray-700">
+                    • Compraventa para revender<br/>
+                    • Transporte comercial<br/>
+                    • Comisiones<br/>
+                    • Depósitos mercantiles
+                  </p>
+                </div>
+
+                <div className="bg-orange-100 p-3 rounded">
+                  <p className="text-xs font-bold text-orange-900 mb-1">Caso ejemplo:</p>
+                  <p className="text-xs text-gray-700">
+                    Comprar ropa para revenderla en redes sociales ✅ Mercantil<br/>
+                    Comprar ropa para uso personal ❌ Civil
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Columna Absolutos */}
+            <div className="bg-blue-50 p-6 rounded-lg border-2 border-blue-500">
+              <div className="bg-blue-500 text-white py-3 px-4 rounded-lg mb-4 text-center">
+                <h4 className="text-xl font-bold">Actos Absolutos</h4>
+              </div>
+
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded shadow">
+                  <p className="font-bold text-blue-900 text-sm mb-2">🎯 Naturaleza</p>
+                  <p className="text-xs text-gray-700">SIEMPRE son mercantiles por ley</p>
+                </div>
+
+                <div className="bg-white p-4 rounded shadow">
+                  <p className="font-bold text-blue-900 text-sm mb-2">🔍 Requisitos</p>
+                  <p className="text-xs text-gray-700">
+                    NINGUNO<br/>
+                    No importa:<br/>
+                    • La intención<br/>
+                    • La habitualidad<br/>
+                    • El propósito
+                  </p>
+                </div>
+
+                <div className="bg-white p-4 rounded shadow">
+                  <p className="font-bold text-blue-900 text-sm mb-2">👤 ¿Quién?</p>
+                  <p className="text-xs text-gray-700">NO IMPORTA quién lo realice (comerciante o no)</p>
+                </div>
+
+                <div className="bg-white p-4 rounded shadow">
+                  <p className="font-bold text-blue-900 text-sm mb-2">📋 Ejemplos</p>
+                  <p className="text-xs text-gray-700">
+                    • Operaciones bancarias<br/>
+                    • Cheques y pagarés<br/>
+                    • Contratos de seguro<br/>
+                    • Operaciones de sociedades
+                  </p>
+                </div>
+
+                <div className="bg-blue-100 p-3 rounded">
+                  <p className="text-xs font-bold text-blue-900 mb-1">Caso ejemplo:</p>
+                  <p className="text-xs text-gray-700">
+                    Maestro que da un cheque para su casa ✅ Mercantil<br/>
+                    Estudiante que contrata seguro de auto ✅ Mercantil
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-r from-purple-100 to-pink-100 p-6 rounded-lg border-2 border-purple-500">
+            <p className="text-center text-lg font-bold text-purple-900 mb-3">
+              🎓 Regla de Oro para Recordar
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-white p-4 rounded text-center">
+                <p className="text-sm font-bold text-orange-600 mb-2">CONDICIONADOS</p>
+                <p className="text-xs text-gray-700">"¿Lo haces para ganar dinero habitualmente?"</p>
+                <p className="text-xs text-orange-600 font-bold mt-2">→ Pregunta primero</p>
+              </div>
+              <div className="bg-white p-4 rounded text-center">
+                <p className="text-sm font-bold text-blue-600 mb-2">ABSOLUTOS</p>
+                <p className="text-xs text-gray-700">"¿Es bancario, bursátil, seguro o título de crédito?"</p>
+                <p className="text-xs text-blue-600 font-bold mt-2">→ Automáticamente mercantil</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 20: Ejercicio Práctico Interactivo
+    {
+      title: "Ejercicio Práctico: ¿Puedes Identificarlos?",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-600">
+            <h3 className="text-xl font-bold text-purple-900 mb-3">🎯 Pon a Prueba tu Conocimiento</h3>
+            <p className="text-gray-700">
+              Lee cada situación y determina si es un acto de mercantilidad condicionada, 
+              absolutamente mercantil, o NO es acto de comercio
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4">
+            <div className="bg-white p-5 rounded-lg shadow-lg border-l-4 border-blue-500">
+              <p className="font-bold text-gray-800 mb-2">Caso 1: Juan trabaja en Uber</p>
+              <p className="text-sm text-gray-600 mb-3">
+                Juan es contador y en sus ratos libres trabaja como conductor de Uber. 
+                Lleva 8 meses haciéndolo y gana unos $6,000 pesos mensuales.
+              </p>
+              <div className="bg-green-50 p-3 rounded">
+                <p className="text-xs font-bold text-green-900">✅ Respuesta: CONDICIONADO (Mercantil)</p>
+                <p className="text-xs text-gray-700">
+                  Hay transporte de personas con ánimo de lucro de forma habitual = Acto de comercio
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white p-5 rounded-lg shadow-lg border-l-4 border-orange-500">
+              <p className="font-bold text-gray-800 mb-2">Caso 2: Ana contrata seguro de gastos médicos</p>
+              <p className="text-sm text-gray-600 mb-3">
+                Ana es maestra y contrata un seguro de gastos médicos con GNP para ella y su familia. 
+                Es la primera vez que contrata un seguro.
+              </p>
+              <div className="bg-green-50 p-3 rounded">
+                <p className="text-xs font-bold text-green-900">✅ Respuesta: ABSOLUTO (Mercantil)</p>
+                <p className="text-xs text-gray-700">
+                  Los contratos de seguro son SIEMPRE mercantiles, sin importar quién los contrate o el propósito
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white p-5 rounded-lg shadow-lg border-l-4 border-purple-500">
+              <p className="font-bold text-gray-800 mb-2">Caso 3: Carlos vende su coche usado</p>
+              <p className="text-sm text-gray-600 mb-3">
+                Carlos vende su Honda Civic 2018 porque quiere comprar un coche más nuevo. 
+                Lo anuncia en Marketplace y lo vende a un conocido.
+              </p>
+              <div className="bg-red-50 p-3 rounded">
+                <p className="text-xs font-bold text-red-900">❌ Respuesta: NO ES ACTO DE COMERCIO (Civil)</p>
+                <p className="text-xs text-gray-700">
+                  No hay ánimo de especulación ni habitualidad. Es una venta civil de bien usado personal
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white p-5 rounded-lg shadow-lg border-l-4 border-green-500">
+              <p className="font-bold text-gray-800 mb-2">Caso 4: Laura compra acciones de Cemex</p>
+              <p className="text-sm text-gray-600 mb-3">
+                Laura es secretaria y por primera vez invierte $10,000 pesos en acciones de Cemex 
+                en la Bolsa Mexicana de Valores para su ahorro.
+              </p>
+              <div className="bg-green-50 p-3 rounded">
+                <p className="text-xs font-bold text-green-900">✅ Respuesta: ABSOLUTO (Mercantil)</p>
+                <p className="text-xs text-gray-700">
+                  Las operaciones bursátiles son SIEMPRE mercantiles, aunque sea tu primera vez
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white p-5 rounded-lg shadow-lg border-l-4 border-pink-500">
+              <p className="font-bold text-gray-800 mb-2">Caso 5: Roberto tiene tienda de abarrotes</p>
+              <p className="text-sm text-gray-600 mb-3">
+                Roberto compra productos en la Central de Abastos para revenderlos en su tienda 
+                de abarrotes del barrio. Lleva 15 años con su negocio.
+              </p>
+              <div className="bg-green-50 p-3 rounded">
+                <p className="text-xs font-bold text-green-900">✅ Respuesta: CONDICIONADO (Mercantil)</p>
+                <p className="text-xs text-gray-700">
+                  Compra para revender con ánimo de especulación y de forma habitual = Acto de comercio
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white p-5 rounded-lg shadow-lg border-l-4 border-yellow-500">
+              <p className="font-bold text-gray-800 mb-2">Caso 6: Sofía hace un depósito bancario</p>
+              <p className="text-sm text-gray-600 mb-3">
+                Sofía deposita su sueldo mensual en su cuenta de nómina en Banamex. 
+                Es empleada administrativa.
+              </p>
+              <div className="bg-green-50 p-3 rounded">
+                <p className="text-xs font-bold text-green-900">✅ Respuesta: ABSOLUTO (Mercantil)</p>
+                <p className="text-xs text-gray-700">
+                  Todas las operaciones bancarias son SIEMPRE mercantiles por naturaleza
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 21: Resumen y Conclusiones
+    {
+      title: "Resumen de la Sesión",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6 rounded-lg">
+            <h3 className="text-2xl font-bold text-center mb-3">🎓 Lo que Aprendimos Hoy</h3>
+          </div>
+
+          <div className="grid grid-cols-2 gap-6">
+            {/* Fuentes del Derecho Mercantil */}
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h4 className="text-lg font-bold text-blue-900 mb-4 border-b-2 border-blue-500 pb-2">
+                1️⃣ Fuentes del Derecho Mercantil
+              </h4>
+              <div className="space-y-3">
+                <div className="bg-blue-50 p-3 rounded">
+                  <p className="font-semibold text-blue-900 text-sm mb-1">Formales</p>
+                  <p className="text-xs text-gray-600">Legislación, jurisprudencia, usos y costumbres</p>
+                </div>
+                <div className="bg-green-50 p-3 rounded">
+                  <p className="font-semibold text-green-900 text-sm mb-1">Materiales</p>
+                  <p className="text-xs text-gray-600">Factores económicos, sociales, políticos, tecnológicos</p>
+                </div>
+                <div className="bg-purple-50 p-3 rounded">
+                  <p className="font-semibold text-purple-900 text-sm mb-1">Históricas</p>
+                  <p className="text-xs text-gray-600">Ordenanzas de Bilbao, Código Lares, evolución legal</p>
+                </div>
+                <div className="bg-orange-50 p-3 rounded">
+                  <p className="font-semibold text-orange-900 text-sm mb-1">Supletorias</p>
+                  <p className="text-xs text-gray-600">Derecho Civil como principal supletorio</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Actos de Comercio */}
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h4 className="text-lg font-bold text-green-900 mb-4 border-b-2 border-green-500 pb-2">
+                2️⃣ Actos de Comercio
+              </h4>
+              <div className="space-y-3">
+                <div className="bg-blue-50 p-3 rounded">
+                  <p className="font-semibold text-blue-900 text-sm mb-1">Concepto</p>
+                  <p className="text-xs text-gray-600">Operaciones reguladas por derecho mercantil según Art. 75</p>
+                </div>
+                <div className="bg-orange-50 p-3 rounded">
+                  <p className="font-semibold text-orange-900 text-sm mb-1">Condicionados</p>
+                  <p className="text-xs text-gray-600">
+                    Requieren: ánimo de lucro + habitualidad + especulación<br/>
+                    Ejemplo: Vender en redes sociales
+                  </p>
+                </div>
+                <div className="bg-purple-50 p-3 rounded">
+                  <p className="font-semibold text-purple-900 text-sm mb-1">Absolutos</p>
+                  <p className="text-xs text-gray-600">
+                    SIEMPRE mercantiles por naturaleza<br/>
+                    Ejemplo: Cheques, seguros, operaciones bancarias
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Casos Prácticos Vistos */}
+          <div className="bg-yellow-50 p-6 rounded-lg border-2 border-yellow-400">
+            <h4 className="text-lg font-bold text-yellow-900 mb-4">📚 Casos Prácticos que Analizamos</h4>
+            <div className="grid grid-cols-3 gap-3 text-xs">
+              <div className="bg-white p-3 rounded shadow">
+                <p className="font-bold text-gray-800 mb-1">• Bimbo vs Distribuidor</p>
+                <p className="text-gray-600">Fuentes formales</p>
+              </div>
+              <div className="bg-white p-3 rounded shadow">
+                <p className="font-bold text-gray-800 mb-1">• Ley Fintech 2018</p>
+                <p className="text-gray-600">Fuentes materiales</p>
+              </div>
+              <div className="bg-white p-3 rounded shadow">
+                <p className="font-bold text-gray-800 mb-1">• Liverpool y el Pagaré</p>
+                <p className="text-gray-600">Fuentes históricas</p>
+              </div>
+              <div className="bg-white p-3 rounded shadow">
+                <p className="font-bold text-gray-800 mb-1">• Franquicia Oxxo</p>
+                <p className="text-gray-600">Fuentes supletorias</p>
+              </div>
+              <div className="bg-white p-3 rounded shadow">
+                <p className="font-bold text-gray-800 mb-1">• María: Tienda en redes</p>
+                <p className="text-gray-600">Actos condicionados</p>
+              </div>
+              <div className="bg-white p-3 rounded shadow">
+                <p className="font-bold text-gray-800 mb-1">• Pedro: Cheque sin fondos</p>
+                <p className="text-gray-600">Actos absolutos</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Puntos Clave para Recordar */}
+          <div className="bg-gradient-to-r from-purple-100 to-pink-100 p-6 rounded-lg border-2 border-purple-500">
+            <h4 className="text-lg font-bold text-purple-900 mb-4">💡 Puntos Clave para Tu Examen</h4>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <ul className="space-y-2">
+                <li className="flex items-start space-x-2">
+                  <span className="text-purple-600 font-bold">✓</span>
+                  <span>Las fuentes formales crean el derecho, las materiales lo motivan</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-purple-600 font-bold">✓</span>
+                  <span>El Código Civil es supletorio del mercantil</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-purple-600 font-bold">✓</span>
+                  <span>Los actos condicionados necesitan ánimo de lucro + habitualidad</span>
+                </li>
+              </ul>
+              <ul className="space-y-2">
+                <li className="flex items-start space-x-2">
+                  <span className="text-purple-600 font-bold">✓</span>
+                  <span>Los actos absolutos son SIEMPRE mercantiles</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-purple-600 font-bold">✓</span>
+                  <span>Cheques, seguros y operaciones bancarias = absolutos</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-purple-600 font-bold">✓</span>
+                  <span>No necesitas ser comerciante para realizar actos de comercio</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 22: Aplicación en la Vida Real
+    {
+      title: "Aplicación en Tu Vida Profesional",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-green-500 to-blue-500 text-white p-6 rounded-lg">
+            <h3 className="text-2xl font-bold text-center mb-3">🚀 ¿Por qué es importante esto para ti?</h3>
+            <p className="text-center">Aplicaciones prácticas del Derecho Mercantil en México</p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4">
+            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+              <div className="flex items-start space-x-4">
+                <div className="bg-blue-100 p-3 rounded-full">
+                  <Building2 className="w-8 h-8 text-blue-600" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-bold text-lg text-blue-900 mb-2">Si quieres emprender</h4>
+                  <p className="text-gray-700 text-sm mb-3">
+                    Necesitas saber qué actos realizarás, qué obligaciones tendrás, y cómo proteger tu negocio legalmente
+                  </p>
+                  <div className="bg-blue-50 p-3 rounded">
+                    <p className="text-xs font-semibold text-blue-800 mb-1">Ejemplo práctico:</p>
+                    <p className="text-xs text-gray-600">
+                      Si abres una tienda en línea, debes saber que estás realizando actos de comercio 
+                      y necesitas facturar, llevar contabilidad, y cumplir con el SAT
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-green-500">
+              <div className="flex items-start space-x-4">
+                <div className="bg-green-100 p-3 rounded-full">
+                  <Users className="w-8 h-8 text-green-600" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-bold text-lg text-green-900 mb-2">Si trabajas en una empresa</h4>
+                  <p className="text-gray-700 text-sm mb-3">
+                    Comprenderás mejor las operaciones comerciales, contratos, y la naturaleza legal de las actividades
+                  </p>
+                  <div className="bg-green-50 p-3 rounded">
+                    <p className="text-xs font-semibold text-green-800 mb-1">Ejemplo práctico:</p>
+                    <p className="text-xs text-gray-600">
+                      Si trabajas en logística, sabrás que los contratos de transporte son actos de comercio 
+                      y se rigen por reglas especiales diferentes a los contratos civiles
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-purple-500">
+              <div className="flex items-start space-x-4">
+                <div className="bg-purple-100 p-3 rounded-full">
+                  <ShoppingCart className="w-8 h-8 text-purple-600" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-bold text-lg text-purple-900 mb-2">En tu vida personal</h4>
+                  <p className="text-gray-700 text-sm mb-3">
+                    Sabrás cuándo estás en el ámbito mercantil y qué derechos y obligaciones tienes
+                  </p>
+                  <div className="bg-purple-50 p-3 rounded">
+                    <p className="text-xs font-semibold text-purple-800 mb-1">Ejemplo práctico:</p>
+                    <p className="text-xs text-gray-600">
+                      Si firmas un pagaré para comprar a crédito, sabes que es un acto mercantil con 
+                      consecuencias legales específicas, incluso penales si no pagas
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-orange-500">
+              <div className="flex items-start space-x-4">
+                <div className="bg-orange-100 p-3 rounded-full">
+                  <Package className="w-8 h-8 text-orange-600" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-bold text-lg text-orange-900 mb-2">En Comercio Internacional</h4>
+                  <p className="text-gray-700 text-sm mb-3">
+                    Base fundamental para entender operaciones de importación, exportación y contratos internacionales
+                  </p>
+                  <div className="bg-orange-50 p-3 rounded">
+                    <p className="text-xs font-semibold text-orange-800 mb-1">Ejemplo práctico:</p>
+                    <p className="text-xs text-gray-600">
+                      Las cartas de crédito, conocimientos de embarque y contratos internacionales 
+                      son actos absolutamente mercantiles regulados por el Código de Comercio
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 p-6 rounded-lg border-2 border-yellow-400">
+            <h4 className="text-lg font-bold text-yellow-900 mb-3">🎯 Sectores donde aplicarás este conocimiento:</h4>
+            <div className="grid grid-cols-4 gap-3 text-xs text-center">
+              <div className="bg-white p-3 rounded shadow">
+                <p className="font-bold text-gray-800">📱 E-commerce</p>
+              </div>
+              <div className="bg-white p-3 rounded shadow">
+                <p className="font-bold text-gray-800">🏦 Banca</p>
+              </div>
+              <div className="bg-white p-3 rounded shadow">
+                <p className="font-bold text-gray-800">🚚 Logística</p>
+              </div>
+              <div className="bg-white p-3 rounded shadow">
+                <p className="font-bold text-gray-800">🏢 Corporativo</p>
+              </div>
+              <div className="bg-white p-3 rounded shadow">
+                <p className="font-bold text-gray-800">⚖️ Legal</p>
+              </div>
+              <div className="bg-white p-3 rounded shadow">
+                <p className="font-bold text-gray-800">💼 Consultoría</p>
+              </div>
+              <div className="bg-white p-3 rounded shadow">
+                <p className="font-bold text-gray-800">🌎 Comercio Intl.</p>
+              </div>
+              <div className="bg-white p-3 rounded shadow">
+                <p className="font-bold text-gray-800">🏪 Retail</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 23: Actividad de Cierre
+    {
+      title: "Actividad de Cierre y Reflexión",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded-lg">
+            <h3 className="text-2xl font-bold text-center mb-3">💭 Para Reflexionar y Discutir</h3>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+              <h4 className="font-bold text-lg text-blue-900 mb-3">🤔 Pregunta 1: Caso Personal</h4>
+              <p className="text-gray-700 mb-4">
+                Piensa en alguna actividad comercial que hayas realizado recientemente (compras en línea, 
+                contratar servicios, inversiones, etc.)
+              </p>
+              <div className="bg-white p-4 rounded">
+                <p className="text-sm font-semibold text-gray-800 mb-2">Para discutir:</p>
+                <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                  <li>¿Fue un acto de comercio o un acto civil?</li>
+                  <li>Si fue mercantil, ¿era condicionado o absoluto?</li>
+                  <li>¿Qué fuentes del derecho regulan esa operación?</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+              <h4 className="font-bold text-lg text-green-900 mb-3">🚀 Pregunta 2: Emprendimiento</h4>
+              <p className="text-gray-700 mb-4">
+                Imagina que quieres iniciar un negocio vendiendo productos artesanales por Instagram
+              </p>
+              <div className="bg-white p-4 rounded">
+                <p className="text-sm font-semibold text-gray-800 mb-2">Para analizar:</p>
+                <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                  <li>¿A partir de qué momento estarías realizando actos de comercio?</li>
+                  <li>¿Qué obligaciones legales tendrías?</li>
+                  <li>¿Qué tipo de actos de comercio realizarías? (condicionados/absolutos)</li>
+                  <li>¿Qué fuentes del derecho mercantil te regularían?</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+              <h4 className="font-bold text-lg text-purple-900 mb-3">⚖️ Pregunta 3: Casos Controversiales</h4>
+              <p className="text-gray-700 mb-4">
+                Debate: ¿Los influencers que promocionan productos en redes sociales realizan actos de comercio?
+              </p>
+              <div className="bg-white p-4 rounded">
+                <p className="text-sm font-semibold text-gray-800 mb-2">Puntos a considerar:</p>
+                <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                  <li>¿Hay ánimo de lucro?</li>
+                  <li>¿Es habitual o esporádico?</li>
+                  <li>¿Qué tipo de intermediación realizan?</li>
+                  <li>¿Deberían tener obligaciones mercantiles?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 p-6 rounded-lg border-2 border-yellow-400">
+            <h4 className="text-lg font-bold text-yellow-900 mb-3">📝 Tarea para la Próxima Sesión</h4>
+            <div className="space-y-3 text-sm">
+              <div className="bg-white p-4 rounded shadow">
+                <p className="font-semibold text-gray-800 mb-2">1. Investigación</p>
+                <p className="text-gray-600">
+                  Encuentra 3 noticias recientes sobre empresas mexicanas y determina qué tipo de 
+                  actos de comercio realizan
+                </p>
+              </div>
+              <div className="bg-white p-4 rounded shadow">
+                <p className="font-semibold text-gray-800 mb-2">2. Caso Práctico</p>
+                <p className="text-gray-600">
+                  Elabora un caso similar a los vistos en clase, pero de una situación que conozcas 
+                  personalmente o de tu comunidad
+                </p>
+              </div>
+              <div className="bg-white p-4 rounded shadow">
+                <p className="font-semibold text-gray-800 mb-2">3. Lectura</p>
+                <p className="text-gray-600">
+                  Leer los artículos 1-10 del Código de Comercio y el artículo 75 completo
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 24: Recursos y Referencias
+    {
+      title: "Recursos y Referencias",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-lg">
+            <h3 className="text-2xl font-bold text-center mb-3">📚 Material de Apoyo</h3>
+          </div>
+
+          <div className="grid grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h4 className="font-bold text-lg text-blue-900 mb-4 border-b-2 border-blue-500 pb-2">
+                📖 Legislación Fundamental
+              </h4>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-start space-x-2">
+                  <span className="text-blue-600 font-bold">•</span>
+                  <div>
+                    <p className="font-semibold text-gray-800">Código de Comercio</p>
+                    <p className="text-xs text-gray-600">Especialmente artículos 1-10 y 75</p>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-blue-600 font-bold">•</span>
+                  <div>
+                    <p className="font-semibold text-gray-800">Ley General de Sociedades Mercantiles</p>
+                    <p className="text-xs text-gray-600">Para entender sociedades comerciales</p>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-blue-600 font-bold">•</span>
+                  <div>
+                    <p className="font-semibold text-gray-800">Ley General de Títulos y Operaciones de Crédito</p>
+                    <p className="text-xs text-gray-600">Cheques, pagarés, letras de cambio</p>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-blue-600 font-bold">•</span>
+                  <div>
+                    <p className="font-semibold text-gray-800">Código Civil Federal</p>
+                    <p className="text-xs text-gray-600">Como derecho supletorio</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h4 className="font-bold text-lg text-green-900 mb-4 border-b-2 border-green-500 pb-2">
+                🌐 Recursos en Línea
+              </h4>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-start space-x-2">
+                  <span className="text-green-600 font-bold">•</span>
+                  <div>
+                    <p className="font-semibold text-gray-800">Diario Oficial de la Federación</p>
+                    <p className="text-xs text-gray-600">www.dof.gob.mx</p>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-green-600 font-bold">•</span>
+                  <div>
+                    <p className="font-semibold text-gray-800">Suprema Corte de Justicia</p>
+                    <p className="text-xs text-gray-600">Jurisprudencias y tesis</p>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-green-600 font-bold">•</span>
+                  <div>
+                    <p className="font-semibold text-gray-800">Cámara de Diputados</p>
+                    <p className="text-xs text-gray-600">Leyes federales actualizadas</p>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-green-600 font-bold">•</span>
+                  <div>
+                    <p className="font-semibold text-gray-800">Secretaría de Economía</p>
+                    <p className="text-xs text-gray-600">Normatividad comercial</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+            <h4 className="font-bold text-lg text-purple-900 mb-4">📕 Bibliografía Recomendada</h4>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="bg-white p-4 rounded shadow">
+                <p className="font-semibold text-gray-800 mb-1">Derecho Mercantil</p>
+                <p className="text-xs text-gray-600">Rafael de Pina Vara</p>
+                <p className="text-xs text-purple-700 mt-1">Editorial Porrúa</p>
+              </div>
+              <div className="bg-white p-4 rounded shadow">
+                <p className="font-semibold text-gray-800 mb-1">Derecho Mercantil Mexicano</p>
+                <p className="text-xs text-gray-600">Roberto L. Mantilla Molina</p>
+                <p className="text-xs text-purple-700 mt-1">Editorial Porrúa</p>
+              </div>
+              <div className="bg-white p-4 rounded shadow">
+                <p className="font-semibold text-gray-800 mb-1">Tratado de Derecho Mercantil</p>
+                <p className="text-xs text-gray-600">Jorge Barrera Graf</p>
+                <p className="text-xs text-purple-700 mt-1">Editorial Porrúa</p>
+              </div>
+              <div className="bg-white p-4 rounded shadow">
+                <p className="font-semibold text-gray-800 mb-1">Derecho Comercial</p>
+                <p className="text-xs text-gray-600">Arturo Díaz Bravo</p>
+                <p className="text-xs text-purple-700 mt-1">Editorial IURE</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 p-6 rounded-lg">
+            <h4 className="font-bold text-lg text-blue-900 mb-3">💬 Dudas y Consultas</h4>
+            <div className="bg-white p-4 rounded">
+              <p className="text-sm text-gray-700 mb-2">
+                Para dudas sobre el contenido de esta sesión o casos prácticos adicionales:
+              </p>
+              <p className="text-sm font-semibold text-blue-800">
+                📧 ivan1ramirez@yahoo.com.mx
+              </p>
+              <p className="text-xs text-gray-600 mt-2">
+                Horario de consulta: Disponible por correo electrónico
+              </p>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 25: Cierre
+    {
+      title: "¡Gracias!",
+      content: (
+        <div className="flex flex-col items-center justify-center h-full space-y-8">
+          <div className="text-center">
+            <h2 className="text-5xl font-bold text-gray-800 mb-4">¡Excelente Trabajo!</h2>
+            <p className="text-2xl text-gray-600 mb-8">
+              Has completado la primera sesión de Derecho Mercantil
+            </p>
+          </div>
+
+          <div className="flex space-x-8">
+            <Scale className="w-24 h-24 text-blue-600" />
+            <ShoppingCart className="w-24 h-24 text-green-600" />
+            <Building2 className="w-24 h-24 text-purple-600" />
+          </div>
+
+          <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-8 rounded-lg shadow-xl max-w-2xl">
+            <h3 className="text-2xl font-bold text-center mb-4">Próxima Sesión</h3>
+            <div className="text-center space-y-2">
+              <p className="text-lg">📚 Comerciantes: Concepto y Obligaciones</p>
+              <p className="text-lg">🏢 Sociedades Mercantiles</p>
+              <p className="text-lg">📝 Registro Público de Comercio</p>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 p-6 rounded-lg border-2 border-yellow-400 max-w-2xl">
+            <p className="text-center text-lg font-semibold text-yellow-900">
+              "El conocimiento del derecho mercantil no solo te hace mejor profesionista, 
+              te hace un ciudadano más consciente de tus derechos y obligaciones comerciales"
+            </p>
+            <p className="text-center text-sm text-gray-600 mt-3">- Dr. Iván Ramírez González</p>
+          </div>
+
+          <div className="text-center">
+            <p className="text-xl text-gray-700 font-semibold">¿Preguntas?</p>
+            <p className="text-lg text-gray-600 mt-2">¡Este es el momento perfecto para resolverlas!</p>
+          </div>
+        </div>
+      )
+    }
+  ];
+
+  const nextSlide = () => {
+    if (currentSlide < slides.length - 1) {
+      setCurrentSlide(currentSlide + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentSlide > 0) {
+      setCurrentSlide(currentSlide - 1);
+    }
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-8">
+      <div className="max-w-6xl mx-auto">
+        {/* Contenedor de la presentación */}
+        <div className="bg-white rounded-lg shadow-2xl overflow-hidden">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
+            <div className="flex justify-between items-center">
+              <div>
+                <h1 className="text-2xl font-bold">Derecho Mercantil</h1>
+                <p className="text-sm opacity-90">Universidad IEU - Comercio Internacional</p>
+              </div>
+              <div className="text-right">
+                <p className="text-lg font-semibold">Dr. Iván Ramírez González</p>
+                <p className="text-sm opacity-90">Slide {currentSlide + 1} de {slides.length}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Contenido del slide */}
+          <div className="p-8">
+            <h2 className="text-3xl font-bold text-gray-800 mb-6">{slides[currentSlide].title}</h2>
+            <div className="min-h-96">
+              {slides[currentSlide].content}
+            </div>
+          </div>
+
+          {/* Controles de navegación */}
+          <div className="bg-gray-50 p-6 border-t border-gray-200">
+            <div className="flex justify-between items-center">
+              <button
+                onClick={prevSlide}
+                disabled={currentSlide === 0}
+                className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-semibold transition-all ${
+                  currentSlide === 0
+                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    : 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl'
+                }`}
+              >
+                <ChevronLeft className="w-5 h-5" />
+                <span>Anterior</span>
+              </button>
+
+              {/* Indicadores de slides */}
+              <div className="flex space-x-2">
+                {slides.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`w-3 h-3 rounded-full transition-all ${
+                      currentSlide === index
+                        ? 'bg-blue-600 w-8'
+                        : 'bg-gray-300 hover:bg-gray-400'
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={nextSlide}
+                disabled={currentSlide === slides.length - 1}
+                className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-semibold transition-all ${
+                  currentSlide === slides.length - 1
+                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    : 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl'
+                }`}
+              >
+                <span>Siguiente</span>
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Información adicional */}
+        <div className="mt-6 bg-white rounded-lg shadow-lg p-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="bg-blue-100 p-3 rounded-full">
+                <FileText className="w-6 h-6 text-blue-600" />
+              </div>
+              <div>
+                <p className="font-semibold text-gray-800">Duración estimada: 60 minutos</p>
+                <p className="text-sm text-gray-600">Incluye casos prácticos y ejercicios</p>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-sm text-gray-600">Usa las flechas o los puntos para navegar</p>
+              <p className="text-xs text-gray-500 mt-1">También puedes usar las teclas ← →</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PresentacionDerechoMercantil;
