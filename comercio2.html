@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Información de Marketing Internacional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            padding: 60px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .logo {
+            height: 60px;
+        }
+
+        .slide-number {
+            font-size: 18px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        h3 {
+            color: #764ba2;
+            font-size: 28px;
+            margin: 25px 0 15px 0;
+        }
+
+        p {
+            color: #4a5568;
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .story-phase {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 20px 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #e17055;
+        }
+
+        .story-phase h3 {
+            color: #d63031;
+            margin-top: 0;
+        }
+
+        .case-study {
+            background: #f7fafc;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        ul {
+            margin: 20px 0 20px 40px;
+        }
+
+        li {
+            color: #4a5568;
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            background: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            color: #667eea;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            background: #667eea;
+            color: white;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .emoji {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            padding: 20px 30px;
+            margin-left: 50px;
+            border-left: 3px solid #667eea;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -13px;
+            top: 25px;
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 4px solid white;
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: 24px;
+            color: #667eea;
+            text-align: center;
+            padding: 30px;
+            border-left: 5px solid #764ba2;
+            background: #f7fafc;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .split-content {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .split-content > div {
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            .slide-content {
+                padding: 30px;
+            }
+            h1 { font-size: 32px; }
+            h2 { font-size: 28px; }
+            p, li { font-size: 18px; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .split-content { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="presentation">
+        <!-- Slide 1: Portada -->
+        <div class="slide active">
+            <div class="slide-content" style="text-align: center;">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">1 / 20</div>
+                </div>
+                <div class="emoji">🌍</div>
+                <h1 style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Sistema de Información de Marketing en Mercados Internacionales</h1>
+                <p style="font-size: 24px; margin-top: 30px;">Un viaje por el mundo de las decisiones estratégicas globales</p>
+                <p style="font-size: 18px; color: #718096; margin-top: 50px;">Comercio Internacional | Licenciatura</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Planteamiento del Problema -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">2 / 20</div>
+                </div>
+                <div class="story-phase">
+                    <h3>🎯 PLANTEAMIENTO: El Desafío</h3>
+                    <p>Imagina que eres gerente de una empresa mexicana exitosa que quiere conquistar mercados internacionales...</p>
+                </div>
+                <h2>El Problema que Enfrentamos</h2>
+                <div class="case-study">
+                    <p><strong>Caso Real:</strong> Una empresa de alimentos mexicanos quiere exportar a Asia, pero...</p>
+                    <ul>
+                        <li>❌ No sabe qué productos tendrán éxito</li>
+                        <li>❌ Desconoce las preferencias locales</li>
+                        <li>❌ Tiene información contradictoria de redes sociales</li>
+                        <li>❌ Los costos de fracaso son millonarios</li>
+                    </ul>
+                </div>
+                <p><span class="highlight">¿Cómo tomar decisiones acertadas en mercados desconocidos?</span></p>
+            </div>
+        </div>
+
+        <!-- Slide 3: La Información como Poder -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">3 / 20</div>
+                </div>
+                <h2>La Información: Tu Arma Competitiva</h2>
+                <div class="quote">
+                    "En el mundo globalizado, quien tiene la mejor información, toma las mejores decisiones"
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="emoji">📊</div>
+                        <h3>Decisiones sin Información</h3>
+                        <p>• Riesgo elevado<br>• Inversiones perdidas<br>• Fracaso en nuevos mercados</p>
+                    </div>
+                    <div class="card">
+                        <div class="emoji">✅</div>
+                        <h3>Decisiones con Información</h3>
+                        <p>• Riesgo calculado<br>• ROI optimizado<br>• Expansión exitosa</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Fuentes de Información Confiables -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">4 / 20</div>
+                </div>
+                <h2>¿Dónde Encontrar Información Confiable?</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>🏛️ Organismos Internacionales</h3>
+                        <p>Banco Mundial, ONU, OCDE - Datos macro económicos</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>📈 Índices Especializados</h3>
+                        <p>Transparencia Internacional (corrupción), Doing Business (facilidad de negocios)</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>🔬 Estudios de Mercado</h3>
+                        <p>Paneles de expertos, encuestas, método Delphi</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>🏥 Datos Sectoriales</h3>
+                        <p>Hospitales, gobiernos, cámaras de comercio</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Nudo - Segmentación Transnacional -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">5 / 20</div>
+                </div>
+                <div class="story-phase">
+                    <h3>💡 NUDO: Las Soluciones Estratégicas</h3>
+                    <p>Ahora que entendemos el problema, descubramos las herramientas para conquistar mercados globales...</p>
+                </div>
+                <h2>Segmentación Transnacional</h2>
+                <p>Dividir el mercado internacional en grupos homogéneos para identificar <span class="highlight">a quién venderle</span> y <span class="highlight">cómo hacerlo</span>.</p>
+                <div class="case-study">
+                    <p><strong>🎯 Objetivo:</strong> Encontrar tu mercado meta global - grupos de consumidores con necesidades similares en diferentes países.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Tipos de Segmentación -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">6 / 20</div>
+                </div>
+                <h2>Los 4 Tipos de Segmentación</h2>
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="emoji">🗺️</div>
+                        <h3>Geográfica</h3>
+                        <p>Países, regiones, ciudades. ¿Dónde están tus clientes?</p>
+                    </div>
+                    <div class="card">
+                        <div class="emoji">👥</div>
+                        <h3>Demográfica</h3>
+                        <p>Edad, género, ingresos, educación. ¿Quiénes son?</p>
+                    </div>
+                    <div class="card">
+                        <div class="emoji">🧠</div>
+                        <h3>Psicográfica</h3>
+                        <p>Personalidad, estilo de vida, valores. ¿Cómo piensan?</p>
+                    </div>
+                    <div class="card">
+                        <div class="emoji">🛒</div>
+                        <h3>Conductual</h3>
+                        <p>Comportamiento de compra, lealtad. ¿Cómo compran?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Ejemplo Práctico de Segmentación -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">7 / 20</div>
+                </div>
+                <h2>Caso Práctico: Starbucks Global</h2>
+                <div class="case-study">
+                    <p><strong>🌟 Ejemplo Real:</strong></p>
+                    <ul>
+                        <li><strong>Geográfica:</strong> Ciudades grandes y capitales mundiales</li>
+                        <li><strong>Demográfica:</strong> Profesionistas 25-45 años, ingresos medio-altos</li>
+                        <li><strong>Psicográfica:</strong> Estilo de vida urbano, valoran experiencias premium</li>
+                        <li><strong>Conductual:</strong> Buscan calidad, dispuestos a pagar más</li>
+                    </ul>
+                    <p style="margin-top: 20px;"><span class="highlight">Resultado:</span> Presencia en 80+ países con estrategia adaptada localmente</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Posicionamiento Internacional -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">8 / 20</div>
+                </div>
+                <h2>Posicionamiento en Mercados Internacionales</h2>
+                <div class="quote">
+                    "No se trata solo de vender, sino de ocupar un lugar privilegiado en la mente del consumidor global"
+                </div>
+                <p><span class="highlight">Posicionamiento</span> = Diseñar una oferta única que quede grabada en la mente de tu cliente internacional</p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>1. Conocer tus atributos</h3>
+                        <p>Calidad, precio, estilo de vida que ofreces</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>2. Conocer a la competencia</h3>
+                        <p>¿Qué ofrecen ellos? ¿Dónde están sus debilidades?</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>3. Diseñar tu ventaja competitiva</h3>
+                        <p>¿Por qué elegirte a ti sobre los demás?</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>4. Comunicar efectivamente</h3>
+                        <p>Publicidad que penetre en la mente del consumidor</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Estrategias de Expansión -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">9 / 20</div>
+                </div>
+                <h2>3 Estrategias para Conquistar el Mundo</h2>
+                <div class="grid-2" style="grid-template-columns: 1fr 1fr 1fr;">
+                    <div class="card">
+                        <div class="emoji">📦</div>
+                        <h3>Expansión de Producto</h3>
+                        <p>Maximizar ventas de productos actuales en mercados externos</p>
+                    </div>
+                    <div class="card">
+                        <div class="emoji">🎯</div>
+                        <h3>Expansión de Mercado</h3>
+                        <p>Encontrar nuevos segmentos y adaptar productos</p>
+                    </div>
+                    <div class="card">
+                        <div class="emoji">🌏</div>
+                        <h3>Expansión Geográfica</h3>
+                        <p>Entrar a nuevos países con misma oferta</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Modos de Operación -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">10 / 20</div>
+                </div>
+                <h2>¿Cómo Entrar a Mercados Internacionales?</h2>
+                <div class="split-content">
+                    <div>
+                        <h3>Exportación Directa 🚢</h3>
+                        <p>Tú contactas distribuidores, importadores y filiales extranjeras. Mayor control, mayor complejidad.</p>
+                    </div>
+                    <div>
+                        <h3>Exportación Indirecta 🤝</h3>
+                        <p>Intermediarios locales manejan todo. Menor control, menor riesgo.</p>
+                    </div>
+                </div>
+                <div class="case-study" style="margin-top: 30px;">
+                    <p><strong>💡 Tip Estratégico:</strong> Empieza indirecto para aprender, luego evoluciona a directo cuando domines el mercado.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Piggyback -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">11 / 20</div>
+                </div>
+                <h2>Piggyback: Súbete a la Espalda del Gigante</h2>
+                <div class="emoji" style="text-align: center;">🐷</div>
+                <div class="case-study">
+                    <p><strong>¿Qué es?</strong> Usar los canales de distribución de otra empresa para exportar tus productos.</p>
+                    <p style="margin-top: 15px;"><strong>Ejemplo:</strong> Una PYME mexicana de artesanías usa la red de distribución de Walmart para entrar a Europa.</p>
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <h3>✅ Ventajas</h3>
+                        <ul>
+                            <li>Bajo riesgo inicial</li>
+                            <li>Red ya establecida</li>
+                            <li>Costos compartidos</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>⚠️ Consideraciones</h3>
+                        <ul>
+                            <li>Menor control de marca</li>
+                            <li>Comisiones a pagar</li>
+                            <li>Dependencia del socio</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Joint Venture -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">12 / 20</div>
+                </div>
+                <h2>Joint Venture: Unión que Crea Poder</h2>
+                <div class="emoji" style="text-align: center;">🤝</div>
+                <p style="text-align: center; font-size: 22px;">Dos empresas se unen para crear una <span class="highlight">nueva empresa conjunta</span></p>
+                <div class="split-content" style="margin-top: 30px;">
+                    <div class="card">
+                        <h3>Empresa Extranjera Aporta:</h3>
+                        <ul>
+                            <li>💰 Capital</li>
+                            <li>💡 Tecnología</li>
+                            <li>🏭 Know-how</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Empresa Local Aporta:</h3>
+                        <ul>
+                            <li>📊 Conocimiento del mercado</li>
+                            <li>🤝 Conexiones locales</li>
+                            <li>⚖️ Cumplimiento regulatorio</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="case-study">
+                    <p><strong>Ejemplo Real:</strong> Volkswagen + SAIC en China - VW necesitaba entrar a China, SAIC conocía el mercado. Resultado: dominio del mercado automotriz chino.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Alianzas Estratégicas -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">13 / 20</div>
+                </div>
+                <h2>Alianzas Estratégicas: Colaborar Sin Fusionarse</h2>
+                <div class="quote">
+                    "Juntos somos más fuertes, pero cada uno mantiene su independencia"
+                </div>
+                <p><strong>Diferencia clave con Joint Venture:</strong> No se crea nueva empresa, cada empresa mantiene su autonomía</p>
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="emoji">🔬</div>
+                        <h3>Para I+D</h3>
+                        <p>Investigación compartida, innovación conjunta</p>
+                    </div>
+                    <div class="card">
+                        <div class="emoji">🌐</div>
+                        <h3>Para Distribución</h3>
+                        <p>Acceso a redes de clientes mutuos</p>
+                    </div>
+                    <div class="card">
+                        <div class="emoji">💪</div>
+                        <h3>Para Competitividad</h3>
+                        <p>Pequeñas empresas vs. grandes corporaciones</p>
+                    </div>
+                    <div class="card">
+                        <div class="emoji">⏱️</div>
+                        <h3>Proyectos Temporales</h3>
+                        <p>Duración definida, objetivos específicos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Licencias y Franquicias -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">14 / 20</div>
+                </div>
+                <h2>Licencias vs Franquicias</h2>
+                <div class="split-content">
+                    <div class="card">
+                        <div class="emoji">📜</div>
+                        <h3>Licencias</h3>
+                        <p><strong>Qué otorgas:</strong> Derecho a usar tu marca, patente o proceso productivo</p>
+                        <p><strong>A cambio:</strong> Pago inicial + regalías periódicas</p>
+                        <p><strong>Control:</strong> Bajo - pierdes control operativo</p>
+                    </div>
+                    <div class="card">
+                        <div class="emoji">🍔</div>
+                        <h3>Franquicias</h3>
+                        <p><strong>Qué otorgas:</strong> Marca + sistema completo de operación</p>
+                        <p><strong>A cambio:</strong> Cuota de franquicia + regalías</p>
+                        <p><strong>Control:</strong> Alto - procesos estandarizados</p>
+                    </div>
+                </div>
+                <div class="case-study">
+                    <p><strong>Ejemplos:</strong></p>
+                    <p>Licencia: Microsoft licencia Windows a fabricantes de PCs</p>
+                    <p>Franquicia: McDonald's, Starbucks, Subway - sistema completo replicable</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Fabricación por Contrato -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">15 / 20</div>
+                </div>
+                <h2>Fabricación por Contrato: Enfócate en lo Tuyo</h2>
+                <div class="emoji" style="text-align: center;">🏭</div>
+                <p style="text-align: center;">Tú diseñas, ellos fabrican. Tú vendes, ellos producen.</p>
+                <div class="case-study">
+                    <p><strong>💡 Concepto:</strong> Contratas a una empresa local o extranjera para que fabrique tus productos bajo tus especificaciones.</p>
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <h3>✅ Beneficios</h3>
+                        <ul>
+                            <li>Reducción de costos operativos</li>
+                            <li>Acceso rápido a múltiples mercados</li>
+                            <li>Te concentras en marketing y ventas</li>
+                            <li>Menor inversión en infraestructura</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>⚠️ Riesgos a Considerar</h3>
+                        <ul>
+                            <li>Control de calidad</li>
+                            <li>Protección de propiedad intelectual</li>
+                            <li>Diferencias culturales</li>
+                            <li>Cumplimiento de certificaciones</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="case-study" style="margin-top: 20px;">
+                    <p><strong>Ejemplo Real:</strong> Apple diseña en California, fabrica en China (Foxconn). Nike diseña en USA, produce en Asia.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Desenlace - Integrando Todo -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">16 / 20</div>
+                </div>
+                <div class="story-phase">
+                    <h3>🎬 DESENLACE: Tu Historia de Éxito Global</h3>
+                    <p>Has aprendido las herramientas. Ahora, ¿cómo construyes tu estrategia ganadora?</p>
+                </div>
+                <h2>El Marco Completo de Decisión</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Paso 1: Investigación 🔍</h3>
+                        <p>Sistema de información de marketing confiable</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Paso 2: Segmentación 🎯</h3>
+                        <p>Identificar mercado meta con las 4 segmentaciones</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Paso 3: Posicionamiento 💎</h3>
+                        <p>Crear ventaja competitiva diferenciada</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Paso 4: Estrategia de Entrada 🚀</h3>
+                        <p>Elegir modo de operación según recursos y objetivos</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Paso 5: Ejecución y Adaptación 🔄</h3>
+                        <p>Implementar y ajustar continuamente</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Matriz de Decisión -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">17 / 20</div>
+                </div>
+                <h2>¿Qué Modo de Entrada Elegir?</h2>
+                <p style="text-align: center; margin-bottom: 30px;">Depende de 7 factores críticos:</p>
+                <div class="card" style="margin-bottom: 20px;">
+                    <ul>
+                        <li><strong>Grado de control:</strong> ¿Cuánto control necesitas sobre operaciones?</li>
+                        <li><strong>Compromiso de recursos:</strong> ¿Cuánto puedes invertir?</li>
+                        <li><strong>Costo de salida:</strong> ¿Qué tan fácil es retirarte si falla?</li>
+                        <li><strong>Potencial de aprendizaje:</strong> ¿Necesitas conocimiento del mercado?</li>
+                        <li><strong>Flexibilidad:</strong> ¿Necesitas adaptarte rápido?</li>
+                        <li><strong>Rentabilidad esperada:</strong> ¿Cuál es tu ROI objetivo?</li>
+                        <li><strong>Cuota de mercado:</strong> ¿Buscas dominar o solo participar?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Caso Integrador -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">18 / 20</div>
+                </div>
+                <h2>Caso Integrador: Tu Turno de Decidir</h2>
+                <div class="case-study">
+                    <p><strong>🌮 CASO: "Sabores Auténticos S.A."</strong></p>
+                    <p>Empresa mexicana de salsas artesanales, exitosa en México. Quiere expandirse a Estados Unidos.</p>
+                    <p><strong>Datos clave:</strong></p>
+                    <ul>
+                        <li>Capital limitado: $500,000 USD disponibles</li>
+                        <li>Producto único con receta secreta familiar</li>
+                        <li>No tienen experiencia internacional</li>
+                        <li>Mercado hispano en USA valorado en $2 billones</li>
+                        <li>Competencia fuerte: Tabasco, Cholula</li>
+                    </ul>
+                </div>
+                <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                    <p><strong>❓ Pregunta de reflexión:</strong> ¿Qué modo de entrada recomendarías? ¿Por qué?</p>
+                    <p style="margin-top: 10px; font-size: 18px;">Opciones: Exportación indirecta, Piggyback, Joint Venture, Franquicia...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Lecciones Clave -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">19 / 20</div>
+                </div>
+                <h2>10 Lecciones para el Éxito Global</h2>
+                <div class="grid-2">
+                    <div class="card">
+                        <p><strong>1.</strong> La información confiable es tu mejor inversión 📊</p>
+                    </div>
+                    <div class="card">
+                        <p><strong>2.</strong> Conoce profundamente a tu segmento meta 🎯</p>
+                    </div>
+                    <div class="card">
+                        <p><strong>3.</strong> El posicionamiento debe ser constante y auténtico 💎</p>
+                    </div>
+                    <div class="card">
+                        <p><strong>4.</strong> No existe un modo de entrada perfecto para todos 🤔</p>
+                    </div>
+                    <div class="card">
+                        <p><strong>5.</strong> La adaptación cultural es obligatoria 🌍</p>
+                    </div>
+                    <div class="card">
+                        <p><strong>6.</strong> Empieza pequeño, escala rápido 🚀</p>
+                    </div>
+                    <div class="card">
+                        <p><strong>7.</strong> Las alianzas amplifican tu poder 🤝</p>
+                    </div>
+                    <div class="card">
+                        <p><strong>8.</strong> La calidad no se negocia, sin importar el mercado ⭐</p>
+                    </div>
+                    <div class="card">
+                        <p><strong>9.</strong> Monitorea y ajusta constantemente 🔄</p>
+                    </div>
+                    <div class="card">
+                        <p><strong>10.</strong> El fracaso es aprendizaje, no el final 💪</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Cierre -->
+        <div class="slide">
+            <div class="slide-content" style="text-align: center;">
+                <div class="header">
+                    <img src="https://www.ieu.edu.mx/assets/img/logo.png" alt="IEU Logo" class="logo">
+                    <div class="slide-number">20 / 20</div>
+                </div>
+                <div class="emoji">🌟</div>
+                <h1 style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Tu Futuro es Global</h1>
+                <div class="quote">
+                    "El mundo es tu mercado. La información es tu brújula. La estrategia es tu mapa. El éxito es tu destino."
+                </div>
+                <div style="margin-top: 50px;">
+                    <h3>Próximos Pasos:</h3>
+                    <p>1. Investiga un mercado internacional que te apasione</p>
+                    <p>2. Identifica una empresa mexicana que podría exportar</p>
+                    <p>3. Diseña una estrategia de entrada usando lo aprendido</p>
+                </div>
+                <div style="margin-top: 50px; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 15px;">
+                    <p style="color: white; font-size: 24px; margin: 0;">¡Gracias por tu atención!</p>
+                    <p style="color: white; margin-top: 10px;">¿Preguntas?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button onclick="previousSlide()">← Anterior</button>
+        <button onclick="nextSlide()">Siguiente →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const progressBar = document.getElementById('progressBar');
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            updateProgress();
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function updateProgress() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = progress + '%';
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight') {
+                nextSlide();
+            } else if (event.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>
