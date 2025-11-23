@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubre Tu Vocación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #ffd700;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .module {
+            display: none;
+            animation: fadeIn 0.6s;
+        }
+
+        .module.active {
+            display: block;
+        }
+
+        .module-title {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .timer {
+            background: #ffd700;
+            color: #333;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+
+        .question {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .input-area {
+            margin: 20px 0;
+        }
+
+        .input-area label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        .input-area input, .input-area textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border 0.3s;
+        }
+
+        .input-area input:focus, .input-area textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .input-area textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .value-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .chip {
+            padding: 12px 20px;
+            background: #e0e0e0;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            user-select: none;
+        }
+
+        .chip:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chip.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .summary-box h3 {
+            color: #d63031;
+            margin-bottom: 15px;
+        }
+
+        .matrix {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .matrix-cell {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .matrix-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .breathing-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 40px auto;
+            animation: breathe 4s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .action-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .action-list li {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .celebration {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .celebration h2 {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .inspirational-quote {
+            font-style: italic;
+            text-align: center;
+            color: #667eea;
+            font-size: 1.2em;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .matrix {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .btn-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ Descubre Tu Vocación ✨</h1>
+            <p>Un viaje hacia tu identidad profesional auténtica</p>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+
+        <div class="content">
+            <!-- Módulo 1: Apertura -->
+            <div class="module active" id="module1">
+                <h2 class="module-title">🌟 Bienvenida - Este Espacio es Para Ti</h2>
+                <div class="timer">⏱️ 5 minutos</div>
+                
+                <p class="inspirational-quote">"Este es un espacio para ti. Aquí no hay respuestas correctas o incorrectas, solo tu verdad."</p>
+                
+                <div class="breathing-circle" id="breathingCircle">Respira</div>
+                
+                <div class="question">
+                    ¿Cómo llegas hoy? ¿Qué esperas descubrir sobre ti en los próximos minutos?
+                </div>
+                
+                <div class="input-area">
+                    <textarea id="openingReflection" placeholder="Escribe aquí tus pensamientos..."></textarea>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-primary" onclick="nextModule(2)">Continuar mi viaje →</button>
+                </div>
+            </div>
+
+            <!-- Módulo 2: Intereses -->
+            <div class="module" id="module2">
+                <h2 class="module-title">💫 Línea de Chispazos</h2>
+                <div class="timer">⏱️ 10 minutos</div>
+                
+                <div class="question">
+                    Identifica 5 momentos de tu vida en los que sentiste entusiasmo, curiosidad intensa o disfrute genuino
+                </div>
+
+                <div id="sparksContainer">
+                    <div class="input-area">
+                        <label>✨ Chispazo 1:</label>
+                        <input type="text" class="spark-input" placeholder="¿Qué pasó?">
+                        <input type="text" class="spark-detail" placeholder="¿Qué lo hizo especial?">
+                    </div>
+                    <div class="input-area">
+                        <label>✨ Chispazo 2:</label>
+                        <input type="text" class="spark-input" placeholder="¿Qué pasó?">
+                        <input type="text" class="spark-detail" placeholder="¿Qué lo hizo especial?">
+                    </div>
+                    <div class="input-area">
+                        <label>✨ Chispazo 3:</label>
+                        <input type="text" class="spark-input" placeholder="¿Qué pasó?">
+                        <input type="text" class="spark-detail" placeholder="¿Qué lo hizo especial?">
+                    </div>
+                    <div class="input-area">
+                        <label>✨ Chispazo 4:</label>
+                        <input type="text" class="spark-input" placeholder="¿Qué pasó?">
+                        <input type="text" class="spark-detail" placeholder="¿Qué lo hizo especial?">
+                    </div>
+                    <div class="input-area">
+                        <label>✨ Chispazo 5:</label>
+                        <input type="text" class="spark-input" placeholder="¿Qué pasó?">
+                        <input type="text" class="spark-detail" placeholder="¿Qué lo hizo especial?">
+                    </div>
+                </div>
+
+                <div class="question">
+                    ¿Qué temas aparecen repetidamente? ¿Qué actividades te hacen perder la noción del tiempo?
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="nextModule(1)">← Anterior</button>
+                    <button class="btn btn-primary" onclick="nextModule(3)">Continuar →</button>
+                </div>
+            </div>
+
+            <!-- Módulo 3: Habilidades -->
+            <div class="module" id="module3">
+                <h2 class="module-title">🏆 Logros Que Hablan</h2>
+                <div class="timer">⏱️ 10 minutos</div>
+                
+                <div class="question">
+                    Identifica 3 logros (académicos, personales o sociales) y las habilidades que utilizaste
+                </div>
+
+                <div id="achievementsContainer">
+                    <div class="input-area">
+                        <label>🏆 Logro 1:</label>
+                        <input type="text" placeholder="¿Qué lograste?">
+                        <input type="text" placeholder="¿Qué habilidad utilizaste?">
+                        <input type="text" placeholder="¿Qué valor estaba presente?">
+                    </div>
+                    <div class="input-area">
+                        <label>🏆 Logro 2:</label>
+                        <input type="text" placeholder="¿Qué lograste?">
+                        <input type="text" placeholder="¿Qué habilidad utilizaste?">
+                        <input type="text" placeholder="¿Qué valor estaba presente?">
+                    </div>
+                    <div class="input-area">
+                        <label>🏆 Logro 3:</label>
+                        <input type="text" placeholder="¿Qué lograste?">
+                        <input type="text" placeholder="¿Qué habilidad utilizaste?">
+                        <input type="text" placeholder="¿Qué valor estaba presente?">
+                    </div>
+                </div>
+
+                <div class="question">
+                    ¿Qué habilidades aparecen en más de un logro? Si un amigo te describiera, ¿qué diría sobre tus fortalezas?
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="nextModule(2)">← Anterior</button>
+                    <button class="btn btn-primary" onclick="nextModule(4)">Continuar →</button>
+                </div>
+            </div>
+
+            <!-- Módulo 4: Valores -->
+            <div class="module" id="module4">
+                <h2 class="module-title">💎 Mis No-Negociables</h2>
+                <div class="timer">⏱️ 5 minutos</div>
+                
+                <div class="question">
+                    Elige 3 valores esenciales que guiarán tu camino profesional
+                </div>
+
+                <div class="value-chips" id="valuesContainer">
+                    <div class="chip" onclick="toggleValue(this)">Creatividad</div>
+                    <div class="chip" onclick="toggleValue(this)">Justicia</div>
+                    <div class="chip" onclick="toggleValue(this)">Crecimiento</div>
+                    <div class="chip" onclick="toggleValue(this)">Estabilidad</div>
+                    <div class="chip" onclick="toggleValue(this)">Impacto Social</div>
+                    <div class="chip" onclick="toggleValue(this)">Autonomía</div>
+                    <div class="chip" onclick="toggleValue(this)">Innovación</div>
+                    <div class="chip" onclick="toggleValue(this)">Colaboración</div>
+                    <div class="chip" onclick="toggleValue(this)">Liderazgo</div>
+                    <div class="chip" onclick="toggleValue(this)">Aprendizaje</div>
+                </div>
+
+                <div class="question">
+                    ¿Qué valor elegido refleja mejor la vida que quieres construir? ¿Dónde aparece este valor en tus decisiones?
+                </div>
+
+                <div class="input-area">
+                    <textarea placeholder="Reflexiona sobre tus valores elegidos..."></textarea>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="nextModule(3)">← Anterior</button>
+                    <button class="btn btn-primary" onclick="nextModule(5)">Continuar →</button>
+                </div>
+            </div>
+
+            <!-- Módulo 5: Síntesis -->
+            <div class="module" id="module5">
+                <h2 class="module-title">🧭 Mi Brújula Vocacional</h2>
+                <div class="timer">⏱️ 5 minutos</div>
+                
+                <div class="question">
+                    Conectemos todo lo que has descubierto sobre ti
+                </div>
+
+                <div class="summary-box">
+                    <h3>Mi Identidad Vocacional:</h3>
+                    <p><strong>Soy una persona que disfruta...</strong></p>
+                    <input type="text" class="matrix-input" id="enjoys" placeholder="Completa con base en tus intereses">
+                    
+                    <p style="margin-top: 15px;"><strong>Es buena en...</strong></p>
+                    <input type="text" class="matrix-input" id="goodAt" placeholder="Completa con base en tus habilidades">
+                    
+                    <p style="margin-top: 15px;"><strong>Y quiere aportar a través de...</strong></p>
+                    <input type="text" class="matrix-input" id="contribute" placeholder="Completa con base en tus valores">
+                </div>
+
+                <div class="question">
+                    ¿Sientes que esta frase te representa hoy? ¿Qué parte de tu identidad vocacional te emociona más?
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="nextModule(4)">← Anterior</button>
+                    <button class="btn btn-primary" onclick="nextModule(6)">Continuar →</button>
+                </div>
+            </div>
+
+            <!-- Módulo 6: Matriz -->
+            <div class="module" id="module6">
+                <h2 class="module-title">🎯 Matriz de Alineación</h2>
+                <div class="timer">⏱️ 10 minutos</div>
+                
+                <div class="question">
+                    Conectemos tus talentos con carreras del futuro
+                </div>
+
+                <div class="matrix">
+                    <div class="matrix-cell">Mis Talentos</div>
+                    <div class="matrix-cell">Mis Intereses</div>
+                    <div class="matrix-cell">Carreras Alineadas</div>
+                </div>
+
+                <div class="input-area">
+                    <input type="text" class="matrix-input" placeholder="Talento 1">
+                    <input type="text" class="matrix-input" placeholder="Interés relacionado">
+                    <input type="text" class="matrix-input" placeholder="Carrera posible (ej: IA humanista, diseño UX)">
+                </div>
+
+                <div class="input-area">
+                    <input type="text" class="matrix-input" placeholder="Talento 2">
+                    <input type="text" class="matrix-input" placeholder="Interés relacionado">
+                    <input type="text" class="matrix-input" placeholder="Carrera posible (ej: sostenibilidad, salud emocional)">
+                </div>
+
+                <div class="input-area">
+                    <input type="text" class="matrix-input" placeholder="Talento 3">
+                    <input type="text" class="matrix-input" placeholder="Interés relacionado">
+                    <input type="text" class="matrix-input" placeholder="Carrera posible (ej: tecnologías creativas)">
+                </div>
+
+                <div class="question">
+                    ¿Qué carrera se siente más tuya? ¿Cuál te permitiría vivir tus valores todos los días?
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="nextModule(5)">← Anterior</button>
+                    <button class="btn btn-primary" onclick="nextModule(7)">Continuar →</button>
+                </div>
+            </div>
+
+            <!-- Módulo 7: Plan de Acción -->
+            <div class="module" id="module7">
+                <h2 class="module-title">🚀 Tu Plan de Acción</h2>
+                <div class="timer">⏱️ 10 minutos</div>
+                
+                <div class="question">
+                    ¿Qué pequeño paso podrías dar mañana que te acerque a lo que quieres?
+                </div>
+
+                <ul class="action-list">
+                    <li>
+                        <strong>📚 Acción 1 - Investigar:</strong>
+                        <input type="text" class="matrix-input" placeholder="2 carreras que investigaré esta semana">
+                    </li>
+                    <li>
+                        <strong>💬 Acción 2 - Conectar:</strong>
+                        <input type="text" class="matrix-input" placeholder="Persona con quien hablaré sobre su experiencia">
+                    </li>
+                    <li>
+                        <strong>🎯 Acción 3 - Experimentar:</strong>
+                        <input type="text" class="matrix-input" placeholder="Micro-actividad que haré (curso, video, herramienta)">
+                    </li>
+                </ul>
+
+                <div class="question">
+                    ¿Qué te llevas de hoy? ¿Qué fue lo más valioso que descubriste?
+                </div>
+
+                <div class="input-area">
+                    <textarea placeholder="Reflexión final..."></textarea>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="nextModule(6)">← Anterior</button>
+                    <button class="btn btn-primary" onclick="nextModule(8)">Finalizar →</button>
+                </div>
+            </div>
+
+            <!-- Módulo 8: Cierre -->
+            <div class="module" id="module8">
+                <div class="celebration">
+                    <h2>🎉 ¡Felicitaciones! 🎉</h2>
+                    <p class="inspirational-quote">
+                        "Has dado el primer paso hacia tu futuro auténtico. Recuerda: tu vocación no es algo que encuentras, es algo que construyes cada día."
+                    </p>
+                    
+                    <div style="margin-top: 40px;">
+                        <p style="font-size: 1.3em; margin: 20px 0;">
+                            Si tuvieras que empezar tu futuro mañana, ¿qué harías primero?
+                        </p>
+                        <div class="input-area">
+                            <textarea placeholder="Tu respuesta final..."></textarea>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" style="margin-top: 30px;" onclick="downloadResults()">
+                        📥 Descargar Mi Viaje Vocacional
+                    </button>
+                    
+                    <button class="btn btn-secondary" style="margin-top: 15px;" onclick="nextModule(1)">
+                        🔄 Reiniciar Sesión
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedValues = [];
+        let currentModule = 1;
+
+        function nextModule(moduleNum) {
+            document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+            document.getElementById('module' + moduleNum).classList.add('active');
+            currentModule = moduleNum;
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateProgress() {
+            const progress = (currentModule / 8) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function toggleValue(chip) {
+            if (chip.classList.contains('selected')) {
+                chip.classList.remove('selected');
+                selectedValues = selectedValues.filter(v => v !== chip.textContent);
+            } else {
+                if (selectedValues.length < 3) {
+                    chip.classList.add('selected');
+                    selectedValues.push(chip.textContent);
+                } else {
+                    alert('Solo puedes elegir 3 valores esenciales');
+                }
+            }
+        }
+
+        function downloadResults() {
+            let results = '=== MI VIAJE VOCACIONAL ===\n\n';
+            results += 'REFLEXIÓN INICIAL:\n' + (document.getElementById('openingReflection').value || 'Sin respuesta') + '\n\n';
+            results += 'MI IDENTIDAD VOCACIONAL:\n';
+            results += 'Disfruto: ' + (document.getElementById('enjoys')?.value || 'Sin completar') + '\n';
+            results += 'Soy bueno/a en: ' + (document.getElementById('goodAt')?.value || 'Sin completar') + '\n';
+            results += 'Quiero aportar: ' + (document.getElementById('contribute')?.value || 'Sin completar') + '\n\n';
+            results += 'VALORES ESENCIALES:\n' + selectedValues.join(', ') + '\n\n';
+            results += 'Fecha: ' + new Date().toLocaleDateString() + '\n';
+
+            const blob = new Blob([results], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'mi_viaje_vocacional.txt';
+            a.click();
+        }
+
+        // Animación del círculo de respiración
+        let breathPhase = 0;
+        setInterval(() => {
+            const circle = document.getElementById('breathingCircle');
+            if (!circle) return;
+            
+            breathPhase = (breathPhase + 1) % 3;
+            if (breathPhase === 0) circle.textContent = 'Inhala';
+            else if (breathPhase === 1) circle.textContent = 'Sostén';
+            else circle.textContent = 'Exhala';
+        }, 4000);
+
+        // Inicializar
+        updateProgress();
+    </script>
+</body>
+</html>
