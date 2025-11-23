@@ -641,21 +641,146 @@
         }
 
         function downloadResults() {
-            let results = '=== MI VIAJE VOCACIONAL ===\n\n';
-            results += 'REFLEXIÓN INICIAL:\n' + (document.getElementById('openingReflection').value || 'Sin respuesta') + '\n\n';
-            results += 'MI IDENTIDAD VOCACIONAL:\n';
-            results += 'Disfruto: ' + (document.getElementById('enjoys')?.value || 'Sin completar') + '\n';
-            results += 'Soy bueno/a en: ' + (document.getElementById('goodAt')?.value || 'Sin completar') + '\n';
-            results += 'Quiero aportar: ' + (document.getElementById('contribute')?.value || 'Sin completar') + '\n\n';
-            results += 'VALORES ESENCIALES:\n' + selectedValues.join(', ') + '\n\n';
-            results += 'Fecha: ' + new Date().toLocaleDateString() + '\n';
+            let results = '╔════════════════════════════════════════════════════════╗\n';
+            results += '║          MI VIAJE VOCACIONAL - RESULTADOS COMPLETOS          ║\n';
+            results += '╚════════════════════════════════════════════════════════╝\n\n';
+            
+            // MÓDULO 1: Apertura
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+            results += '🌟 MÓDULO 1: APERTURA INSPIRADORA\n';
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+            results += '¿Cómo llegas hoy? ¿Qué esperas descubrir sobre ti?\n';
+            results += (document.getElementById('openingReflection').value || 'Sin respuesta') + '\n\n';
 
-            const blob = new Blob([results], { type: 'text/plain' });
+            // MÓDULO 2: Línea de Chispazos
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+            results += '💫 MÓDULO 2: LÍNEA DE CHISPAZOS (Intereses)\n';
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+            
+            const sparkInputs = document.querySelectorAll('#sparksContainer .input-area');
+            sparkInputs.forEach((area, index) => {
+                const inputs = area.querySelectorAll('input');
+                results += `✨ Chispazo ${index + 1}:\n`;
+                results += `   Qué pasó: ${inputs[0]?.value || 'Sin respuesta'}\n`;
+                results += `   Qué lo hizo especial: ${inputs[1]?.value || 'Sin respuesta'}\n\n`;
+            });
+
+            results += 'REFLEXIÓN:\n';
+            results += '¿Qué temas aparecen repetidamente? ¿Qué actividades te hacen perder la noción del tiempo?\n';
+            results += '(Observa los patrones en tus chispazos)\n\n';
+
+            // MÓDULO 3: Logros y Habilidades
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+            results += '🏆 MÓDULO 3: LOGROS QUE HABLAN (Habilidades)\n';
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+            
+            const achievementInputs = document.querySelectorAll('#achievementsContainer .input-area');
+            achievementInputs.forEach((area, index) => {
+                const inputs = area.querySelectorAll('input');
+                results += `🏆 Logro ${index + 1}:\n`;
+                results += `   Qué lograste: ${inputs[0]?.value || 'Sin respuesta'}\n`;
+                results += `   Habilidad utilizada: ${inputs[1]?.value || 'Sin respuesta'}\n`;
+                results += `   Valor presente: ${inputs[2]?.value || 'Sin respuesta'}\n\n`;
+            });
+
+            results += 'REFLEXIÓN:\n';
+            results += '¿Qué habilidades aparecen en más de un logro?\n';
+            results += '(Identifica tus fortalezas recurrentes)\n\n';
+
+            // MÓDULO 4: Valores Esenciales
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+            results += '💎 MÓDULO 4: MIS NO-NEGOCIABLES (Valores)\n';
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+            
+            results += 'Valores esenciales elegidos (máximo 3):\n';
+            if (selectedValues.length > 0) {
+                selectedValues.forEach((value, index) => {
+                    results += `   ${index + 1}. ${value}\n`;
+                });
+            } else {
+                results += '   Sin valores seleccionados\n';
+            }
+            results += '\n';
+
+            const valuesReflection = document.querySelector('#module4 textarea');
+            results += '¿Qué valor refleja mejor la vida que quieres construir?\n';
+            results += (valuesReflection?.value || 'Sin respuesta') + '\n\n';
+
+            // MÓDULO 5: Síntesis de Identidad
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+            results += '🧭 MÓDULO 5: MI BRÚJULA VOCACIONAL (Síntesis)\n';
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+            
+            results += 'MI IDENTIDAD VOCACIONAL:\n\n';
+            results += '   Soy una persona que disfruta...\n';
+            results += '   → ' + (document.getElementById('enjoys')?.value || 'Sin completar') + '\n\n';
+            results += '   Es buena en...\n';
+            results += '   → ' + (document.getElementById('goodAt')?.value || 'Sin completar') + '\n\n';
+            results += '   Y quiere aportar a través de...\n';
+            results += '   → ' + (document.getElementById('contribute')?.value || 'Sin completar') + '\n\n';
+
+            // MÓDULO 6: Matriz de Alineación
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+            results += '🎯 MÓDULO 6: MATRIZ DE ALINEACIÓN\n';
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+            
+            const matrixInputs = document.querySelectorAll('#module6 .input-area');
+            matrixInputs.forEach((area, index) => {
+                const inputs = area.querySelectorAll('input');
+                results += `Alineación ${index + 1}:\n`;
+                results += `   Talento: ${inputs[0]?.value || 'Sin completar'}\n`;
+                results += `   Interés: ${inputs[1]?.value || 'Sin completar'}\n`;
+                results += `   Carrera posible: ${inputs[2]?.value || 'Sin completar'}\n\n`;
+            });
+
+            // MÓDULO 7: Plan de Acción
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+            results += '🚀 MÓDULO 7: MI PLAN DE ACCIÓN\n';
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+            
+            const actionInputs = document.querySelectorAll('#module7 .matrix-input');
+            results += '📚 Acción 1 - INVESTIGAR:\n';
+            results += '   ' + (actionInputs[0]?.value || 'Sin completar') + '\n\n';
+            results += '💬 Acción 2 - CONECTAR:\n';
+            results += '   ' + (actionInputs[1]?.value || 'Sin completar') + '\n\n';
+            results += '🎯 Acción 3 - EXPERIMENTAR:\n';
+            results += '   ' + (actionInputs[2]?.value || 'Sin completar') + '\n\n';
+
+            const finalReflection = document.querySelector('#module7 textarea');
+            results += 'REFLEXIÓN FINAL:\n';
+            results += '¿Qué te llevas de hoy? ¿Qué fue lo más valioso que descubriste?\n';
+            results += (finalReflection?.value || 'Sin respuesta') + '\n\n';
+
+            // MÓDULO 8: Cierre
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+            results += '🎉 CIERRE: MI PRÓXIMO PASO\n';
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+            
+            const nextStep = document.querySelector('#module8 textarea');
+            results += 'Si tuvieras que empezar tu futuro mañana, ¿qué harías primero?\n';
+            results += (nextStep?.value || 'Sin respuesta') + '\n\n';
+
+            // Footer
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+            results += `📅 Fecha de realización: ${new Date().toLocaleDateString('es-MX', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            })}\n`;
+            results += '⏰ Hora: ' + new Date().toLocaleTimeString('es-MX') + '\n';
+            results += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+            results += '💡 Recuerda: Tu vocación no es algo que encuentras,\n';
+            results += '   es algo que construyes cada día.\n\n';
+            results += '✨ ¡Éxito en tu camino vocacional! ✨\n';
+
+            const blob = new Blob([results], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'mi_viaje_vocacional.txt';
+            a.download = 'mi_viaje_vocacional_completo.txt';
             a.click();
+            URL.revokeObjectURL(url);
         }
 
         // Animación del círculo de respiración
