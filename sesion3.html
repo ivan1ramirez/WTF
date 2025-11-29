@@ -1,0 +1,323 @@
+import React, { useState } from 'react';
+import { Download, Plus, Trash2, Clock, CheckCircle } from 'lucide-react';
+
+const CoachingSessionTracker = () => {
+  const [clientName, setClientName] = useState('');
+  const [sessionDate, setSessionDate] = useState(new Date().toISOString().split('T')[0]);
+  const [currentPhase, setCurrentPhase] = useState(0);
+  const [entries, setEntries] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState('');
+  const [currentAnswer, setCurrentAnswer] = useState('');
+
+  const phases = [
+    { 
+      id: 0, 
+      name: 'Bienvenida y Establecimiento de Intención', 
+      time: 5,
+      suggestedQuestions: [
+        '¿Qué esperas lograr concretamente al final de esta hora?',
+        '¿Qué te trae aquí hoy?',
+        'En una escala del 1 al 10, ¿qué tan listo/a te sientes para comprometerte con cambios?'
+      ]
+    },
+    { 
+      id: 1, 
+      name: 'Mi Definición de Éxito Personal', 
+      time: 15,
+      suggestedQuestions: [
+        '¿Qué significa el éxito para ti, basándote en tus vivencias y lo que realmente valoras?',
+        'Describe tu "día perfecto" dentro de 3 años: ¿Qué haces? ¿Con quién estás? ¿Cómo te sientes?',
+        '¿Qué actividades te hacen sentir más vivo/a y con propósito?',
+        '¿Qué legado o impacto quieres dejar con tu trabajo?'
+      ]
+    },
+    { 
+      id: 2, 
+      name: 'Conversión a Objetivos SMART', 
+      time: 25,
+      suggestedQuestions: [
+        'ESPECÍFICO: De las opciones que has explorado, ¿cuál se alinea mejor con tu definición de éxito?',
+        'MEDIBLE: ¿Cómo sabrás que has alcanzado este objetivo? ¿Qué indicadores concretos usarás?',
+        'ALCANZABLE: ¿Qué recursos, habilidades o conocimientos necesitas?',
+        'RELEVANTE: ¿Por qué es importante para ti lograr esto AHORA?',
+        'TEMPORALIZABLE: ¿Cuál es el plazo realista para este objetivo?'
+      ]
+    },
+    { 
+      id: 3, 
+      name: 'Diseño del Plan de Acción', 
+      time: 10,
+      suggestedQuestions: [
+        '¿Cuál es la primera acción física que puedes tomar HOY o MAÑANA?',
+        '¿Qué necesitas investigar, con quién necesitas conectar?',
+        '¿Qué obstáculos anticipas y cómo los superarás?',
+        '¿Cuándo específicamente realizarás cada acción?'
+      ]
+    },
+    { 
+      id: 4, 
+      name: 'Cierre y Compromiso', 
+      time: 5,
+      suggestedQuestions: [
+        '¿Cuál fue tu mayor descubrimiento sobre ti mismo/a en esta sesión?',
+        '¿Qué compromiso específico haces contigo mismo/a?',
+        '¿Cómo te asegurarás de cumplir tus acciones?'
+      ]
+    }
+  ];
+
+  const addEntry = () => {
+    if (currentQuestion.trim() && currentAnswer.trim()) {
+      const newEntry = {
+        id: Date.now(),
+        phase: phases[currentPhase].name,
+        phaseId: currentPhase,
+        question: currentQuestion,
+        answer: currentAnswer,
+        timestamp: new Date().toLocaleTimeString()
+      };
+      setEntries([...entries, newEntry]);
+      setCurrentQuestion('');
+      setCurrentAnswer('');
+    }
+  };
+
+  const deleteEntry = (id) => {
+    setEntries(entries.filter(entry => entry.id !== id));
+  };
+
+  const useSuggestedQuestion = (question) => {
+    setCurrentQuestion(question);
+  };
+
+  const downloadSession = () => {
+    let content = `SESIÓN DE COACHING VOCACIONAL\n`;
+    content += `=================================\n\n`;
+    content += `Cliente: ${clientName || 'No especificado'}\n`;
+    content += `Fecha: ${sessionDate}\n`;
+    content += `Duración: 60 minutos\n\n`;
+    content += `=================================\n\n`;
+
+    phases.forEach(phase => {
+      const phaseEntries = entries.filter(e => e.phaseId === phase.id);
+      if (phaseEntries.length > 0) {
+        content += `\n### FASE ${phase.id + 1}: ${phase.name.toUpperCase()} (${phase.time} min)\n`;
+        content += `${'='.repeat(50)}\n\n`;
+        
+        phaseEntries.forEach((entry, index) => {
+          content += `[${entry.timestamp}] Pregunta ${index + 1}:\n${entry.question}\n\n`;
+          content += `Respuesta:\n${entry.answer}\n\n`;
+          content += `${'-'.repeat(50)}\n\n`;
+        });
+      }
+    });
+
+    content += `\n\n=================================\n`;
+    content += `FIN DE LA SESIÓN\n`;
+    content += `Total de intercambios registrados: ${entries.length}\n`;
+
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `coaching_session_${clientName.replace(/\s+/g, '_')}_${sessionDate}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const totalTime = phases.slice(0, currentPhase + 1).reduce((sum, p) => sum + p.time, 0);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+          <h1 className="text-3xl font-bold text-indigo-900 mb-4">
+            Registro de Sesión de Coaching Vocacional
+          </h1>
+          
+          <div className="grid md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Nombre del Cliente
+              </label>
+              <input
+                type="text"
+                value={clientName}
+                onChange={(e) => setClientName(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                placeholder="Ingresa el nombre del cliente"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Fecha de la Sesión
+              </label>
+              <input
+                type="date"
+                value={sessionDate}
+                onChange={(e) => setSessionDate(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+
+          {/* Timer Display */}
+          <div className="flex items-center gap-2 text-indigo-700 bg-indigo-50 p-3 rounded-lg">
+            <Clock className="w-5 h-5" />
+            <span className="font-semibold">
+              Tiempo acumulado: {totalTime} / 60 minutos
+            </span>
+          </div>
+        </div>
+
+        {/* Phase Navigation */}
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+          <h2 className="text-xl font-bold text-gray-800 mb-4">Fases de la Sesión</h2>
+          <div className="flex flex-wrap gap-2">
+            {phases.map((phase) => (
+              <button
+                key={phase.id}
+                onClick={() => setCurrentPhase(phase.id)}
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                  currentPhase === phase.id
+                    ? 'bg-indigo-600 text-white shadow-md'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {phase.id + 1}. {phase.name} ({phase.time}min)
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-6">
+          {/* Input Section */}
+          <div className="bg-white rounded-lg shadow-lg p-6">
+            <h2 className="text-xl font-bold text-gray-800 mb-4">
+              Fase {currentPhase + 1}: {phases[currentPhase].name}
+            </h2>
+
+            {/* Suggested Questions */}
+            <div className="mb-4">
+              <h3 className="text-sm font-semibold text-gray-700 mb-2">
+                Preguntas Sugeridas:
+              </h3>
+              <div className="space-y-2">
+                {phases[currentPhase].suggestedQuestions.map((q, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => useSuggestedQuestion(q)}
+                    className="w-full text-left px-3 py-2 text-sm bg-indigo-50 hover:bg-indigo-100 rounded-lg text-indigo-800 transition-colors"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Pregunta del Coach
+                </label>
+                <textarea
+                  value={currentQuestion}
+                  onChange={(e) => setCurrentQuestion(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  rows="3"
+                  placeholder="Escribe la pregunta realizada..."
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Respuesta del Cliente
+                </label>
+                <textarea
+                  value={currentAnswer}
+                  onChange={(e) => setCurrentAnswer(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  rows="5"
+                  placeholder="Registra la respuesta del cliente..."
+                />
+              </div>
+
+              <button
+                onClick={addEntry}
+                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 transition-colors"
+              >
+                <Plus className="w-5 h-5" />
+                Agregar Registro
+              </button>
+            </div>
+          </div>
+
+          {/* Entries Display */}
+          <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold text-gray-800">
+                Registros de la Sesión ({entries.length})
+              </h2>
+              <button
+                onClick={downloadSession}
+                disabled={entries.length === 0}
+                className="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+              >
+                <Download className="w-4 h-4" />
+                Descargar TXT
+              </button>
+            </div>
+
+            <div className="space-y-4 max-h-[600px] overflow-y-auto">
+              {entries.length === 0 ? (
+                <div className="text-center py-12 text-gray-400">
+                  <CheckCircle className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                  <p>No hay registros aún. Comienza agregando preguntas y respuestas.</p>
+                </div>
+              ) : (
+                entries.map((entry) => (
+                  <div
+                    key={entry.id}
+                    className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                  >
+                    <div className="flex justify-between items-start mb-2">
+                      <div className="flex-1">
+                        <span className="inline-block bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-1 rounded">
+                          {entry.phase}
+                        </span>
+                        <span className="ml-2 text-xs text-gray-500">
+                          {entry.timestamp}
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => deleteEntry(entry.id)}
+                        className="text-red-500 hover:text-red-700 transition-colors"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <div className="space-y-2">
+                      <div>
+                        <p className="text-sm font-semibold text-gray-700">Pregunta:</p>
+                        <p className="text-sm text-gray-600">{entry.question}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-gray-700">Respuesta:</p>
+                        <p className="text-sm text-gray-600">{entry.answer}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CoachingSessionTracker;
