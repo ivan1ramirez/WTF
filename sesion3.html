@@ -1,323 +1,659 @@
-import React, { useState } from 'react';
-import { Download, Plus, Trash2, Clock, CheckCircle } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Sesión de Coaching Vocacional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-const CoachingSessionTracker = () => {
-  const [clientName, setClientName] = useState('');
-  const [sessionDate, setSessionDate] = useState(new Date().toISOString().split('T')[0]);
-  const [currentPhase, setCurrentPhase] = useState(0);
-  const [entries, setEntries] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState('');
-  const [currentAnswer, setCurrentAnswer] = useState('');
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-  const phases = [
-    { 
-      id: 0, 
-      name: 'Bienvenida y Establecimiento de Intención', 
-      time: 5,
-      suggestedQuestions: [
-        '¿Qué esperas lograr concretamente al final de esta hora?',
-        '¿Qué te trae aquí hoy?',
-        'En una escala del 1 al 10, ¿qué tan listo/a te sientes para comprometerte con cambios?'
-      ]
-    },
-    { 
-      id: 1, 
-      name: 'Mi Definición de Éxito Personal', 
-      time: 15,
-      suggestedQuestions: [
-        '¿Qué significa el éxito para ti, basándote en tus vivencias y lo que realmente valoras?',
-        'Describe tu "día perfecto" dentro de 3 años: ¿Qué haces? ¿Con quién estás? ¿Cómo te sientes?',
-        '¿Qué actividades te hacen sentir más vivo/a y con propósito?',
-        '¿Qué legado o impacto quieres dejar con tu trabajo?'
-      ]
-    },
-    { 
-      id: 2, 
-      name: 'Conversión a Objetivos SMART', 
-      time: 25,
-      suggestedQuestions: [
-        'ESPECÍFICO: De las opciones que has explorado, ¿cuál se alinea mejor con tu definición de éxito?',
-        'MEDIBLE: ¿Cómo sabrás que has alcanzado este objetivo? ¿Qué indicadores concretos usarás?',
-        'ALCANZABLE: ¿Qué recursos, habilidades o conocimientos necesitas?',
-        'RELEVANTE: ¿Por qué es importante para ti lograr esto AHORA?',
-        'TEMPORALIZABLE: ¿Cuál es el plazo realista para este objetivo?'
-      ]
-    },
-    { 
-      id: 3, 
-      name: 'Diseño del Plan de Acción', 
-      time: 10,
-      suggestedQuestions: [
-        '¿Cuál es la primera acción física que puedes tomar HOY o MAÑANA?',
-        '¿Qué necesitas investigar, con quién necesitas conectar?',
-        '¿Qué obstáculos anticipas y cómo los superarás?',
-        '¿Cuándo específicamente realizarás cada acción?'
-      ]
-    },
-    { 
-      id: 4, 
-      name: 'Cierre y Compromiso', 
-      time: 5,
-      suggestedQuestions: [
-        '¿Cuál fue tu mayor descubrimiento sobre ti mismo/a en esta sesión?',
-        '¿Qué compromiso específico haces contigo mismo/a?',
-        '¿Cómo te asegurarás de cumplir tus acciones?'
-      ]
-    }
-  ];
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-  const addEntry = () => {
-    if (currentQuestion.trim() && currentAnswer.trim()) {
-      const newEntry = {
-        id: Date.now(),
-        phase: phases[currentPhase].name,
-        phaseId: currentPhase,
-        question: currentQuestion,
-        answer: currentAnswer,
-        timestamp: new Date().toLocaleTimeString()
-      };
-      setEntries([...entries, newEntry]);
-      setCurrentQuestion('');
-      setCurrentAnswer('');
-    }
-  };
+        .header {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
 
-  const deleteEntry = (id) => {
-    setEntries(entries.filter(entry => entry.id !== id));
-  };
+        .header h1 {
+            color: #4c51bf;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
 
-  const useSuggestedQuestion = (question) => {
-    setCurrentQuestion(question);
-  };
+        .client-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
 
-  const downloadSession = () => {
-    let content = `SESIÓN DE COACHING VOCACIONAL\n`;
-    content += `=================================\n\n`;
-    content += `Cliente: ${clientName || 'No especificado'}\n`;
-    content += `Fecha: ${sessionDate}\n`;
-    content += `Duración: 60 minutos\n\n`;
-    content += `=================================\n\n`;
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
 
-    phases.forEach(phase => {
-      const phaseEntries = entries.filter(e => e.phaseId === phase.id);
-      if (phaseEntries.length > 0) {
-        content += `\n### FASE ${phase.id + 1}: ${phase.name.toUpperCase()} (${phase.time} min)\n`;
-        content += `${'='.repeat(50)}\n\n`;
-        
-        phaseEntries.forEach((entry, index) => {
-          content += `[${entry.timestamp}] Pregunta ${index + 1}:\n${entry.question}\n\n`;
-          content += `Respuesta:\n${entry.answer}\n\n`;
-          content += `${'-'.repeat(50)}\n\n`;
-        });
-      }
-    });
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
 
-    content += `\n\n=================================\n`;
-    content += `FIN DE LA SESIÓN\n`;
-    content += `Total de intercambios registrados: ${entries.length}\n`;
+        .form-group input {
+            padding: 10px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
 
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `coaching_session_${clientName.replace(/\s+/g, '_')}_${sessionDate}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  };
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
 
-  const totalTime = phases.slice(0, currentPhase + 1).reduce((sum, p) => sum + p.time, 0);
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #edf2f7;
+            padding: 15px;
+            border-radius: 8px;
+            color: #4c51bf;
+            font-weight: 600;
+        }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <h1 className="text-3xl font-bold text-indigo-900 mb-4">
-            Registro de Sesión de Coaching Vocacional
-          </h1>
-          
-          <div className="grid md:grid-cols-2 gap-4 mb-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Nombre del Cliente
-              </label>
-              <input
-                type="text"
-                value={clientName}
-                onChange={(e) => setClientName(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                placeholder="Ingresa el nombre del cliente"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Fecha de la Sesión
-              </label>
-              <input
-                type="date"
-                value={sessionDate}
-                onChange={(e) => setSessionDate(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              />
-            </div>
-          </div>
+        .phases-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
 
-          {/* Timer Display */}
-          <div className="flex items-center gap-2 text-indigo-700 bg-indigo-50 p-3 rounded-lg">
-            <Clock className="w-5 h-5" />
-            <span className="font-semibold">
-              Tiempo acumulado: {totalTime} / 60 minutos
-            </span>
-          </div>
-        </div>
+        .phases-section h2 {
+            color: #2d3748;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
 
-        {/* Phase Navigation */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">Fases de la Sesión</h2>
-          <div className="flex flex-wrap gap-2">
-            {phases.map((phase) => (
-              <button
-                key={phase.id}
-                onClick={() => setCurrentPhase(phase.id)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                  currentPhase === phase.id
-                    ? 'bg-indigo-600 text-white shadow-md'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {phase.id + 1}. {phase.name} ({phase.time}min)
-              </button>
-            ))}
-          </div>
-        </div>
+        .phase-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-        <div className="grid lg:grid-cols-2 gap-6">
-          {/* Input Section */}
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">
-              Fase {currentPhase + 1}: {phases[currentPhase].name}
-            </h2>
+        .phase-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #edf2f7;
+            color: #4a5568;
+        }
 
-            {/* Suggested Questions */}
-            <div className="mb-4">
-              <h3 className="text-sm font-semibold text-gray-700 mb-2">
-                Preguntas Sugeridas:
-              </h3>
-              <div className="space-y-2">
-                {phases[currentPhase].suggestedQuestions.map((q, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => useSuggestedQuestion(q)}
-                    className="w-full text-left px-3 py-2 text-sm bg-indigo-50 hover:bg-indigo-100 rounded-lg text-indigo-800 transition-colors"
-                  >
-                    {q}
-                  </button>
-                ))}
-              </div>
-            </div>
+        .phase-btn:hover {
+            background: #e2e8f0;
+        }
 
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Pregunta del Coach
-                </label>
-                <textarea
-                  value={currentQuestion}
-                  onChange={(e) => setCurrentQuestion(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                  rows="3"
-                  placeholder="Escribe la pregunta realizada..."
-                />
-              </div>
+        .phase-btn.active {
+            background: #667eea;
+            color: white;
+            box-shadow: 0 4px 6px rgba(102, 126, 234, 0.4);
+        }
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Respuesta del Cliente
-                </label>
-                <textarea
-                  value={currentAnswer}
-                  onChange={(e) => setCurrentAnswer(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                  rows="5"
-                  placeholder="Registra la respuesta del cliente..."
-                />
-              </div>
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
 
-              <button
-                onClick={addEntry}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 transition-colors"
-              >
-                <Plus className="w-5 h-5" />
-                Agregar Registro
-              </button>
-            </div>
-          </div>
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
 
-          {/* Entries Display */}
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-gray-800">
-                Registros de la Sesión ({entries.length})
-              </h2>
-              <button
-                onClick={downloadSession}
-                disabled={entries.length === 0}
-                className="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
-              >
-                <Download className="w-4 h-4" />
-                Descargar TXT
-              </button>
-            </div>
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
 
-            <div className="space-y-4 max-h-[600px] overflow-y-auto">
-              {entries.length === 0 ? (
-                <div className="text-center py-12 text-gray-400">
-                  <CheckCircle className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                  <p>No hay registros aún. Comienza agregando preguntas y respuestas.</p>
+        .card h2 {
+            color: #2d3748;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .suggested-questions {
+            margin-bottom: 20px;
+        }
+
+        .suggested-questions h3 {
+            font-size: 14px;
+            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .question-btn {
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border: none;
+            border-radius: 8px;
+            background: #edf2f7;
+            color: #4c51bf;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .question-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .form-section {
+            margin-bottom: 15px;
+        }
+
+        .form-section label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #667eea;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            background: #5a67d8;
+        }
+
+        .btn-download {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #48bb78;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-download:hover {
+            background: #38a169;
+        }
+
+        .btn-download:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+        }
+
+        .entries-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .entries-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .entry-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: box-shadow 0.3s;
+        }
+
+        .entry-card:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .entry-badge {
+            display: inline-block;
+            background: #edf2f7;
+            color: #4c51bf;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .entry-time {
+            font-size: 12px;
+            color: #a0aec0;
+            margin-left: 10px;
+        }
+
+        .btn-delete {
+            background: none;
+            border: none;
+            color: #f56565;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s;
+            font-size: 18px;
+        }
+
+        .btn-delete:hover {
+            color: #e53e3e;
+        }
+
+        .entry-content {
+            margin-top: 10px;
+        }
+
+        .entry-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 5px;
+        }
+
+        .entry-text {
+            font-size: 13px;
+            color: #718096;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #a0aec0;
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Registro de Sesión de Coaching Vocacional</h1>
+            
+            <div class="client-info">
+                <div class="form-group">
+                    <label>Nombre del Cliente</label>
+                    <input type="text" id="clientName" placeholder="Ingresa el nombre del cliente">
                 </div>
-              ) : (
-                entries.map((entry) => (
-                  <div
-                    key={entry.id}
-                    className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
-                  >
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="flex-1">
-                        <span className="inline-block bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-1 rounded">
-                          {entry.phase}
-                        </span>
-                        <span className="ml-2 text-xs text-gray-500">
-                          {entry.timestamp}
-                        </span>
-                      </div>
-                      <button
-                        onClick={() => deleteEntry(entry.id)}
-                        className="text-red-500 hover:text-red-700 transition-colors"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                    <div className="space-y-2">
-                      <div>
-                        <p className="text-sm font-semibold text-gray-700">Pregunta:</p>
-                        <p className="text-sm text-gray-600">{entry.question}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-gray-700">Respuesta:</p>
-                        <p className="text-sm text-gray-600">{entry.answer}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))
-              )}
+                <div class="form-group">
+                    <label>Fecha de la Sesión</label>
+                    <input type="date" id="sessionDate">
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
-export default CoachingSessionTracker;
+            <div class="timer">
+                <span>⏱️</span>
+                <span id="timerDisplay">Tiempo acumulado: 0 / 60 minutos</span>
+            </div>
+        </div>
+
+        <div class="phases-section">
+            <h2>Fases de la Sesión</h2>
+            <div class="phase-buttons" id="phaseButtons"></div>
+        </div>
+
+        <div class="main-content">
+            <div class="card">
+                <h2 id="currentPhaseTitle">Fase 1: Bienvenida</h2>
+
+                <div class="suggested-questions">
+                    <h3>Preguntas Sugeridas:</h3>
+                    <div id="suggestedQuestions"></div>
+                </div>
+
+                <div class="form-section">
+                    <label>Pregunta del Coach</label>
+                    <textarea id="questionInput" rows="3" placeholder="Escribe la pregunta realizada..."></textarea>
+                </div>
+
+                <div class="form-section">
+                    <label>Respuesta del Cliente</label>
+                    <textarea id="answerInput" rows="5" placeholder="Registra la respuesta del cliente..."></textarea>
+                </div>
+
+                <button class="btn-primary" onclick="addEntry()">
+                    <span>➕</span>
+                    Agregar Registro
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="entries-header">
+                    <h2>Registros de la Sesión (<span id="entriesCount">0</span>)</h2>
+                    <button class="btn-download" id="downloadBtn" onclick="downloadSession()" disabled>
+                        <span>⬇️</span>
+                        Descargar TXT
+                    </button>
+                </div>
+
+                <div class="entries-list" id="entriesList">
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <p>No hay registros aún. Comienza agregando preguntas y respuestas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var phases = [
+            { 
+                id: 0, 
+                name: 'Bienvenida y Establecimiento de Intención', 
+                time: 5,
+                suggestedQuestions: [
+                    '¿Qué esperas lograr concretamente al final de esta hora?',
+                    '¿Qué te trae aquí hoy?',
+                    'En una escala del 1 al 10, ¿qué tan listo/a te sientes para comprometerte con cambios?'
+                ]
+            },
+            { 
+                id: 1, 
+                name: 'Mi Definición de Éxito Personal', 
+                time: 15,
+                suggestedQuestions: [
+                    '¿Qué significa el éxito para ti, basándote en tus vivencias y lo que realmente valoras?',
+                    'Describe tu "día perfecto" dentro de 3 años: ¿Qué haces? ¿Con quién estás? ¿Cómo te sientes?',
+                    '¿Qué actividades te hacen sentir más vivo/a y con propósito?',
+                    '¿Qué legado o impacto quieres dejar con tu trabajo?'
+                ]
+            },
+            { 
+                id: 2, 
+                name: 'Conversión a Objetivos SMART', 
+                time: 25,
+                suggestedQuestions: [
+                    'ESPECÍFICO: De las opciones que has explorado, ¿cuál se alinea mejor con tu definición de éxito?',
+                    'MEDIBLE: ¿Cómo sabrás que has alcanzado este objetivo? ¿Qué indicadores concretos usarás?',
+                    'ALCANZABLE: ¿Qué recursos, habilidades o conocimientos necesitas?',
+                    'RELEVANTE: ¿Por qué es importante para ti lograr esto AHORA?',
+                    'TEMPORALIZABLE: ¿Cuál es el plazo realista para este objetivo?'
+                ]
+            },
+            { 
+                id: 3, 
+                name: 'Diseño del Plan de Acción', 
+                time: 10,
+                suggestedQuestions: [
+                    '¿Cuál es la primera acción física que puedes tomar HOY o MAÑANA?',
+                    '¿Qué necesitas investigar, con quién necesitas conectar?',
+                    '¿Qué obstáculos anticipas y cómo los superarás?',
+                    '¿Cuándo específicamente realizarás cada acción?'
+                ]
+            },
+            { 
+                id: 4, 
+                name: 'Cierre y Compromiso', 
+                time: 5,
+                suggestedQuestions: [
+                    '¿Cuál fue tu mayor descubrimiento sobre ti mismo/a en esta sesión?',
+                    '¿Qué compromiso específico haces contigo mismo/a?',
+                    '¿Cómo te asegurarás de cumplir tus acciones?'
+                ]
+            }
+        ];
+
+        var currentPhase = 0;
+        var entries = [];
+
+        document.getElementById('sessionDate').valueAsDate = new Date();
+        renderPhaseButtons();
+        updatePhaseDisplay();
+
+        function renderPhaseButtons() {
+            var container = document.getElementById('phaseButtons');
+            var html = '';
+            for (var i = 0; i < phases.length; i++) {
+                var phase = phases[i];
+                var activeClass = i === 0 ? 'active' : '';
+                html += '<button class="phase-btn ' + activeClass + '" onclick="setPhase(' + i + ')">';
+                html += (i + 1) + '. ' + phase.name + ' (' + phase.time + 'min)';
+                html += '</button>';
+            }
+            container.innerHTML = html;
+        }
+
+        function setPhase(phaseId) {
+            currentPhase = phaseId;
+            var buttons = document.querySelectorAll('.phase-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                if (i === phaseId) {
+                    buttons[i].classList.add('active');
+                } else {
+                    buttons[i].classList.remove('active');
+                }
+            }
+            updatePhaseDisplay();
+            updateTimer();
+        }
+
+        function updatePhaseDisplay() {
+            var phase = phases[currentPhase];
+            document.getElementById('currentPhaseTitle').textContent = 
+                'Fase ' + (currentPhase + 1) + ': ' + phase.name;
+            
+            var questionsContainer = document.getElementById('suggestedQuestions');
+            var html = '';
+            for (var i = 0; i < phase.suggestedQuestions.length; i++) {
+                var q = phase.suggestedQuestions[i];
+                var escapedQ = q.replace(/'/g, "\\'");
+                html += '<button class="question-btn" onclick="useSuggestedQuestion(\'' + escapedQ + '\')">';
+                html += q;
+                html += '</button>';
+            }
+            questionsContainer.innerHTML = html;
+        }
+
+        function updateTimer() {
+            var totalTime = 0;
+            for (var i = 0; i <= currentPhase; i++) {
+                totalTime += phases[i].time;
+            }
+            document.getElementById('timerDisplay').textContent = 
+                'Tiempo acumulado: ' + totalTime + ' / 60 minutos';
+        }
+
+        function useSuggestedQuestion(question) {
+            document.getElementById('questionInput').value = question;
+        }
+
+        function addEntry() {
+            var question = document.getElementById('questionInput').value.trim();
+            var answer = document.getElementById('answerInput').value.trim();
+
+            if (!question || !answer) {
+                alert('Por favor completa tanto la pregunta como la respuesta');
+                return;
+            }
+
+            var entry = {
+                id: Date.now(),
+                phase: phases[currentPhase].name,
+                phaseId: currentPhase,
+                question: question,
+                answer: answer,
+                timestamp: new Date().toLocaleTimeString('es-ES')
+            };
+
+            entries.push(entry);
+            document.getElementById('questionInput').value = '';
+            document.getElementById('answerInput').value = '';
+            renderEntries();
+        }
+
+        function deleteEntry(id) {
+            if (confirm('¿Estás seguro de eliminar este registro?')) {
+                entries = entries.filter(function(e) {
+                    return e.id !== id;
+                });
+                renderEntries();
+            }
+        }
+
+        function renderEntries() {
+            var container = document.getElementById('entriesList');
+            document.getElementById('entriesCount').textContent = entries.length;
+            document.getElementById('downloadBtn').disabled = entries.length === 0;
+
+            if (entries.length === 0) {
+                container.innerHTML = '<div class="empty-state">' +
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                    '<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>' +
+                    '</svg>' +
+                    '<p>No hay registros aún. Comienza agregando preguntas y respuestas.</p>' +
+                    '</div>';
+                return;
+            }
+
+            var html = '';
+            for (var i = 0; i < entries.length; i++) {
+                var entry = entries[i];
+                html += '<div class="entry-card">';
+                html += '<div class="entry-header">';
+                html += '<div>';
+                html += '<span class="entry-badge">' + entry.phase + '</span>';
+                html += '<span class="entry-time">' + entry.timestamp + '</span>';
+                html += '</div>';
+                html += '<button class="btn-delete" onclick="deleteEntry(' + entry.id + ')">🗑️</button>';
+                html += '</div>';
+                html += '<div class="entry-content">';
+                html += '<div class="entry-label">Pregunta:</div>';
+                html += '<div class="entry-text">' + entry.question + '</div>';
+                html += '<div class="entry-label">Respuesta:</div>';
+                html += '<div class="entry-text">' + entry.answer + '</div>';
+                html += '</div>';
+                html += '</div>';
+            }
+            container.innerHTML = html;
+        }
+
+        function downloadSession() {
+            var clientName = document.getElementById('clientName').value || 'No especificado';
+            var sessionDate = document.getElementById('sessionDate').value;
+
+            var content = 'SESIÓN DE COACHING VOCACIONAL\n';
+            content += '=================================\n\n';
+            content += 'Cliente: ' + clientName + '\n';
+            content += 'Fecha: ' + sessionDate + '\n';
+            content += 'Duración: 60 minutos\n\n';
+            content += '=================================\n\n';
+
+            for (var p = 0; p < phases.length; p++) {
+                var phase = phases[p];
+                var phaseEntries = [];
+                for (var i = 0; i < entries.length; i++) {
+                    if (entries[i].phaseId === phase.id) {
+                        phaseEntries.push(entries[i]);
+                    }
+                }
+                
+                if (phaseEntries.length > 0) {
+                    content += '\n### FASE ' + (phase.id + 1) + ': ' + phase.name.toUpperCase() + ' (' + phase.time + ' min)\n';
+                    content += '==================================================\n\n';
+                    
+                    for (var i = 0; i < phaseEntries.length; i++) {
+                        var entry = phaseEntries[i];
+                        content += '[' + entry.timestamp + '] Pregunta ' + (i + 1) + ':\n' + entry.question + '\n\n';
+                        content += 'Respuesta:\n' + entry.answer + '\n\n';
+                        content += '--------------------------------------------------\n\n';
+                    }
+                }
+            }
+
+            content += '\n\n=================================\n';
+            content += 'FIN DE LA SESIÓN\n';
+            content += 'Total de intercambios registrados: ' + entries.length + '\n';
+
+            var blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            var url = URL.createObjectURL(blob);
+            var link = document.createElement('a');
+            link.href = url;
+            link.download = 'coaching_session_' + clientName.replace(/\s+/g, '_') + '_' + sessionDate + '.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
