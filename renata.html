@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 Camino Vocacional de Renata</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #FF6B9D;
+            --secondary: #C44569;
+            --accent: #FFC371;
+            --dark: #1A1A2E;
+            --light: #F8F9FA;
+            --cream: #FFF5E6;
+            --purple: #8B5CF6;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: white;
+            border-radius: 30px;
+            padding: 4rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0.15;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .identity-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+        }
+        
+        .identity-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .identity-item {
+            background: rgba(255,255,255,0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 0.5rem 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-button {
+            background: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            color: var(--dark);
+        }
+        
+        .tab-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .tab-button.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+        }
+        
+        .card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        /* Programs Table */
+        .programs-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .program-card {
+            background: linear-gradient(to right, #f8f9fa, white);
+            border-left: 5px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .program-card:hover {
+            border-left-color: var(--accent);
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .program-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+        
+        .program-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .program-institution {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .program-location {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .program-alignment {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 107, 157, 0.1);
+            border-radius: 10px;
+        }
+        
+        .alignment-label {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* MOOCs Section */
+        .mooc-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+        
+        .mooc-card:hover {
+            border-color: var(--primary);
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .mooc-platform {
+            display: inline-block;
+            background: var(--purple);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .mooc-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .mooc-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .mooc-link {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .mooc-link:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        /* Action Plan */
+        .action-steps {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .action-step {
+            background: linear-gradient(135deg, rgba(255,107,157,0.1), rgba(255,195,113,0.1));
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            margin-right: 1rem;
+        }
+        
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero {
+                padding: 2rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab-button {
+                width: 100%;
+            }
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, var(--accent), #FFD700);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .icon {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>✨ Tu Camino Vocacional, Renata</h1>
+            <p class="subtitle">Descubriendo oportunidades que conectan tu pasión con el impacto social</p>
+            
+            <div class="identity-card">
+                <h3>💎 Tu Identidad Vocacional</h3>
+                <div class="identity-item">
+                    <strong>Disfrutas:</strong> Estar en compañía de las personas que quieres
+                </div>
+                <div class="identity-item">
+                    <strong>Eres buena en:</strong> Leer, revisar ortografía, memorizar, ser social, bailar
+                </div>
+                <div class="identity-item">
+                    <strong>Quieres aportar a través de:</strong> Apoyo social
+                </div>
+                <div class="identity-item">
+                    <strong>Valores esenciales:</strong> Impacto Social · Creatividad · Liderazgo
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('queretaro')">
+                📍 Programas en Querétaro
+            </button>
+            <button class="tab-button" onclick="showTab('online')">
+                💻 Programas en Línea
+            </button>
+            <button class="tab-button" onclick="showTab('moocs')">
+                🎓 MOOCs Recomendados
+            </button>
+            <button class="tab-button" onclick="showTab('action')">
+                🚀 Plan de Acción
+            </button>
+        </div>
+        
+        <!-- Querétaro Programs -->
+        <div id="queretaro" class="tab-content active">
+            <div class="card">
+                <h2><span class="icon">🏛️</span> Opciones en Querétaro</h2>
+                
+                <div class="programs-grid">
+                    <div class="program-card">
+                        <div class="program-header">
+                            <div>
+                                <div class="program-title">Licenciatura en Comunicación</div>
+                                <div class="program-institution">Universidad Anáhuac Querétaro</div>
+                            </div>
+                            <div class="program-location">Querétaro / Presencial</div>
+                        </div>
+                        <div class="program-alignment">
+                            <div class="alignment-label">🎯 Alineación con tu perfil:</div>
+                            <p>Perfecta para tu habilidad en comunicación social y tu deseo de generar impacto social. El programa enfatiza proyectos creativos con impacto social, transformación social y elevación de la dignidad humana. Incluye formación en emprendimiento creativo y proyectos interdisciplinarios con enfoque humanista.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="program-card">
+                        <div class="program-header">
+                            <div>
+                                <div class="program-title">Licenciatura en Comunicación y Periodismo</div>
+                                <div class="program-institution">Universidad Autónoma de Querétaro (UAQ)</div>
+                            </div>
+                            <div class="program-location">Querétaro / Presencial</div>
+                        </div>
+                        <div class="program-alignment">
+                            <div class="alignment-label">🎯 Alineación con tu perfil:</div>
+                            <p>Combina tu amor por la lectura y ortografía con tu pasión por el impacto social. Permite intervenir la realidad mediante proyectos multidisciplinarios de comunicación estratégica y gestión cultural en sectores público, privado y social. Incluye formación en compromiso y responsabilidad social.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="program-card">
+                        <div class="program-header">
+                            <div>
+                                <div class="program-title">Licenciatura en Mercadotecnia Estratégica</div>
+                                <div class="program-institution">Universidad Anáhuac Querétaro</div>
+                            </div>
+                            <div class="program-location">Querétaro / Presencial</div>
+                        </div>
+                        <div class="program-alignment">
+                            <div class="alignment-label">🎯 Alineación con tu perfil:</div>
+                            <p>Ideal para desarrollar tu lado emprendedor con enfoque social. Combina creatividad, liderazgo y formación humanista. Ofrece doble titulación internacional y énfasis en emprendimiento, permitiéndote aplicar habilidades de comunicación al mundo de los negocios con impacto social.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="program-card">
+                        <div class="program-header">
+                            <div>
+                                <div class="program-title">Licenciatura en Ciencias de la Comunicación</div>
+                                <div class="program-institution">Universidad Cuauhtémoc Querétaro</div>
+                            </div>
+                            <div class="program-location">Querétaro / Cuatrimestral (3 años)</div>
+                        </div>
+                        <div class="program-alignment">
+                            <div class="alignment-label">🎯 Alineación con tu perfil:</div>
+                            <p>Programa intensivo de 3 años que permite acelerar tu formación. Enfocado en desarrollar habilidades comunicativas para generar participación y responsabilidad social a través de medios de comunicación masiva. Ideal para tu perfil social y creativo.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="program-card">
+                        <div class="program-header">
+                            <div>
+                                <div class="program-title">Programas del Tecnológico de Monterrey Campus Querétaro</div>
+                                <div class="program-institution">ITESM Querétaro</div>
+                            </div>
+                            <div class="program-location">Querétaro / Presencial-Híbrido</div>
+                        </div>
+                        <div class="program-alignment">
+                            <div class="alignment-label">🎯 Alineación con tu perfil:</div>
+                            <p>El Tec tiene prioridades estratégicas en innovación, emprendimiento, impacto social y sostenibilidad. Ofrece modalidades híbridas y múltiples licenciaturas. Ideal para desarrollar tu espíritu emprendedor con enfoque en impacto social. Becas disponibles.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    💡 <strong>Recomendación especial:</strong> Considera visitar personalmente estos campus durante tus próximas semanas. Recuerda que mencionaste en tu reflexión final: "decir en voz alta las cosas que me gustan para tenerlas firmes en mi cabeza".
+                </div>
+            </div>
+        </div>
+        
+        <!-- Online Programs -->
+        <div id="online" class="tab-content">
+            <div class="card">
+                <h2><span class="icon">🌐</span> Programas Completamente en Línea</h2>
+                
+                <div class="programs-grid">
+                    <div class="program-card">
+                        <div class="program-header">
+                            <div>
+                                <div class="program-title">Licenciatura en Gestión Cultural</div>
+                                <div class="program-institution">Universidad de Guadalajara Virtual (UDG)</div>
+                            </div>
+                            <div class="program-location">En línea / Nacional</div>
+                        </div>
+                        <div class="program-alignment">
+                            <div class="alignment-label">🎯 Alineación con tu perfil:</div>
+                            <p><strong>¡ALTAMENTE RECOMENDADA!</strong> Esta carrera es perfecta para ti. Forma especialistas en comunicación, medios, espacios culturales y <strong>emprendimiento cultural</strong>. Combina tu pasión por la cultura (museos, libros, arte) con tu deseo de impacto social. Incluye orientación terminal en emprendimiento cultural para crear empresas sustentables que favorezcan el desarrollo social. Duración: 4 años (8 semestres). Universidad pública con costos accesibles.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="program-card">
+                        <div class="program-header">
+                            <div>
+                                <div class="program-title">Licenciatura en Emprendimiento Cultural y Social</div>
+                                <div class="program-institution">Instituto Tecnológico y de Estudios Superiores de Monterrey (ITESM)</div>
+                            </div>
+                            <div class="program-location">CDMX / Verificar modalidad</div>
+                        </div>
+                        <div class="program-alignment">
+                            <div class="alignment-label">🎯 Alineación con tu perfil:</div>
+                            <p>Programa especializado que une directamente emprendimiento con cultura y sociedad. Perfecta convergencia entre tus intereses en baile, cultura y deseo de generar impacto social a través de proyectos culturales. Contacta al ITESM para verificar si está disponible en modalidad en línea o híbrida.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="program-card">
+                        <div class="program-header">
+                            <div>
+                                <div class="program-title">Maestría en Gestión y Emprendimiento de Proyectos Culturales</div>
+                                <div class="program-institution">UNIR México</div>
+                            </div>
+                            <div class="program-location">En línea / Internacional</div>
+                        </div>
+                        <div class="program-alignment">
+                            <div class="alignment-label">🎯 Alineación con tu perfil:</div>
+                            <p>Aunque es posgrado, considérala para el futuro. Doble titulación (México-España). Forma gestores culturales, directores de proyectos culturales y coordinadores de eventos. Enfoque en emprendimiento cultural y desarrollo de proyectos con impacto social. Ideal para complementar una licenciatura en comunicación.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="program-card">
+                        <div class="program-header">
+                            <div>
+                                <div class="program-title">Programas del ITESO (Instituto Tecnológico y de Estudios Superiores de Occidente)</div>
+                                <div class="program-institution">ITESO Guadalajara</div>
+                            </div>
+                            <div class="program-location">Guadalajara / Verificar en línea</div>
+                        </div>
+                        <div class="program-alignment">
+                            <div class="alignment-label">🎯 Alineación con tu perfil:</div>
+                            <p>Universidad Jesuita con fuerte enfoque en justicia social y transformación. Ofrece Gestión Cultural con perspectiva intercultural y ciudadanía global. Vale la pena verificar sus modalidades en línea o híbridas.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    ⭐ <strong>Opción estrella:</strong> La Licenciatura en Gestión Cultural de UDG Virtual es la que mejor se alinea con tu perfil completo: comunicación + cultura + emprendimiento + impacto social. ¡Es completamente en línea y de una universidad pública!
+                </div>
+            </div>
+        </div>
+        
+        <!-- MOOCs -->
+        <div id="moocs" class="tab-content">
+            <div class="card">
+                <h2><span class="icon">🎓</span> Cursos Online Recomendados</h2>
+                <p style="margin-bottom: 2rem;">Para cumplir con tu plan de acción de <strong>"investigar el tercer sector y finanzas en sectores sociales"</strong>, estos MOOCs son perfectos para ti:</p>
+                
+                <div class="mooc-card">
+                    <div class="mooc-platform">Coursera - Universidad de Chile</div>
+                    <div class="mooc-title">1. Sustentabilidad y Economías Sociales</div>
+                    <div class="mooc-description">
+                        Explora la Economía Social y Solidaria, incluyendo Comercio Justo, Empresas Sociales, Empresas B, Economía del Bien Común y Cooperativismo. Aprende sobre emprendimiento con sentido e innovación social incorporando impactos sociales, ambientales y económicos.
+                    </div>
+                    <strong>Por qué es ideal para ti:</strong> Conecta directamente con tu interés en finanzas sociales y emprendimiento con impacto social. Te ayudará a entender cómo funcionan las organizaciones del tercer sector.
+                    <br><br>
+                    <a href="https://www.coursera.org/learn/sustentabilidad-economias-sociales" target="_blank" class="mooc-link">Ir al curso →</a>
+                </div>
+                
+                <div class="mooc-card">
+                    <div class="mooc-platform">Coursera - University of Pennsylvania</div>
+                    <div class="mooc-title">2. Social Impact Strategy: Tools for Entrepreneurs and Innovators</div>
+                    <div class="mooc-description">
+                        Aprende a innovar y diseñar ideas y formas organizacionales para implementarlas. Transforma tu pasión por cambiar el mundo en planes concretos. Incluye: Define, Design, Pilot y Scale. Desarrolla modelos lógicos y teorías de cambio.
+                    </div>
+                    <strong>Por qué es ideal para ti:</strong> Te enseña a convertir tu "corazón de pollo" en proyectos concretos de impacto social. Incluye casos reales de emprendedores sociales.
+                    <br><br>
+                    <a href="https://www.coursera.org/learn/social-impact" target="_blank" class="mooc-link">Ir al curso →</a>
+                </div>
+                
+                <div class="mooc-card">
+                    <div class="mooc-platform">Coursera - Copenhagen Business School</div>
+                    <div class="mooc-title">3. Social Entrepreneurship (Especialización completa)</div>
+                    <div class="mooc-description">
+                        Especialización de 4 cursos que cubre: identificación de oportunidades de emprendimiento social, desarrollo de modelos de negocio, evaluación de impacto social, estrategias de comunicación y crecimiento. Te guía desde la idea hasta el plan de negocios completo.
+                    </div>
+                    <strong>Por qué es ideal para ti:</strong> Es la ruta completa desde cero. Te prepara para lanzar tu propia empresa social o trabajar en organizaciones del tercer sector. Incluye evaluación de impacto social y estrategias de crecimiento.
+                    <br><br>
+                    <a href="https://www.coursera.org/specializations/social-entrepreneurship-cbs" target="_blank" class="mooc-link">Ir al curso →</a>
+                </div>
+                
+                <div class="highlight-box">
+                    📚 <strong>Plan sugerido:</strong> Empieza con "Sustentabilidad y Economías Sociales" (en español) para entender el contexto. Luego toma "Social Impact Strategy" para aprender las herramientas prácticas. Finalmente, si quieres profundizar, completa la especialización de Social Entrepreneurship.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Plan -->
+        <div id="action" class="tab-content">
+            <div class="card">
+                <h2><span class="icon">🚀</span> Tu Plan de Acción Inmediato</h2>
+                
+                <div class="action-steps">
+                    <div class="action-step">
+                        <span class="step-number">1</span>
+                        <div>
+                            <div class="step-title">📚 INVESTIGAR (Próximas 2 semanas)</div>
+                            <p><strong>Acción:</strong> Tomar el curso "Sustentabilidad y Economías Sociales" en Coursera</p>
+                            <p><strong>Objetivo:</strong> Entender cómo funciona el financiamiento en sectores sociales y el tercer sector</p>
+                            <p><strong>Resultado esperado:</strong> Tendrás claridad sobre las opciones de carrera que combinan finanzas + impacto social</p>
+                        </div>
+                    </div>
+                    
+                    <div class="action-step">
+                        <span class="step-number">2</span>
+                        <div>
+                            <div class="step-title">💬 CONECTAR (Próximo mes)</div>
+                            <p><strong>Acción:</strong> Contactar a Karina (tu mentora mencionada) y solicitar una reunión</p>
+                            <p><strong>Preguntas para hacerle:</strong></p>
+                            <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                                <li>¿Cómo fue su experiencia en comunicación/emprendimiento social?</li>
+                                <li>¿Qué habilidades son más importantes en el campo?</li>
+                                <li>¿Conoce organizaciones del tercer sector donde puedas hacer voluntariado?</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="action-step">
+                        <span class="step-number">3</span>
+                        <div>
+                            <div class="step-title">🎯 EXPERIMENTAR (Próximos 2 meses)</div>
+                            <p><strong>Acción física:</strong> Visitar los campus de las universidades en Querétaro</p>
+                            <p><strong>Universidades a visitar:</strong></p>
+                            <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                                <li>Universidad Anáhuac Querétaro (Comunicación)</li>
+                                <li>UAQ (Comunicación y Periodismo)</li>
+                                <li>Universidad Cuauhtémoc</li>
+                                <li>Tecnológico de Monterrey Campus Querétaro</li>
+                            </ul>
+                            <p style="margin-top: 1rem;"><strong>Durante cada visita:</strong> Pide hablar con estudiantes actuales. Pregunta por proyectos de impacto social que hayan realizado. "Decir en voz alta" qué te gusta de cada programa.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="action-step">
+                        <span class="step-number">4</span>
+                        <div>
+                            <div class="step-title">🌱 INICIAR VOLUNTARIADO (Próximos 3 meses)</div>
+                            <p><strong>Acción:</strong> Buscar organizaciones del tercer sector en Querétaro donde puedas voluntariar</p>
+                            <p><strong>Áreas sugeridas basadas en tu perfil:</strong></p>
+                            <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                                <li>Centros culturales que necesiten apoyo en comunicación</li>
+                                <li>ONGs de educación (aprovechando tu experiencia en campamentos)</li>
+                                <li>Organizaciones de promoción de lectura (tu pasión por los libros)</li>
+                                <li>Proyectos culturales/artísticos (conecta con tu amor por el baile y los museos)</li>
+                            </ul>
+                            <p style="margin-top: 1rem;"><strong>Beneficio:</strong> Experiencia práctica + networking + confirmación de tu vocación</p>
+                        </div>
+                    </div>
+                    
+                    <div class="action-step">
+                        <span class="step-number">5</span>
+                        <div>
+                            <div class="step-title">📝 DECIDIR (En 4-6 meses)</div>
+                            <p><strong>Acción:</strong> Después de investigar, conectar y experimentar, tomar la decisión final</p>
+                            <p><strong>Pregúntate:</strong></p>
+                            <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                                <li>¿Qué programa resonó más contigo cuando lo dijiste en voz alta?</li>
+                                <li>¿Dónde viste tu futuro más claramente?</li>
+                                <li>¿Qué opción combina mejor tu ser social + creatividad + impacto?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    ☕ <strong>Recuerda tu respuesta final:</strong> "Si tuvieras que empezar tu futuro mañana, ¿qué harías primero? TOMAR UN BUEN CAFÉ." 
+                    <br><br>
+                    Así que... ¡toma ese café y empieza con el Paso 1! El futuro que quieres construir comienza con pequeñas acciones hoy. Tu vocación no es algo que encuentras, es algo que construyes cada día. 💫
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+        
+        // Add smooth scroll animation when page loads
+        window.addEventListener('load', () => {
+            const cards = document.querySelectorAll('.program-card, .mooc-card, .action-step');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
